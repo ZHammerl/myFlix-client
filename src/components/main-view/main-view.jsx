@@ -7,9 +7,9 @@ export class MainView extends React.Component {
     super();
     this.state = {
       movies: [
-        { _id: 1, Title: 'Inception', Description: 'desc1...', ImagePath: '...' },
-        { _id: 2, Title: 'The Shawshank Redemption', Description: 'desc2...', ImagePath: '...' },
-        { _id: 3, Title: 'Gladiator', Description: 'desc3...', ImagePath: '...' },
+        { _id: 1, Title: 'Encanto', Description: 'A Colombian teenage girl has to face the frustration of being the only member of her family without magical powers.', ImagePath: 'https://m.media-amazon.com/images/M/MV5BNjE5NzA4ZDctOTJkZi00NzM0LTkwOTYtMDI4MmNkMzIxODhkXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg' },
+        { _id: 2, Title: 'As Good as it Gets', Description: 'A single mother and waitress, a misanthropic author, and a gay artist form an unlikely friendship after the artist is assaulted in a robbery.', ImagePath: 'https://m.media-amazon.com/images/M/MV5BNWMxZTgzMWEtMTU0Zi00NDc5LWFkZjctMzUxNDIyNzZiMmNjXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_.jpg' },
+        { _id: 3, Title: 'Zoomania', Description: 'In a city of anthropomorphic animals, a rookie bunny cop and a cynical con artist fox must work together to uncover a conspiracy.', ImagePath: 'https://m.media-amazon.com/images/M/MV5BOTMyMjEyNzIzMV5BMl5BanBnXkFtZTgwNzIyNjU0NzE@._V1_.jpg' },
       ],
       selectedMovie: null,
     };
