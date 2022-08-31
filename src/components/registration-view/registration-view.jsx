@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -15,9 +14,9 @@ export function RegistrationView(props) {
     props.onRegistration(username);
   };
   const [isShown, setIsShown] = useState(false);
-const handleClick = event => { 
-    setIsShown = true
-}
+  const handleClick = (event) => {
+    setIsShown = true;
+  };
   return (
     <div>
       <form>
@@ -41,7 +40,7 @@ const handleClick = event => {
           Register
         </button>
       </form>
-      <button type="button" onClick=''>
+      <button type="button" onClick={''}>
         Log In
       </button>
     </div>
