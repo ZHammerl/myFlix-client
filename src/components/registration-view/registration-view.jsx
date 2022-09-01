@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import './registration-view.scss';
 
-
-export function RegistrationView(props) {
+export function RegistrationView({ onRegistration1 }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [birth_date, setBirthdate] = useState('');
@@ -12,39 +16,57 @@ export function RegistrationView(props) {
     console.log(username, password, birth_date, email);
     /*Send a request to the server for authentication*/
     /* then call props on registered user*/
-    props.onRegistration(username);
+    onRegistration1(username);
   };
-  const [isShown, setIsShown] = useState(false);
-const handleClick = event => { 
-    setIsShown = true
-}
+  const handleLoginPage = (e) => {
+    e.preventDefault();
+    onRegistration1('nothing');
+  };
   return (
-    <div>
-      <form>
-        <label>
+    <Form className="justify-content-sm-center">
+      <Form.Group as={Row} controlId="formUsername">
+        <Form.Label column sm="12">
           Username:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-        </label>
-        <label>
+        </Form.Label>
+        <Col sm="6">
+          <Form.Control
+            variant="success"
+            type="text"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </Col>
+      </Form.Group>
+      <Form.Group as={Row} controlId="formPassword">
+        <Form.Label column sm="12">
           Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <label>
+        </Form.Label>
+        <Col sm="6">
+          <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} />
+        </Col>
+      </Form.Group>
+      <Form.Group as={Row} controlId="formEmail">
+        <Form.Label column sm="12">
           E-Mail:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <label>
-          Birth Date:
-          <input type="date" value={birth_date} onChange={(e) => setBirthdate(e.target.value)} />
-        </label>
-        <button type="button" onClick={handleSubmit}>
-          Register
-        </button>
-      </form>
-      <button type="button" onClick=''>
+        </Form.Label>
+        <Col sm="6">
+          <Form.Control Column sm="6" type="email" onChange={(e) => setEmail(e.target.value)} />
+        </Col>
+      </Form.Group>
+      <Form.Group className="mb-3" as={Row} controlId="formBirth_date">
+        <Form.Label column sm="12">
+          Birth date:
+        </Form.Label>
+        <Col sm="6">
+          <Form.Control type="date" onChange={(e) => setBirthdate(e.target.value)} />
+        </Col>
+      </Form.Group>
+      <Button type="button" className="mr-3" onClick={handleSubmit}>
+        Submit
+      </Button>
+      <Button type="button" onClick={handleLoginPage}>
         Log In
-      </button>
-    </div>
+      </Button>
+    </Form>
   );
 }
 

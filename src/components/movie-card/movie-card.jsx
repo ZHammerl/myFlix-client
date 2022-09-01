@@ -7,11 +7,13 @@ export class MovieCard extends React.Component {
   render() {
     const { movieData, onMovieClick } = this.props;
     return (
-      <Card>
+      <Card col-lg-4 d-flex align-items-stretch>
         <Card.Img variant="top" src={movieData.Imageurl} />
         <Card.Body>
           <Card.Title> {movieData.Title}</Card.Title>
           <Card.Text>{movieData.Description}</Card.Text>
+        </Card.Body>
+        <Card.Footer className="bg-clr-footer">
           <Button
             onClick={() => {
               onMovieClick(movieData);
@@ -19,7 +21,7 @@ export class MovieCard extends React.Component {
             variant="link">
             Show Details
           </Button>
-        </Card.Body>
+        </Card.Footer>
       </Card>
     );
   }
