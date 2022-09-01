@@ -7,11 +7,16 @@ export class MovieCard extends React.Component {
   render() {
     const { movieData, onMovieClick } = this.props;
     return (
-      <Card col-lg-4 d-flex align-items-stretch>
-        <Card.Img variant="top" src={movieData.Imageurl} />
+      <Card className="mb-3">
+        <Card.Header className= "bg-clr-header">
+          <Card.Img variant="top" src={movieData.Imageurl} />
+        </Card.Header>
         <Card.Body>
           <Card.Title> {movieData.Title}</Card.Title>
-          <Card.Text>{movieData.Description}</Card.Text>
+          <Card.Text>
+            {movieData.Description.length < 130 && movieData.Description}
+            {movieData.Description.length > 130 && movieData.Description.substring(0, 130) + '...'}
+          </Card.Text>
         </Card.Body>
         <Card.Footer className="bg-clr-footer">
           <Button
