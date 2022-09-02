@@ -23,11 +23,31 @@ export class MainView extends React.Component {
     this.setState({ selectedMovie: newSelectedMovie });
   }
 
+  getMovies(token) {
+    axios
+      .get('https://my-movie-db22.herokuapp.com/movies', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        // Assign the result to the state
+        this.setState({
+          movies: response.data,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user,
+      user: authData.user.Username,
     });
+    localStorage.setItem('token', authData.token),
+      localStorage.setItem('user', authData.user.Username),
+      this.getMovies(authData.token);
   }
   //When a user sucessfully registers
   onRegistration2(register) {
@@ -37,13 +57,13 @@ export class MainView extends React.Component {
   }
   render() {
     const { movies, selectedMovie, user, register } = this.state;
-    if (!register)
-      return <RegistrationView onRegistration1={(register) => this.onRegistration2(register)} />;
+    // if (!register)
+    //   return <RegistrationView onRegistration1={(register) => this.onRegistration2(register)} />;
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
     if (!user)
       return (
         <LoginView
-          onRegistration={()=>this.onRegistration2()}
+          onRegistration={() => this.onRegistration2()}
           onLoggedIn={(user) => this.onLoggedIn(user)}
         />
       );
@@ -63,7 +83,7 @@ export class MainView extends React.Component {
           </Col>
         ) : (
           movies.map((movie) => (
-            <Col sm={12} md={4} lg= {3}>
+            <Col sm={12} md={4} lg={3}>
               <MovieCard
                 key={movie._id}
                 movieData={movie}
