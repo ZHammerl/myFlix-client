@@ -8,7 +8,7 @@ export class MovieCard extends React.Component {
     const { movieData, onMovieClick } = this.props;
     return (
       <Card className="mb-3">
-        <Card.Header className= "bg-clr-header">
+        <Card.Header className="bg-clr-header">
           <Card.Img variant="top" src={movieData.Imageurl} />
         </Card.Header>
         <Card.Body>
@@ -32,7 +32,7 @@ export class MovieCard extends React.Component {
   }
 }
 MovieCard.propTypes = {
-  movie: PropTypes.shape({
+  movieData: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
     Imageurl: PropTypes.string.isRequired,
@@ -43,8 +43,8 @@ MovieCard.propTypes = {
     Director: PropTypes.shape({
       Name: PropTypes.string.isRequired,
       Bio: PropTypes.string.isRequired,
-      Birthyear: PropTypes.number,
-      Deathyear: PropTypes.number,
+      Birthyear: PropTypes.string,
+      Deathyear: PropTypes.string,
       Movies: PropTypes.array,
     }),
     Actors: PropTypes.array,

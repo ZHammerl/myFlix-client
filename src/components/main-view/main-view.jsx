@@ -49,16 +49,34 @@ export class MainView extends React.Component {
       localStorage.setItem('user', authData.user.Username),
       this.getMovies(authData.token);
   }
+
+  // Log-Out
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null,
+    });
+  }
   //When a user sucessfully registers
   onRegistration2(register) {
     this.setState({
       register,
     });
   }
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user'),
+      });
+      this.getMovies(accessToken);
+    }
+  }
   render() {
     const { movies, selectedMovie, user, register } = this.state;
-    // if (!register)
-    //   return <RegistrationView onRegistration1={(register) => this.onRegistration2(register)} />;
+    if (!register)
+      return <RegistrationView onRegistration1={(register) => this.onRegistration2(register)} />;
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
     if (!user)
       return (
@@ -94,19 +112,13 @@ export class MainView extends React.Component {
             </Col>
           ))
         )}
+        <button
+          onClick={() => {
+            this.onLoggedOut();
+          }}>
+          Logout
+        </button>
       </Row>
     );
-  }
-  componentDidMount() {
-    axios
-      .get('https://my-movie-db22.herokuapp.com/movies')
-      .then((response) => {
-        this.setState({
-          movies: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
 }
