@@ -1,5 +1,25 @@
 .my-flix {
-  color: #4682b4;
+  color: #31081f;
 }
+
+.btn-primary {
+  color: #fff !important;
+  background: #6b0f1a !important;
+  border: 2px solid #150004 !important;
+}
+
+.btn-link {
+  color: #fff !important;
+}
+
+.bg-clr-footer {
+  background-color: #6b0f1a !important;
+}
+
+.bg-clr-header {
+  background-color: #150004 !important;
+}
+
+
 
 /*# sourceMappingURL=index.ce1d6491.css.map */

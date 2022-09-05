@@ -25,7 +25,7 @@ export function RegistrationView({ onRegistration1 }) {
   return (
     <Form className="justify-content-sm-center">
       <Form.Group as={Row} controlId="formUsername">
-        <Form.Label column sm="12">
+        <Form.Label column="true" sm="12">
           Username:
         </Form.Label>
         <Col sm="6">
@@ -37,7 +37,7 @@ export function RegistrationView({ onRegistration1 }) {
         </Col>
       </Form.Group>
       <Form.Group as={Row} controlId="formPassword">
-        <Form.Label column sm="12">
+        <Form.Label column="true" sm="12">
           Password:
         </Form.Label>
         <Col sm="6">
@@ -45,15 +45,20 @@ export function RegistrationView({ onRegistration1 }) {
         </Col>
       </Form.Group>
       <Form.Group as={Row} controlId="formEmail">
-        <Form.Label column sm="12">
+        <Form.Label column="true" sm="12">
           E-Mail:
         </Form.Label>
         <Col sm="6">
-          <Form.Control Column sm="6" type="email" onChange={(e) => setEmail(e.target.value)} />
+          <Form.Control
+            column="true"
+            sm="6"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </Col>
       </Form.Group>
       <Form.Group className="mb-3" as={Row} controlId="formBirth_date">
-        <Form.Label column sm="12">
+        <Form.Label column="true" sm="12">
           Birth date:
         </Form.Label>
         <Col sm="6">
