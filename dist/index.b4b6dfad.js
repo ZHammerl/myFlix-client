@@ -12362,7 +12362,7 @@ function RegistrationView({ onRegistration1  }) {
 _s(RegistrationView, "01YkJX9zSh07GyYoP2M8Np9o2eA=");
 _c = RegistrationView;
 RegistrationView.propTypes = {
-    onRegistration: (0, _propTypesDefault.default).func.isRequired
+    onRegistration1: (0, _propTypesDefault.default).func.isRequired
 };
 var _c;
 $RefreshReg$(_c, "RegistrationView");
