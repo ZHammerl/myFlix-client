@@ -74,6 +74,7 @@ export function RegistrationView({ onRegistration1 }) {
   const handleLoginPage = (e) => {
     e.preventDefault();
     onRegistration1('nothing');
+    console.log('click');
   };
   return (
     <Form className="justify-content-sm-center">

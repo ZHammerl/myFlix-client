@@ -37,29 +37,31 @@ export function LoginView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const isReq = validate();
+
     if (isReq) {
       /*Send a request to the server for authentication*/
-      /* hen call props.onLoggedIn(username), which provides the username to our parent component (child to parent communication)*/
+      /* then call props.onLoggedIn(username), which provides the username to our parent component (child to parent communication)*/
       axios
         .post('https://my-movie-db22.herokuapp.com/login', {
           Username: username,
-          Password: password,
+          Password: password,//uppercase
         })
         .then((response) => {
           const data = response.data;
-          onLoggedIn(data);
+          console.log(data);
+          props.onLoggedIn(data);//faltaba agregar props.
         })
         .catch((e) => {
           console.log('no such user');
         });
     }
+    console.log(username, password);
   };
 
   const handleRegistration = (e) => {
     e.preventDefault();
-    props.onRegistration('');
+    props.onRegistration(''); //este props nunca fue pasado desde el main
   };
-
   return (
     <Form>
       <Form.Group as={Row} controlId="formUsername">
