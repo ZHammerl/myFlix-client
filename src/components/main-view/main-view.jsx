@@ -82,7 +82,7 @@ export class MainView extends React.Component {
                 if (movies.length === 0) return <div className="main-view">Loading...</div>;
 
                 return movies.map((m) => (
-                  <Col md={3} key={m._id}>
+                  <Col sm={12} xl={3} lg={4} md={6} key={m._id}>
                     <MovieCard movieData={m} />
                   </Col>
                 ));
@@ -119,9 +119,9 @@ export class MainView extends React.Component {
               render={({ match, history }) => {
                 if (!user) return <Redirect to="/" />;
                 return (
-                  <Col md={8}>
+                  <Col>
                     <DirectorView
-                      movieData={movies.find((m) => m.Director.Name === match.params.name)}
+                      director={movies.find((m) => m.Director.Name === match.params.name).Director}
                       onBackClick={() => history.goBack()}
                     />
                   </Col>
@@ -135,7 +135,7 @@ export class MainView extends React.Component {
                 return (
                   <Col>
                     <GenreView
-                      movieData={movies.find((m) => m.Genre.Name === match.params.name)}
+                      genre={movies.find((m) => m.Genre.Name === match.params.name).Genre}
                       onBackClick={() => history.goBack()}
                     />
                   </Col>

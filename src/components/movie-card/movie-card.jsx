@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Card, CardGroup, Button } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
@@ -11,23 +10,24 @@ export class MovieCard extends React.Component {
   render() {
     const { movieData } = this.props;
     return (
-      <Card className="mb-3">
-        <Card.Header className="bg-clr-header">
+      <CardGroup>
+        <Card border="light" className="mb-3">
           <Card.Img variant="top" src={movieData.Imageurl} />
-        </Card.Header>
-        <Card.Body>
-          <Card.Title> {movieData.Title}</Card.Title>
-          <Card.Text>
-            {movieData.Description.length < 130 && movieData.Description}
-            {movieData.Description.length > 130 && movieData.Description.substring(0, 130) + '...'}
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer className="bg-clr-footer">
-          <Link to={`/movies/${movieData._id}`}>
-            <Button variant="link">Show Details</Button>
-          </Link>
-        </Card.Footer>
-      </Card>
+          <Card.Body>
+            <Card.Title> {movieData.Title}</Card.Title>
+            <Card.Text>
+              {movieData.Description.length < 131 && movieData.Description}
+              {movieData.Description.length > 130 &&
+                movieData.Description.substring(0, 130) + '...'}
+            </Card.Text>
+          </Card.Body>
+          <Card.Footer className="bg-clr-footer">
+            <Link to={`/movies/${movieData._id}`}>
+              <Button variant="link">Show Details</Button>
+            </Link>
+          </Card.Footer>
+        </Card>
+      </CardGroup>
     );
   }
 }

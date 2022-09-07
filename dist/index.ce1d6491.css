@@ -1,5 +1,5 @@
 body {
-  background: #150004;
+  background: #150004 !important;
 }
 
 .btn-primary {
@@ -18,6 +18,10 @@ body {
 
 .bg-clr-header {
   background-color: #150004 !important;
+}
+
+.nav-bar {
+  color: #fff !important;
 }
 
 

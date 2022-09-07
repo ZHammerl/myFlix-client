@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 export class MovieView extends React.Component {
   render() {
     const { movieData, onBackClick } = this.props;
+    console.log(movieData);
     return (
       <Card className="movie-view">
         <Card.Img variant="top" src={movieData.Imageurl} />
@@ -18,7 +19,7 @@ export class MovieView extends React.Component {
           <Card.Text>
             {' '}
             Director:{' '}
-            <Link to={`/directors/${movieData.Director.Name}`}>{movieData.Director?.Name}</Link>
+            <Link to={`/director/${movieData.Director.Name}`}>{movieData.Director?.Name}</Link>
           </Card.Text>
           <Card.Text>
             {' '}
@@ -36,7 +37,7 @@ export class MovieView extends React.Component {
   }
 }
 MovieView.propTypes = {
-  movie: PropTypes.shape({
+  movieData: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
     Imageurl: PropTypes.string.isRequired,
@@ -48,7 +49,7 @@ MovieView.propTypes = {
       Name: PropTypes.string.isRequired,
       Bio: PropTypes.string.isRequired,
       Birthyear: PropTypes.string,
-      Deathyear: PropTypes.string,
+      // Deathyear: PropTypes.string,
       Movies: PropTypes.array,
     }),
     Actors: PropTypes.array,

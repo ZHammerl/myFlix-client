@@ -3,7 +3,7 @@ $color2: #31081f;
 $color3: #6b0f1a;
 
 body {
-  background: $color1;
+  background: $color1 !important;
 }
 
 .btn-primary {
@@ -22,4 +22,8 @@ body {
 
 .bg-clr-header {
   background-color: $color1 !important;
+}
+
+.nav-bar{
+  color: white !important;
 }
