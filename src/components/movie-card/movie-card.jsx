@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export class MovieCard extends React.Component {
   render() {
-    const { movieData, onMovieClick } = this.props;
+    const { movieData } = this.props;
     return (
       <Card className="mb-3">
         <Card.Header className="bg-clr-header">
@@ -21,7 +21,9 @@ export class MovieCard extends React.Component {
           </Card.Text>
         </Card.Body>
         <Card.Footer className="bg-clr-footer">
-          <Link to={`/movies/${movieData.Title}`}>Show Details</Link>
+          <Link to={`/movies/${movieData._id}`}>
+            <Button variant="link">Show Details</Button>
+          </Link>
         </Card.Footer>
       </Card>
     );

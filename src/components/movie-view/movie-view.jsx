@@ -6,20 +6,10 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
 export class MovieView extends React.Component {
-  keypressCallback(event) {
-    console.log(event.key);
-  }
-
-  componentDidMount() {
-    document.addEventListener('keypress', this.keypressCallback);
-  }
-  componentWillUnmount() {
-    document.removeEventListener('keypress', this.keypressCallback);
-  }
   render() {
     const { movieData, onBackClick } = this.props;
     return (
-      <Card>
+      <Card className="movie-view">
         <Card.Img variant="top" src={movieData.Imageurl} />
         <Card.Body>
           <Card.Title> {movieData.Title}</Card.Title>
