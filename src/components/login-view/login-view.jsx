@@ -44,12 +44,12 @@ export function LoginView(props) {
       axios
         .post('https://my-movie-db22.herokuapp.com/login', {
           Username: username,
-          Password: password,//uppercase
+          Password: password, //uppercase
         })
         .then((response) => {
           const data = response.data;
           console.log(data);
-          props.onLoggedIn(data);//faltaba agregar props.
+          props.onLoggedIn(data); //faltaba agregar props.
         })
         .catch((e) => {
           console.log('no such user');
@@ -58,10 +58,6 @@ export function LoginView(props) {
     console.log(username, password);
   };
 
-  const handleRegistration = (e) => {
-    e.preventDefault();
-    props.onRegistration(''); //este props nunca fue pasado desde el main
-  };
   return (
     <Form>
       <Form.Group as={Row} controlId="formUsername">
@@ -94,10 +90,6 @@ export function LoginView(props) {
       </Form.Group>
       <Button className="mr-3" type="submit" onClick={handleSubmit}>
         Submit
-      </Button>
-
-      <Button type="button" onClick={handleRegistration}>
-        Register
       </Button>
     </Form>
   );

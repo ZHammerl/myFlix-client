@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import {Form, Button, Col, Row} from 'react-bootstrap';
 import './registration-view.scss';
 import axios from 'axios';
 
-export function RegistrationView({ onRegistration1 }) {
+export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [birth_date, setBirthdate] = useState('');
@@ -61,7 +58,6 @@ export function RegistrationView({ onRegistration1 }) {
         .then((response) => {
           const data = response.data;
           console.log(data);
-          alert('Registration successful, please log in!');
           window.open('/', '_self'); //'_self' is necessary so that the page opens in the current tab
         })
         .catch((response) => {
@@ -71,11 +67,6 @@ export function RegistrationView({ onRegistration1 }) {
     }
   };
 
-  const handleLoginPage = (e) => {
-    e.preventDefault();
-    onRegistration1('nothing');
-    console.log('click');
-  };
   return (
     <Form className="justify-content-sm-center">
       <Form.Group as={Row} controlId="formUsername" className="reg-form-inputs">
@@ -136,9 +127,9 @@ export function RegistrationView({ onRegistration1 }) {
         </Col>
       </Form.Group>
       <Button type="button" className="mr-3" onClick={handleSubmit}>
-        Register
+        Sign up
       </Button>
-      <Button type="button" onClick={handleLoginPage}>
+      <Button type="button" href="/">
         Log In instead
       </Button>
     </Form>
