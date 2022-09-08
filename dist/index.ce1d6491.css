@@ -1,4 +1,5 @@
 body {
+  color: #fff !important;
   background: #150004 !important;
 }
 
@@ -22,6 +23,10 @@ body {
 
 .nav-bar {
   color: #fff !important;
+}
+
+.cardText {
+  color: #31081f !important;
 }
 
 

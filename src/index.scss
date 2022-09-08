@@ -4,6 +4,7 @@ $color3: #6b0f1a;
 
 body {
   background: $color1 !important;
+  color: white !important;
 }
 
 .btn-primary {
@@ -26,4 +27,7 @@ body {
 
 .nav-bar{
   color: white !important;
+}
+.cardText {
+  color:#31081f !important;
 }

@@ -10,20 +10,22 @@ export class MovieView extends React.Component {
     const { movieData, onBackClick } = this.props;
     console.log(movieData);
     return (
-      <Card className="movie-view">
-        <Card.Img variant="top" src={movieData.Imageurl} />
+      <Card className="movie-view mb-3">
+        <Card.Header >
+          <Card.Img variant="top" src={movieData.Imageurl} />
+        </Card.Header>
         <Card.Body>
-          <Card.Title> {movieData.Title}</Card.Title>
-          <Card.Text> {movieData.Description}</Card.Text>
-          <Card.Text> Actors: {movieData.Actors}</Card.Text>
-          <Card.Text>
+          <Card.Title className="cardText"> {movieData.Title}</Card.Title>
+          <Card.Text className="cardText"> {movieData.Description}</Card.Text>
+          <Card.Text className="cardText"> Actors: {movieData.Actors}</Card.Text>
+          <Card.Text className="cardText">
             {' '}
             Director:{' '}
-            <Link to={`/director/${movieData.Director.Name}`}>{movieData.Director?.Name}</Link>
+            <Link to={`/directors/${movieData.Director.Name}`}>{movieData.Director?.Name}</Link>
           </Card.Text>
-          <Card.Text>
+          <Card.Text className="cardText">
             {' '}
-            Genre: <Link to={`/genre/${movieData.Genre.Name}`}>{movieData.Genre?.Name}</Link>
+            Genre: <Link to={`/genres/${movieData.Genre.Name}`}>{movieData.Genre?.Name}</Link>
           </Card.Text>
         </Card.Body>
         <Button

@@ -13,7 +13,7 @@ export function NavBar({ user }) {
     return userToken ? userToken : false;
   };
   return (
-    <Navbar variant="dark">
+    <Navbar variant="dark" className="mb-3">
       <Container>
         <Navbar.Brand className="navbar-logo" href="/">
           my Flix App
