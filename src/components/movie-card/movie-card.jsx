@@ -13,7 +13,13 @@ export class MovieCard extends React.Component {
       <Col sm={9} md={6} lg={4} xl={3} className="mb-3 d-flex align-items-stretch">
         <CardGroup>
           <Card border="light" className="mb-3">
-            <Card.Img variant="top" src={movieData.Imageurl} />
+            <Link to={`/movies/${movieData._id}`}>
+              <Card.Img
+                className="poster position-relative"
+                variant="top"
+                src={movieData.Imageurl}
+              />
+            </Link>
             <Card.Body>
               <Card.Title className="cardText"> {movieData.Title}</Card.Title>
               <Card.Text className="cardText">

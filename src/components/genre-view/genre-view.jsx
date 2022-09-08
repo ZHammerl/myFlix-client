@@ -17,6 +17,7 @@ export function GenreView({ genre, onBackClick, genreMovies }) {
         }}>
         Back
       </Button>
+      <h5>Some movies in this genre:</h5>
       <Row className="justify-content mt-3 director-cardView">
         {genreMovies.map((movie) => (
           <MovieCard key={movie._id} movieData={movie}></MovieCard>

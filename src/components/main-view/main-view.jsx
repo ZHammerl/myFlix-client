@@ -21,6 +21,7 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
+      favoriteMovies: [],
     };
   }
   componentDidMount() {
@@ -50,8 +51,8 @@ export class MainView extends React.Component {
   }
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
   onLoggedIn(authData) {
-    const {username, password, birth_date, favoriteMovies} = authData.user
-    
+    const { username, password, birth_date, favoriteMovies } = authData.user;
+
     this.setState({
       user: authData.user.Username,
     });
@@ -59,6 +60,8 @@ export class MainView extends React.Component {
       localStorage.setItem('user', authData.user.Username),
       this.getMovies(authData.token);
   }
+
+
 
   render() {
     const { movies, user } = this.state;
@@ -133,7 +136,7 @@ export class MainView extends React.Component {
                 return (
                   <Col>
                     <GenreView
-                      genreMovies={movies.filter((m) => m.Genre?.Name === match.params.name)}
+                      genreMovies={movies.filter((m) => m.Genre.Name === match.params.name)}
                       genre={movies.find((m) => m.Genre.Name === match.params.name).Genre}
                       onBackClick={() => history.goBack()}
                     />
@@ -146,9 +149,7 @@ export class MainView extends React.Component {
               render={({ history }) => {
                 if (!user) return <Redirect to="/" />;
                 return (
-                  <Col>
-                    <ProfileView movies={movies} user={user} onBackClick={() => history.goBack()} />
-                  </Col>
+                  <ProfileView movies={movies} user={user} onBackClick={() => history.goBack()} />
                 );
               }}
             />

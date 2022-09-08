@@ -8,16 +8,15 @@ import { Link } from 'react-router-dom';
 export class MovieView extends React.Component {
   render() {
     const { movieData, onBackClick } = this.props;
-    console.log(movieData);
     return (
       <Card className="movie-view mb-3">
-        <Card.Header >
+        <Card.Header>
           <Card.Img variant="top" src={movieData.Imageurl} />
         </Card.Header>
         <Card.Body>
           <Card.Title className="cardText"> {movieData.Title}</Card.Title>
           <Card.Text className="cardText"> {movieData.Description}</Card.Text>
-          <Card.Text className="cardText"> Actors: {movieData.Actors}</Card.Text>
+          <Card.Text className="cardText"> Actors: {movieData.Actors.join(', ')}</Card.Text>
           <Card.Text className="cardText">
             {' '}
             Director:{' '}

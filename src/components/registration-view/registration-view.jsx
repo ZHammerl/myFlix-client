@@ -7,14 +7,14 @@ import axios from 'axios';
 export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [birth_date, setBirthdate] = useState('');
+  const [birthday, setBirthdate] = useState('');
   const [email, setEmail] = useState('');
 
   // hooks for user inputs
   const [values, setValues] = useState({
     usernameErr: '',
     passwordErr: '',
-    birth_dateErr: '',
+    birthdayErr: '',
     emailErr: '',
   });
 
@@ -53,7 +53,7 @@ export function RegistrationView(props) {
           Username: username,
           Password: password,
           Email: email,
-          Birth_date: birth_date,
+          Birthday: birthday,
         })
         .then((response) => {
           const data = response.data;
@@ -114,14 +114,14 @@ export function RegistrationView(props) {
           {values.emailErr && <p>{values.passwordErr} </p>}
         </Col>
       </Form.Group>
-      <Form.Group className="mb-3 reg-form-inputs" as={Row} controlId="formBirth_date">
+      <Form.Group className="mb-3 reg-form-inputs" as={Row} controlId="formBirthday">
         <Form.Label column="true" sm="12">
           Birth date:
         </Form.Label>
         <Col sm="6">
           <Form.Control
             type="date"
-            value={birth_date}
+            value={birthday}
             onChange={(e) => setBirthdate(e.target.value)}
           />
         </Col>
