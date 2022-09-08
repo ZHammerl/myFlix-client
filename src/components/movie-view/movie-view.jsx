@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 export class MovieView extends React.Component {
   render() {
     const { movieData, onBackClick } = this.props;
+    console.log(movieData)
     return (
       <Card className="movie-view mb-3">
         <Card.Header>

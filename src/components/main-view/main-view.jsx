@@ -51,20 +51,20 @@ export class MainView extends React.Component {
   }
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
   onLoggedIn(authData) {
-    const { username, password, birth_date, favoriteMovies } = authData.user;
+    const { Username, Password, Birthday, FavoriteMovies } = authData.user;
 
     this.setState({
-      user: authData.user.Username,
+      user: Username,
+      favoriteMovies: FavoriteMovies || [],
     });
+    console.log(FavoriteMovies);
     localStorage.setItem('token', authData.token),
-      localStorage.setItem('user', authData.user.Username),
+      localStorage.setItem('user', Username),
       this.getMovies(authData.token);
   }
 
-
-
   render() {
-    const { movies, user } = this.state;
+    const { movies, user, favoriteMovies } = this.state;
 
     return (
       <Router>
@@ -79,12 +79,13 @@ export class MainView extends React.Component {
                 if (!user)
                   return (
                     <Col>
-                      <LoginView movies={movies} onLoggedIn={(user) => this.onLoggedIn(user)} />
+                      <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                     </Col>
                   );
                 // Before the movies have been loaded
                 if (movies.length === 0) return <div className="main-view">Loading...</div>;
-
+                console.log(favoriteMovies || []);
+                console.log(movies);
                 return movies.map((m) => <MovieCard movieData={m} key={m._id} />);
               }}
             />
@@ -149,7 +150,12 @@ export class MainView extends React.Component {
               render={({ history }) => {
                 if (!user) return <Redirect to="/" />;
                 return (
-                  <ProfileView movies={movies} user={user} onBackClick={() => history.goBack()} />
+                  <ProfileView
+                    favMovies={favoriteMovies}
+                    movies={movies}
+                    user={user}
+                    onBackClick={() => history.goBack()}
+                  />
                 );
               }}
             />

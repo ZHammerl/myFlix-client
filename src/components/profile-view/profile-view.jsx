@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Form, Button, Col, Row, Container } from 'react-bootstrap';
-import { FavoriteMovies } from '../../favorite-movies/favorite-movies';
+import { FavoriteMovies } from '../favorite-movies/favorite-movies';
 
-import { Link } from 'react-router-dom';
-
-export function ProfileView(props) {
-  const [user, setUser] = useState('');
-  const [favoriteMovies, setfavoriteMovies] = useState('');
-  const [email, setEmail] = useState(props.email);
-  const [birthday, setBirth_date] = useState(props.birthday);
+export function ProfileView({ movies, onBackClick }) {
+  const [username, setUsername] = useState('');
+  const [favoriteMovies, setFavoriteMovies] = useState('');
+  const [password, setPassword] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [email, setEmail] = useState('');
 
   // hooks for user inputs
   const [values, setValues] = useState({
@@ -28,8 +27,11 @@ export function ProfileView(props) {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        setUser(response.data);
-        setfavoriteMovies(response.data.FavoriteMovies);
+        setUsername(response.data.Username);
+        setFavoriteMovies(response.data.FavoriteMovies);
+        setPassword(response.data.Password);
+        setEmail(response.data.Email);
+        setBirthday(response.data.Birthday);
       })
       .catch((error) => console.error('getUser Error ' + error));
   };
@@ -111,24 +113,17 @@ export function ProfileView(props) {
         });
     }
   };
-  if (!user) 'loading..';
-  console.log(user.Email);
-  console.log(props.movies);
-  console.log(favoriteMovies);
+  console.log(favoriteMovies.length);
   return (
     <Container className="profile-view">
       <h4>
-        Profile of <strong>{currentUser}</strong>
+        Profile of <strong>{username}</strong>
       </h4>
       <Form column="true">
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
           <Form.Label column="true">Username:</Form.Label>
           <Col>
-            <Form.Control
-              variant="success"
-              type="text"
-              defaultvalue={currentUser}
-              onChange={(e) => setUser}></Form.Control>
+            <Form.Control variant="success" type="text" defaultvalue={username}></Form.Control>
           </Col>
         </Form.Group>
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
@@ -140,7 +135,7 @@ export function ProfileView(props) {
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
           <Form.Label column="true">E-Mail:</Form.Label>
           <Col>
-            <Form.Control variant="success" type="email" value={user.Email}></Form.Control>
+            <Form.Control variant="success" type="email" value={email}></Form.Control>
           </Col>
         </Form.Group>
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
@@ -149,7 +144,7 @@ export function ProfileView(props) {
             <Form.Control
               variant="success"
               type="date"
-              value={user.Birth_date}
+              value={birthday}
               onChange={(e) => updateUser}></Form.Control>
           </Col>
         </Form.Group>
@@ -161,11 +156,19 @@ export function ProfileView(props) {
         <strong>Update </strong> my profile
       </Button>
       <h4>My favorite movies:</h4>
-      <Row className="justify-content-center mt-3">
-        {/* {favoriteMovies.map((m) => {
-          return <FavoriteMovies movieData={props.movies} />;
-        })} */}
-      </Row>
+      {favoriteMovies.length !== 0 ? (
+        <Row className="justify-content mt-3">
+          {favoriteMovies.map((movieId) => {
+            let movie = movies.find((m) => m._id === movieId);
+            return <FavoriteMovies key={movieId} movieData={movie}></FavoriteMovies>;
+          })}
+        </Row>
+      ) : (
+        <h6 className="subtitle">
+          You don't have movies in your favorite movies list yet. Got to{' '}
+          <Button href="/"> Movie List</Button> to add movies to your favorite list
+        </h6>
+      )}
     </Container>
   );
 }

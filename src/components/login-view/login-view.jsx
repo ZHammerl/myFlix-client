@@ -44,12 +44,12 @@ export function LoginView(props) {
       axios
         .post('https://my-movie-db22.herokuapp.com/login', {
           Username: username,
-          Password: password, //uppercase
+          Password: password,
         })
         .then((response) => {
           const data = response.data;
           console.log(data);
-          props.onLoggedIn(data); //faltaba agregar props.
+          props.onLoggedIn(data);
         })
         .catch((e) => {
           console.log('no such user');

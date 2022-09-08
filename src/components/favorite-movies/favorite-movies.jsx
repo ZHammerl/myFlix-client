@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Container, Row, Card } from 'react-bootstrap';
+import { Col, Container, Row, Card, Button} from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
@@ -13,8 +13,8 @@ export function FavoriteMovies({ movieData }) {
       xl={3}
       className="mb-3">
       {' '}
-      <Card>hello
-        {/* <Link to={`/movies/${movieData._id}`}>
+      <Card>
+        <Link to={`/movies/${movieData._id}`}>
           <Card.Img className="poster position-relative" variant="top" src={movieData.Imageurl} />
         </Link>
         <Card.Body>
@@ -28,7 +28,7 @@ export function FavoriteMovies({ movieData }) {
           <Link to={`/movies/${movieData._id}`}>
             <Button variant="link">Show Details</Button>
           </Link>
-        </Card.Footer> */}
+        </Card.Footer>
       </Card>
     </Col>
   );
