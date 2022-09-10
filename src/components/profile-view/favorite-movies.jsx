@@ -6,12 +6,16 @@ import { Link } from 'react-router-dom';
 
 export function FavoriteMovies({ movieData, token, user }) {
   const removeFav = (id) => {
-    let url = `https://my-movie-db22.herokuapp.com/users/${user}/${id}`;
-    axios.delete(url, { headers: { Authorization: `Bearer ${token}` } });
+    let url = `https://my-movie-db22.herokuapp.com/users/${user._id}/${id}`;
+    axios
+      .delete(url, { headers: { Authorization: `Bearer ${token}` } })
+      .then(() => {
+        window.open(`/users/${user.Username}`, '_self');
+      })
+      .catch((error) => console.error('removeFav Error ' + error));
   };
-  {favoriteMovies.map((movieId) => {
-    let movie = movies.find((m) => m._id === movieId);
-    return (
+  console.log(user);
+  return (
     <Col
       xs={12}
       sm={{ span: 9, offset: 2 }}
