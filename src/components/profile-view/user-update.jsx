@@ -25,7 +25,7 @@ export function UserUpdate({
       <h4>Update your profile</h4>
       <Form column="true" className="mb-3">
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
-          <Form.Label column="true" xs={2}>
+          <Form.Label column="true" xs={3}>
             Username:
           </Form.Label>
           <Col>
@@ -39,7 +39,7 @@ export function UserUpdate({
           </Col>
         </Form.Group>
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
-          <Form.Label column="true" xs={2}>
+          <Form.Label column="true" xs={3}>
             Password:
           </Form.Label>
           <Col>
@@ -53,7 +53,7 @@ export function UserUpdate({
           </Col>
         </Form.Group>
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
-          <Form.Label column="true" xs={2}>
+          <Form.Label column="true" xs={3}>
             E-Mail:
           </Form.Label>
           <Col>
@@ -67,7 +67,7 @@ export function UserUpdate({
           </Col>
         </Form.Group>
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
-          <Form.Label column="true" xs={2}>
+          <Form.Label column="true" xs={3}>
             Birthday:
           </Form.Label>
           <Col>

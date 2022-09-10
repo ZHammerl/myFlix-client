@@ -41263,7 +41263,7 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 column: "true",
-                                xs: 2,
+                                xs: 3,
                                 children: "Username:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
@@ -41300,7 +41300,7 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 column: "true",
-                                xs: 2,
+                                xs: 3,
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
@@ -41337,7 +41337,7 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 column: "true",
-                                xs: 2,
+                                xs: 3,
                                 children: "E-Mail:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
@@ -41374,7 +41374,7 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                                 column: "true",
-                                xs: 2,
+                                xs: 3,
                                 children: "Birthday:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
