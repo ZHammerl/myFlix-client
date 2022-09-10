@@ -25,9 +25,13 @@ body {
   background-color: $color1 !important;
 }
 
-.nav-bar{
+.nav-bar {
   color: white !important;
 }
 .cardText {
-  color:#31081f !important;
+  color: $color2 !important;
+}
+
+.button-fav {
+  background: $color2 !important;
 }

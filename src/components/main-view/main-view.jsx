@@ -51,20 +51,19 @@ export class MainView extends React.Component {
   }
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
   onLoggedIn(authData) {
-    const { Username, Password, Birthday, FavoriteMovies } = authData.user;
+    const { Username, Password, Birthday } = authData.user;
 
     this.setState({
       user: Username,
-      favoriteMovies: FavoriteMovies || [],
     });
-    console.log(FavoriteMovies);
+
     localStorage.setItem('token', authData.token),
       localStorage.setItem('user', Username),
       this.getMovies(authData.token);
   }
 
   render() {
-    const { movies, user, favoriteMovies } = this.state;
+    const { movies, user } = this.state;
 
     return (
       <Router>
@@ -84,7 +83,6 @@ export class MainView extends React.Component {
                   );
                 // Before the movies have been loaded
                 if (movies.length === 0) return <div className="main-view">Loading...</div>;
-                console.log(favoriteMovies || []);
                 console.log(movies);
                 return movies.map((m) => <MovieCard movieData={m} key={m._id} />);
               }}
@@ -94,6 +92,7 @@ export class MainView extends React.Component {
               path="/register"
               render={() => {
                 if (user) return <Redirect to="/" />;
+                if (movies.length === 0) return <div className="main-view">Loading...</div>;
                 return (
                   <Col>
                     <RegistrationView />
@@ -105,9 +104,11 @@ export class MainView extends React.Component {
               path="/movies/:movieId"
               render={({ match, history }) => {
                 if (!user) return <Redirect to="/" />;
+                if (movies.length === 0) return <div className="main-view">Loading...</div>;
                 return (
                   <Col md={8}>
                     <MovieView
+                      user={user}
                       movieData={movies.find((m) => m._id === match.params.movieId)}
                       onBackClick={() => history.goBack()}
                     />
@@ -119,6 +120,7 @@ export class MainView extends React.Component {
               path="/directors/:name"
               render={({ match, history }) => {
                 if (!user) return <Redirect to="/" />;
+                if (movies.length === 0) return <div className="main-view">Loading...</div>;
                 return (
                   <Col>
                     <DirectorView
@@ -134,6 +136,7 @@ export class MainView extends React.Component {
               path="/genres/:name"
               render={({ match, history }) => {
                 if (!user) return <Redirect to="/" />;
+                if (movies.length === 0) return <div className="main-view">Loading...</div>;
                 return (
                   <Col>
                     <GenreView
@@ -149,13 +152,10 @@ export class MainView extends React.Component {
               path={`/users/${user}`}
               render={({ history }) => {
                 if (!user) return <Redirect to="/" />;
+                if (user.length === 0) return <div className="main-view">Loading...</div>;
+                if (movies.length === 0) return <div className="main-view">Loading...</div>;
                 return (
-                  <ProfileView
-                    favMovies={favoriteMovies}
-                    movies={movies}
-                    user={user}
-                    onBackClick={() => history.goBack()}
-                  />
+                  <ProfileView movies={movies} user={user} onBackClick={() => history.goBack()} />
                 );
               }}
             />

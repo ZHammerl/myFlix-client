@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Form, Button, Col, Row, Container } from 'react-bootstrap';
+import { Button, Row, Container } from 'react-bootstrap';
 import { FavoriteMovies } from './favorite-movies';
 import { UserView } from './user-view';
 import { UserUpdate } from './user-update';
 
-export function ProfileView({ movies, onBackClick }) {
-  const [user, setUser] = useState('');
-  const [username, setUsername] = useState('');
-  const [favoriteMovies, setFavoriteMovies] = useState('');
-  const [password, setPassword] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [email, setEmail] = useState('');
+export function ProfileView({ movies }) {
+  const [user, setUser] = useState({
+    Username: '',
+    Password: '',
+    FavoriteMovies: [],
+    Birthday: '',
+    Email: '',
+  });
+
+  const [formData, setFormData] = useState({
+    Username: '',
+    Password: '',
+    Birthday: '',
+    Email: '',
+  });
+
+  const [updateInfo, setUpdateInfo] = useState(false);
+
+  const toggleUpdateInfo = () => {
+    setUpdateInfo(!updateInfo);
+  };
 
   // hooks for user inputs
-  const [values, setValues] = useState({
+  const [errorMessage, setErrorMessage] = useState({
     usernameErr: '',
     passwordErr: '',
     birthdayErr: '',
@@ -24,25 +38,31 @@ export function ProfileView({ movies, onBackClick }) {
   // user validation
   const validate = () => {
     let isReq = true;
-    if (!username) {
-      setValues({ ...values, usernameErr: 'Username is required' });
+    if (!user.Username) {
+      setErrorMessage({ ...errorMessage, usernameErr: 'Username is required' });
       isReq = false;
-    } else if (username.length < 2) {
-      setValues({ ...values, usernameErr: 'Username must be at least 2 characters long' });
-      isReq = false;
-    }
-    if (!password) {
-      setValues({ ...values, passwordErr: 'Password is required.' });
-      isReq = false;
-    } else if (password < 6) {
-      setValues({ ...values, passwordErr: 'Password must be at least 6 characters long' });
+    } else if (user.Username.length < 2) {
+      setErrorMessage({
+        ...errorMessage,
+        usernameErr: 'Username must be at least 2 characters long',
+      });
       isReq = false;
     }
-    if (!email) {
-      setValues({ ...values, emailErr: 'Email is required.' });
+    if (!user.Password) {
+      setErrorMessage({ ...errorMessage, passwordErr: 'Password is required.' });
       isReq = false;
-    } else if (email.indexOf('@') < 1) {
-      setValues({ ...values, emailErr: 'Email is invalid' });
+    } else if (user.Password < 6) {
+      setErrorMessage({
+        ...errorMessage,
+        passwordErr: 'Password must be at least 6 characters long',
+      });
+      isReq = false;
+    }
+    if (!user.Email) {
+      setErrorMessage({ ...errorMessage, emailErr: 'Email is required.' });
+      isReq = false;
+    } else if (user.Email.indexOf('@') < 1) {
+      setErrorMessage({ ...errorMessage, emailErr: 'Email is invalid' });
       isReq = false;
     }
     return isReq;
@@ -58,11 +78,6 @@ export function ProfileView({ movies, onBackClick }) {
       })
       .then((response) => {
         setUser(response.data);
-        setUsername(response.data.Username);
-        setFavoriteMovies(response.data.FavoriteMovies);
-        setPassword(response.data.Password);
-        setEmail(response.data.Email);
-        setBirthday(response.data.Birthday);
       })
       .catch((error) => console.error('getUser Error ' + error));
   };
@@ -71,27 +86,56 @@ export function ProfileView({ movies, onBackClick }) {
     getUser();
   }, []);
 
-  const updateUser = (e) => {
+  const formattedBday = new Date(user.Birthday);
+  function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+  }
+
+  function formatDate(date) {
+    return [
+      padTo2Digits(date.getMonth() + 1),
+      padTo2Digits(date.getDate()),
+      date.getFullYear(),
+    ].join('.');
+  }
+
+  function formatDateYYYYMMDD(date) {
+    return [
+      date.getFullYear(),
+      padTo2Digits(date.getDate()),
+      padTo2Digits(date.getMonth() + 1),
+    ].join('-');
+  }
+
+  const birthdayFormatted = formatDate(formattedBday);
+  const birthdayYYYYMMDD = formatDateYYYYMMDD(formattedBday);
+
+  const handleSubmitUpdate = (e) => {
     e.preventDefault();
     const isReq = validate();
     if (isReq) {
       axios
         .put(
-          `https://my-movie-db22.herokuapp.com/users/${user._id}`,
+          `https://my-movie-db22.herokuapp.com/users/${user.Username}`,
           {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday,
+            Username: formData.Username,
+            Password: formData.Password,
+            Email: formData.Email,
+            Birthday: formData.Birthday,
           },
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         )
         .then((response) => {
+          console.log(response.data);
+          setUser(response.data);
+
+          localStorage.setItem('user', user.Username);
           const data = response.data;
           console.log(data);
-          window.open('/', '_self'); //'_self' is necessary so that the page opens in the current tab
+          alert('Profile is updated!');
+          window.open(`/users/${user.Username}`, '_self');
         })
         .catch((response) => {
           console.error(response);
@@ -117,27 +161,38 @@ export function ProfileView({ movies, onBackClick }) {
     }
   };
 
-  console.log(user._id);
+  console.log(user);
+  if (!user) return <div className="main-view">Loading...</div>;
   return (
     <Container className="profile-view">
-      <UserView user={currentUser}></UserView>
-      <UserUpdate user={user}></UserUpdate>
-      <Button className="mb-3" type="button" onClick={handleDelete}>
-        <strong> Delete </strong> my profile
-      </Button>
-      <Button className="mb-3" type="button" onClick={updateUser}>
-        <strong>Update </strong> my profile
-      </Button>
+      {!updateInfo ? (
+        <UserView
+          user={user}
+          birthday={birthdayFormatted}
+          toggleUpdateInfo={toggleUpdateInfo}
+          handleDelete={handleDelete}
+        />
+      ) : (
+        <UserUpdate
+          user={user}
+          setUser={setUser}
+          formData={formData}
+          setFormData={setFormData}
+          birthday={birthdayYYYYMMDD}
+          handleSubmitUpdate={handleSubmitUpdate}
+          toggleUpdateInfo={toggleUpdateInfo}></UserUpdate>
+      )}
+
       <h4>My favorite movies:</h4>
-      {favoriteMovies.length !== 0 ? (
+      {user.FavoriteMovies.length !== 0 ? (
         <Row className="justify-content mt-3">
-          {favoriteMovies.map((movieId) => {
+          {user.FavoriteMovies.map((movieId) => {
             let movie = movies.find((m) => m._id === movieId);
             return (
               <FavoriteMovies
                 key={movieId}
                 movieData={movie}
-                user={currentUser}
+                user={user}
                 token={token}></FavoriteMovies>
             );
           })}

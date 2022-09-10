@@ -46,7 +46,7 @@ export function LoginView(props) {
           Username: username,
           Password: password,
         })
-        .then((response) => {
+        .then((response) => {       // response from the server incl. token
           const data = response.data;
           console.log(data);
           props.onLoggedIn(data);

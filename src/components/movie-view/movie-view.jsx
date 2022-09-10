@@ -1,42 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import { Card, Button, Row } from 'react-bootstrap';
+import axios from 'axios';
 
 import { Link } from 'react-router-dom';
+import './movie-view.scss';
 
-export class MovieView extends React.Component {
-  render() {
-    const { movieData, onBackClick } = this.props;
-    console.log(movieData)
-    return (
-      <Card className="movie-view mb-3">
-        <Card.Header>
-          <Card.Img variant="top" src={movieData.Imageurl} />
-        </Card.Header>
-        <Card.Body>
-          <Card.Title className="cardText"> {movieData.Title}</Card.Title>
-          <Card.Text className="cardText"> {movieData.Description}</Card.Text>
-          <Card.Text className="cardText"> Actors: {movieData.Actors.join(', ')}</Card.Text>
-          <Card.Text className="cardText">
-            {' '}
-            Director:{' '}
-            <Link to={`/directors/${movieData.Director.Name}`}>{movieData.Director?.Name}</Link>
-          </Card.Text>
-          <Card.Text className="cardText">
-            {' '}
-            Genre: <Link to={`/genres/${movieData.Genre.Name}`}>{movieData.Genre?.Name}</Link>
-          </Card.Text>
-        </Card.Body>
-        <Button
-          onClick={() => {
-            onBackClick();
-          }}>
-          Back
-        </Button>
-      </Card>
-    );
-  }
+export function MovieView({ user, movieData, onBackClick }) {
+  const addFav = (id) => {
+    const token = localStorage.getItem('token');
+    let url = `https://my-movie-db22.herokuapp.com/users/${user}/${id}`;
+    axios.post(url, { headers: { Authorization: `Bearer ${token}` } }).then(() => {
+      window.open(`/movies/${id}`, '_self');
+    });
+  };
+  return (
+    <Card className="movie-view mb-3">
+      <Card.Header>
+        <Card.Img variant="top" src={movieData.Imageurl} />
+      </Card.Header>
+      <Card.Body>
+        <Card.Title className="cardText">
+          {' '}
+          {movieData.Title}{' '}
+          <Button
+            className="button-fav"
+            onClick={() => {
+              addFav(`${movieData._id}`);
+            }}>
+            🤍
+          </Button>
+        </Card.Title>
+
+        <Card.Text className="cardText"> {movieData.Description}</Card.Text>
+        <Card.Text className="cardText"> Actors: {movieData.Actors.join(', ')}</Card.Text>
+        <Card.Text className="cardText">
+          {' '}
+          Director:{' '}
+          <Link to={`/directors/${movieData.Director.Name}`}>{movieData.Director?.Name}</Link>
+        </Card.Text>
+        <Card.Text className="cardText">
+          {' '}
+          Genre: <Link to={`/genres/${movieData.Genre.Name}`}>{movieData.Genre?.Name}</Link>
+        </Card.Text>
+      </Card.Body>
+      <Button
+        onClick={() => {
+          onBackClick();
+        }}>
+        Back
+      </Button>
+    </Card>
+  );
 }
 MovieView.propTypes = {
   movieData: PropTypes.shape({

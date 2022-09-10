@@ -29,6 +29,15 @@ body {
   color: #31081f !important;
 }
 
+.button-fav {
+  background: #31081f !important;
+}
+
+.button-fav {
+  float: right !important;
+  background-color: #31081f !important;
+}
+
 
 
 /*# sourceMappingURL=index.ce1d6491.css.map */
