@@ -52,7 +52,6 @@ MovieCard.propTypes = {
       Name: PropTypes.string.isRequired,
       Bio: PropTypes.string.isRequired,
       Birthyear: PropTypes.string,
-      Deathyear: PropTypes.string,
       Movies: PropTypes.array,
     }),
     Actors: PropTypes.array,

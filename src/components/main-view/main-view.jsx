@@ -67,7 +67,6 @@ export class MainView extends React.Component {
     const token = localStorage.getItem('token');
     if (token !== null && user !== null) {
       let url = `https://my-movie-db22.herokuapp.com/users/${user}/${movieId}`;
-
       // Add MovieID to Favorites (local state & webserver)
       if (action === 'add') {
         this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
