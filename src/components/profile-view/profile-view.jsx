@@ -5,7 +5,7 @@ import { FavoriteMovies } from './favorite-movies';
 import { UserView } from './user-view';
 import { UserUpdate } from './user-update';
 
-export function ProfileView({ movies }) {
+export function ProfileView({ movies, favoriteMovies, handleFav }) {
   const [user, setUser] = useState({
     Username: '',
     Password: '',
@@ -190,6 +190,7 @@ export function ProfileView({ movies }) {
             let movie = movies.find((m) => m._id === movieId);
             return (
               <FavoriteMovies
+                handleFav={handleFav}
                 key={movieId}
                 movieData={movie}
                 user={user}
@@ -199,7 +200,7 @@ export function ProfileView({ movies }) {
         </Row>
       ) : (
         <h6 className="subtitle">
-          You don't have movies in your favorite movies list yet. Got to{' '}
+          You don't have any movies in your favorite movies list yet. Got to{' '}
           <Button href="/"> Movie List</Button> to add movies to your favorite list
         </h6>
       )}

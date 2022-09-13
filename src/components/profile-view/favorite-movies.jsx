@@ -4,17 +4,7 @@ import { Col, Container, Row, Card, Button } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
-export function FavoriteMovies({ movieData, token, user }) {
-  const removeFav = (id) => {
-    let url = `https://my-movie-db22.herokuapp.com/users/${user._id}/${id}`;
-    axios
-      .delete(url, { headers: { Authorization: `Bearer ${token}` } })
-      .then(() => {
-        window.open(`/users/${user.Username}`, '_self');
-      })
-      .catch((error) => console.error('removeFav Error ' + error));
-  };
-  console.log(user);
+export function FavoriteMovies({ movieData, handleFav }) {
   return (
     <Col
       xs={12}
@@ -33,7 +23,7 @@ export function FavoriteMovies({ movieData, token, user }) {
         </Link>
         <Button
           onClick={() => {
-            removeFav(`${movieData._id}`);
+            handleFav(movieData._id, 'remove');
           }}>
           Remove from list
         </Button>

@@ -6,14 +6,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './movie-view.scss';
 
-export function MovieView({ user, movieData, onBackClick }) {
-  const addFav = (id) => {
-    const token = localStorage.getItem('token');
-    let url = `https://my-movie-db22.herokuapp.com/users/${user}/${id}`;
-    axios.post(url, { headers: { Authorization: `Bearer ${token}` } }).then(() => {
-      window.open(`/movies/${id}`, '_self');
-    });
-  };
+export function MovieView({ movieData, onBackClick, handleFav, isFavorite }) {
   return (
     <Card className="movie-view mb-3">
       <Card.Header>
@@ -23,13 +16,17 @@ export function MovieView({ user, movieData, onBackClick }) {
         <Card.Title className="cardText">
           {' '}
           {movieData.Title}{' '}
-          <Button
-            className="button-fav"
-            onClick={() => {
-              addFav(`${movieData._id}`);
-            }}>
-            🤍
-          </Button>
+          {!isFavorite ? (
+            <Button
+              className="button-fav"
+              onClick={() => {
+                handleFav(movieData._id, 'add');
+              }}>
+              🤍
+            </Button>
+          ) : (
+            <div />
+          )}
         </Card.Title>
 
         <Card.Text className="cardText"> {movieData.Description}</Card.Text>

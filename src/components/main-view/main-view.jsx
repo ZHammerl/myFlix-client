@@ -62,8 +62,43 @@ export class MainView extends React.Component {
       this.getMovies(authData.token);
   }
 
+  handleFav = (movieId, action) => {
+    const { user, favoriteMovies } = this.state;
+    const token = localStorage.getItem('token');
+    if (token !== null && user !== null) {
+      let url = `https://my-movie-db22.herokuapp.com/users/${user}/${movieId}`;
+
+      // Add MovieID to Favorites (local state & webserver)
+      if (action === 'add') {
+        this.setState({ favoriteMovies: [...favoriteMovies, movieId] });
+        axios
+          .post(url, {}, { headers: { Authorization: `Bearer ${token}` } })
+          .then((res) => {
+            alert(`Movie added to ${user} Favorite movies`);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        // Remove MovieID from Favorites (local state & webserver)
+      } else if (action === 'remove') {
+        this.setState({
+          favoriteMovies: favoriteMovies.filter((id) => id !== movieId),
+        });
+        axios
+          .delete(`https://my-movie-db22.herokuapp.com/users/${user}/${movieId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((res) => {
+            alert(`Movie removed from ${user} Favorite movies`);
+            window.open(`/users/${user}`, '_self');
+          })
+          .catch((error) => console.error('removeFav Error ' + error));
+      }
+    }
+  };
+
   render() {
-    const { movies, user } = this.state;
+    const { movies, user, favoriteMovies } = this.state;
 
     return (
       <Router>
@@ -108,7 +143,8 @@ export class MainView extends React.Component {
                 return (
                   <Col md={8}>
                     <MovieView
-                      user={user}
+                      handleFav={this.handleFav}
+                      isFavorite={favoriteMovies.includes(match.params.movieId)}
                       movieData={movies.find((m) => m._id === match.params.movieId)}
                       onBackClick={() => history.goBack()}
                     />
@@ -155,7 +191,13 @@ export class MainView extends React.Component {
                 if (user.length === 0) return <div className="main-view">Loading...</div>;
                 if (movies.length === 0) return <div className="main-view">Loading...</div>;
                 return (
-                  <ProfileView movies={movies} user={user} onBackClick={() => history.goBack()} />
+                  <ProfileView
+                    movies={movies}
+                    user={user}
+                    onBackClick={() => history.goBack()}
+                    handleFav={this.handleFav}
+                    favoriteMovies={favoriteMovies || []}
+                  />
                 );
               }}
             />
