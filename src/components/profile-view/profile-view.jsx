@@ -38,31 +38,45 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
   // user validation
   const validate = () => {
     let isReq = true;
-    if (!user.Username) {
-      setErrorMessage({ ...errorMessage, usernameErr: 'Username is required' });
+    setErrorMessage((prevValue) => {
+      return {
+        usernameErr: '',
+        passwordErr: '',
+        emailErr: '',
+        birthdayErr: '',
+      };
+    });
+    if (!formData.Username) {
+      setErrorMessage((prevValue) => {
+        return { ...prevValue, usernameErr: 'Username is required' };
+      });
       isReq = false;
-    } else if (user.Username.length < 2) {
-      setErrorMessage({
-        ...errorMessage,
-        usernameErr: 'Username must be at least 2 characters long',
+    } else if (formData.Username.length < 2) {
+      setErrorMessage((prevValue) => {
+        return { ...prevValue, usernameErr: 'Username must be at least 2 characters long' };
       });
       isReq = false;
     }
-    if (!user.Password) {
-      setErrorMessage({ ...errorMessage, passwordErr: 'Password is required.' });
+    if (!formData.Password) {
+      setErrorMessage((prevValue) => {
+        return { ...prevValue, passwordErr: 'Password is required.' };
+      });
       isReq = false;
-    } else if (user.Password < 6) {
-      setErrorMessage({
-        ...errorMessage,
-        passwordErr: 'Password must be at least 6 characters long',
+    } else if (formData.Password < 6) {
+      setErrorMessage((prevValue) => {
+        return { ...prevValue, passwordErr: 'Password must be at least 6 characters long' };
       });
       isReq = false;
     }
-    if (!user.Email) {
-      setErrorMessage({ ...errorMessage, emailErr: 'Email is required.' });
+    if (!formData.Email) {
+      setErrorMessage((prevValue) => {
+        return { ...prevValue, emailErr: 'Email is required.' };
+      });
       isReq = false;
     } else if (user.Email.indexOf('@') < 1) {
-      setErrorMessage({ ...errorMessage, emailErr: 'Email is invalid' });
+      setErrorMessage((prevValue) => {
+        return { ...prevValue, emailErr: 'Email is invalid' };
+      });
       isReq = false;
     }
     return isReq;
@@ -130,12 +144,11 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
         .then((response) => {
           console.log(response.data);
           setUser(response.data);
-
-          localStorage.setItem('user', user.Username);
+          localStorage.setItem('user', formData.Username);
           const data = response.data;
           console.log(data);
           alert('Profile is updated!');
-          window.open(`/users/${user.Username}`, '_self');
+          window.open(`/users/${formData.Username}`, '_self');
         })
         .catch((response) => {
           console.error(response);
@@ -178,6 +191,8 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
           setUser={setUser}
           formData={formData}
           setFormData={setFormData}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
           birthday={birthdayYYYYMMDD}
           handleSubmitUpdate={handleSubmitUpdate}
           toggleUpdateInfo={toggleUpdateInfo}></UserUpdate>

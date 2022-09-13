@@ -5934,10 +5934,6 @@ class MainView extends (0, _reactDefault.default).Component {
                                     if (user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Redirect), {
                                         to: "/"
                                     }, void 0, false, void 0, void 0);
-                                    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                        className: "main-view",
-                                        children: "Loading..."
-                                    }, void 0, false, void 0, void 0);
                                     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _registrationView.RegistrationView), {}, void 0, false, void 0, void 0)
                                     }, void 0, false, void 0, void 0);
@@ -5969,7 +5965,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 138,
+                                lineNumber: 137,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -5992,7 +5988,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 155,
+                                lineNumber: 154,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -6015,7 +6011,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 171,
+                                lineNumber: 170,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -6042,7 +6038,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 187,
+                                lineNumber: 186,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -40062,42 +40058,63 @@ function RegistrationView(props) {
     // user validation
     const validate = ()=>{
         let isReq = true;
+        setValues((prevValue)=>{
+            return {
+                usernameErr: "",
+                passwordErr: "",
+                emailErr: "",
+                birthdayErr: ""
+            };
+        });
         if (!username) {
-            setValues({
-                ...values,
-                usernameErr: "Username is required"
+            setValues((prevValue)=>{
+                return {
+                    ...prevValue,
+                    usernameErr: "Username is required"
+                };
             });
             isReq = false;
         } else if (username.length < 2) {
-            setValues({
-                ...values,
-                usernameErr: "Username must be at least 2 characters long"
+            setValues((prevValue)=>{
+                return {
+                    ...prevValue,
+                    usernameErr: "Username must be at least 2 characters long"
+                };
             });
             isReq = false;
         }
         if (!password) {
-            setValues({
-                ...values,
-                passwordErr: "Password is required."
+            setValues((prevValue)=>{
+                return {
+                    ...prevValue,
+                    passwordErr: "Password is required."
+                };
             });
             isReq = false;
-        } else if (password < 6) {
-            setValues({
-                ...values,
-                passwordErr: "Password must be at least 6 characters long"
+        } else if (password.length < 6) {
+            setValues((prevValue)=>{
+                return {
+                    ...prevValue,
+                    passwordErr: "Password must be at least 6 characters long"
+                };
             });
             isReq = false;
         }
         if (!email) {
-            setValues({
-                ...values,
-                emailErr: "Email is required."
+            console.log(values.emailErr);
+            setValues((prevValue)=>{
+                return {
+                    ...prevValue,
+                    emailErr: "Email is required."
+                };
             });
             isReq = false;
         } else if (email.indexOf("@") < 1) {
-            setValues({
-                ...values,
-                emailErr: "Email is invalid"
+            setValues((prevValue)=>{
+                return {
+                    ...prevValue,
+                    emailErr: "Email is invalid"
+                };
             });
             isReq = false;
         }
@@ -40134,40 +40151,40 @@ function RegistrationView(props) {
                         children: "Username:"
                     }, void 0, false, {
                         fileName: "src/components/registration-view/registration-view.jsx",
-                        lineNumber: 73,
+                        lineNumber: 109,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                         sm: "6",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                variant: "success",
                                 type: "text",
                                 placeholder: "Enter username",
                                 value: username,
                                 onChange: (e)=>setUsername(e.target.value)
                             }, void 0, false, {
                                 fileName: "src/components/registration-view/registration-view.jsx",
-                                lineNumber: 77,
+                                lineNumber: 113,
                                 columnNumber: 11
                             }, this),
                             values.usernameErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                className: "validation-message",
                                 children: values.usernameErr
                             }, void 0, false, {
                                 fileName: "src/components/registration-view/registration-view.jsx",
-                                lineNumber: 84,
+                                lineNumber: 119,
                                 columnNumber: 34
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/registration-view/registration-view.jsx",
-                        lineNumber: 76,
+                        lineNumber: 112,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/registration-view/registration-view.jsx",
-                lineNumber: 72,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -40181,7 +40198,7 @@ function RegistrationView(props) {
                         children: "Password:"
                     }, void 0, false, {
                         fileName: "src/components/registration-view/registration-view.jsx",
-                        lineNumber: 88,
+                        lineNumber: 123,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -40194,26 +40211,27 @@ function RegistrationView(props) {
                                 onChange: (e)=>setPassword(e.target.value)
                             }, void 0, false, {
                                 fileName: "src/components/registration-view/registration-view.jsx",
-                                lineNumber: 92,
+                                lineNumber: 127,
                                 columnNumber: 11
                             }, this),
                             values.passwordErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                className: "validation-message",
                                 children: values.passwordErr
                             }, void 0, false, {
                                 fileName: "src/components/registration-view/registration-view.jsx",
-                                lineNumber: 98,
+                                lineNumber: 133,
                                 columnNumber: 34
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/registration-view/registration-view.jsx",
-                        lineNumber: 91,
+                        lineNumber: 126,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/registration-view/registration-view.jsx",
-                lineNumber: 87,
+                lineNumber: 122,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -40227,7 +40245,7 @@ function RegistrationView(props) {
                         children: "E-Mail:"
                     }, void 0, false, {
                         fileName: "src/components/registration-view/registration-view.jsx",
-                        lineNumber: 102,
+                        lineNumber: 137,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -40242,29 +40260,30 @@ function RegistrationView(props) {
                                 onChange: (e)=>setEmail(e.target.value)
                             }, void 0, false, {
                                 fileName: "src/components/registration-view/registration-view.jsx",
-                                lineNumber: 106,
+                                lineNumber: 141,
                                 columnNumber: 11
                             }, this),
                             values.emailErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                className: "validation-message",
                                 children: [
-                                    values.passwordErr,
+                                    values.emailErr,
                                     " "
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/registration-view/registration-view.jsx",
-                                lineNumber: 114,
+                                lineNumber: 149,
                                 columnNumber: 31
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/registration-view/registration-view.jsx",
-                        lineNumber: 105,
+                        lineNumber: 140,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/registration-view/registration-view.jsx",
-                lineNumber: 101,
+                lineNumber: 136,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -40278,7 +40297,7 @@ function RegistrationView(props) {
                         children: "Birth date:"
                     }, void 0, false, {
                         fileName: "src/components/registration-view/registration-view.jsx",
-                        lineNumber: 118,
+                        lineNumber: 153,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -40289,18 +40308,18 @@ function RegistrationView(props) {
                             onChange: (e)=>setBirthdate(e.target.value)
                         }, void 0, false, {
                             fileName: "src/components/registration-view/registration-view.jsx",
-                            lineNumber: 122,
+                            lineNumber: 157,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "src/components/registration-view/registration-view.jsx",
-                        lineNumber: 121,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/registration-view/registration-view.jsx",
-                lineNumber: 117,
+                lineNumber: 152,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -40310,7 +40329,7 @@ function RegistrationView(props) {
                 children: "Sign up"
             }, void 0, false, {
                 fileName: "src/components/registration-view/registration-view.jsx",
-                lineNumber: 129,
+                lineNumber: 164,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -40319,13 +40338,13 @@ function RegistrationView(props) {
                 children: "Log In instead"
             }, void 0, false, {
                 fileName: "src/components/registration-view/registration-view.jsx",
-                lineNumber: 132,
+                lineNumber: 167,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/registration-view/registration-view.jsx",
-        lineNumber: 71,
+        lineNumber: 107,
         columnNumber: 5
     }, this);
 }
@@ -40723,42 +40742,62 @@ function ProfileView({ movies , favoriteMovies , handleFav  }) {
     // user validation
     const validate = ()=>{
         let isReq = true;
-        if (!user.Username) {
-            setErrorMessage({
-                ...errorMessage,
-                usernameErr: "Username is required"
+        setErrorMessage((prevValue)=>{
+            return {
+                usernameErr: "",
+                passwordErr: "",
+                emailErr: "",
+                birthdayErr: ""
+            };
+        });
+        if (!formData.Username) {
+            setErrorMessage((prevValue)=>{
+                return {
+                    ...prevValue,
+                    usernameErr: "Username is required"
+                };
             });
             isReq = false;
-        } else if (user.Username.length < 2) {
-            setErrorMessage({
-                ...errorMessage,
-                usernameErr: "Username must be at least 2 characters long"
+        } else if (formData.Username.length < 2) {
+            setErrorMessage((prevValue)=>{
+                return {
+                    ...prevValue,
+                    usernameErr: "Username must be at least 2 characters long"
+                };
             });
             isReq = false;
         }
-        if (!user.Password) {
-            setErrorMessage({
-                ...errorMessage,
-                passwordErr: "Password is required."
+        if (!formData.Password) {
+            setErrorMessage((prevValue)=>{
+                return {
+                    ...prevValue,
+                    passwordErr: "Password is required."
+                };
             });
             isReq = false;
-        } else if (user.Password < 6) {
-            setErrorMessage({
-                ...errorMessage,
-                passwordErr: "Password must be at least 6 characters long"
+        } else if (formData.Password < 6) {
+            setErrorMessage((prevValue)=>{
+                return {
+                    ...prevValue,
+                    passwordErr: "Password must be at least 6 characters long"
+                };
             });
             isReq = false;
         }
-        if (!user.Email) {
-            setErrorMessage({
-                ...errorMessage,
-                emailErr: "Email is required."
+        if (!formData.Email) {
+            setErrorMessage((prevValue)=>{
+                return {
+                    ...prevValue,
+                    emailErr: "Email is required."
+                };
             });
             isReq = false;
         } else if (user.Email.indexOf("@") < 1) {
-            setErrorMessage({
-                ...errorMessage,
-                emailErr: "Email is invalid"
+            setErrorMessage((prevValue)=>{
+                return {
+                    ...prevValue,
+                    emailErr: "Email is invalid"
+                };
             });
             isReq = false;
         }
@@ -40813,11 +40852,11 @@ function ProfileView({ movies , favoriteMovies , handleFav  }) {
         }).then((response)=>{
             console.log(response.data);
             setUser(response.data);
-            localStorage.setItem("user", user.Username);
+            localStorage.setItem("user", formData.Username);
             const data = response.data;
             console.log(data);
             alert("Profile is updated!");
-            window.open(`/users/${user.Username}`, "_self");
+            window.open(`/users/${formData.Username}`, "_self");
         }).catch((response)=>{
             console.error(response);
         });
@@ -40844,7 +40883,7 @@ function ProfileView({ movies , favoriteMovies , handleFav  }) {
         children: "Loading..."
     }, void 0, false, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 165,
+        lineNumber: 178,
         columnNumber: 21
     }, this);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
@@ -40857,26 +40896,28 @@ function ProfileView({ movies , favoriteMovies , handleFav  }) {
                 handleDelete: handleDelete
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 169,
+                lineNumber: 182,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userUpdate.UserUpdate), {
                 user: user,
                 setUser: setUser,
                 formData: formData,
                 setFormData: setFormData,
+                errorMessage: errorMessage,
+                setErrorMessage: setErrorMessage,
                 birthday: birthdayYYYYMMDD,
                 handleSubmitUpdate: handleSubmitUpdate,
                 toggleUpdateInfo: toggleUpdateInfo
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 176,
+                lineNumber: 189,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
                 children: "My favorite movies:"
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 186,
+                lineNumber: 201,
                 columnNumber: 7
             }, this),
             user.FavoriteMovies.length !== 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -40890,13 +40931,13 @@ function ProfileView({ movies , favoriteMovies , handleFav  }) {
                         token: token
                     }, movieId, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 192,
+                        lineNumber: 207,
                         columnNumber: 15
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 188,
+                lineNumber: 203,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h6", {
                 className: "subtitle",
@@ -40908,20 +40949,20 @@ function ProfileView({ movies , favoriteMovies , handleFav  }) {
                         children: " Movie List"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 204,
+                        lineNumber: 219,
                         columnNumber: 11
                     }, this),
                     " to add movies to your favorite list"
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 202,
+                lineNumber: 217,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 167,
+        lineNumber: 180,
         columnNumber: 5
     }, this);
 }
@@ -41255,7 +41296,7 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
-function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpdate , birthday , toggleUpdateInfo ,  }) {
+function UserUpdate({ user , setFormData , formData , handleSubmitUpdate , birthday , toggleUpdateInfo , errorMessage ,  }) {
     function onChangeHandleUpdate(e) {
         const { value , name  } = e.target;
         console.log(value);
@@ -41295,18 +41336,29 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                    type: "text",
-                                    name: "user.Username",
-                                    placeholder: user.Username,
-                                    value: formData.Username,
-                                    onChange: onChangeHandleUpdate
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/user-update.jsx",
-                                    lineNumber: 32,
-                                    columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                        name: "Username",
+                                        type: "text",
+                                        placeholder: user.Username,
+                                        value: formData.Username,
+                                        onChange: onChangeHandleUpdate
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/user-update.jsx",
+                                        lineNumber: 32,
+                                        columnNumber: 13
+                                    }, this),
+                                    " ",
+                                    errorMessage.usernameErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        className: "validation-message",
+                                        children: errorMessage.usernameErr
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/user-update.jsx",
+                                        lineNumber: 40,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
                                 lineNumber: 31,
                                 columnNumber: 11
@@ -41328,30 +41380,41 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 42,
+                                lineNumber: 45,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                    type: "text",
-                                    name: "user.Password",
-                                    placeholder: "******",
-                                    value: formData.Password,
-                                    onChange: onChangeHandleUpdate
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/user-update.jsx",
-                                    lineNumber: 46,
-                                    columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                        name: "Password",
+                                        type: "text",
+                                        placeholder: "******",
+                                        value: formData.Password,
+                                        onChange: onChangeHandleUpdate
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/user-update.jsx",
+                                        lineNumber: 49,
+                                        columnNumber: 13
+                                    }, this),
+                                    " ",
+                                    errorMessage.passwordErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        className: "validation-message",
+                                        children: errorMessage.passwordErr
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/user-update.jsx",
+                                        lineNumber: 57,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 45,
+                                lineNumber: 48,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 41,
+                        lineNumber: 44,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -41365,30 +41428,44 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                                 children: "E-Mail:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 56,
+                                lineNumber: 62,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                    name: "user.E.Mail",
-                                    type: "email",
-                                    placeholder: user.Email,
-                                    value: formData.Email,
-                                    onChange: onChangeHandleUpdate
-                                }, void 0, false, {
-                                    fileName: "src/components/profile-view/user-update.jsx",
-                                    lineNumber: 60,
-                                    columnNumber: 13
-                                }, this)
-                            }, void 0, false, {
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                        name: "Email",
+                                        type: "email",
+                                        placeholder: user.Email,
+                                        value: formData.Email,
+                                        onChange: onChangeHandleUpdate
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/user-update.jsx",
+                                        lineNumber: 66,
+                                        columnNumber: 13
+                                    }, this),
+                                    " ",
+                                    errorMessage.emailErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                        className: "validation-message",
+                                        children: [
+                                            errorMessage.emailErr,
+                                            " "
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/profile-view/user-update.jsx",
+                                        lineNumber: 74,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 59,
+                                lineNumber: 65,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 55,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -41402,30 +41479,30 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                                 children: "Birthday:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 70,
+                                lineNumber: 79,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                    name: "Birthday",
                                     type: "date",
-                                    name: "user.Birthday",
                                     placeholder: birthday,
                                     value: formData.Birthday,
                                     onChange: onChangeHandleUpdate
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/user-update.jsx",
-                                    lineNumber: 74,
+                                    lineNumber: 83,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 73,
+                                lineNumber: 82,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 69,
+                        lineNumber: 78,
                         columnNumber: 9
                     }, this)
                 ]
@@ -41443,14 +41520,14 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                         children: "Update "
                     }, void 0, false, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 85,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this),
                     " my profile"
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 84,
+                lineNumber: 93,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -41463,7 +41540,7 @@ function UserUpdate({ user , setUser , setFormData , formData , handleSubmitUpda
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 87,
+                lineNumber: 96,
                 columnNumber: 7
             }, this)
         ]

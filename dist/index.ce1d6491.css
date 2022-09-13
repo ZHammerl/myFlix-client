@@ -38,6 +38,9 @@ body {
   background-color: #31081f !important;
 }
 
-
+.validation-message {
+  color: red;
+  font-size: 12px;
+}
 
 /*# sourceMappingURL=index.ce1d6491.css.map */

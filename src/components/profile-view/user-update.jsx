@@ -3,12 +3,12 @@ import { Form, Button, Col, Row, Container } from 'react-bootstrap';
 
 export function UserUpdate({
   user,
-  setUser,
   setFormData,
   formData,
   handleSubmitUpdate,
   birthday,
   toggleUpdateInfo,
+  errorMessage,
 }) {
   function onChangeHandleUpdate(e) {
     const { value, name } = e.target;
@@ -30,12 +30,15 @@ export function UserUpdate({
           </Form.Label>
           <Col>
             <Form.Control
+              name="Username"
               type="text"
-              name="user.Username"
               placeholder={user.Username}
               value={formData.Username}
               onChange={onChangeHandleUpdate}
-            />
+            />{' '}
+            {errorMessage.usernameErr && (
+              <p className="validation-message">{errorMessage.usernameErr}</p>
+            )}
           </Col>
         </Form.Group>
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
@@ -44,12 +47,15 @@ export function UserUpdate({
           </Form.Label>
           <Col>
             <Form.Control
+              name="Password"
               type="text"
-              name="user.Password"
               placeholder="******"
               value={formData.Password}
               onChange={onChangeHandleUpdate}
-            />
+            />{' '}
+            {errorMessage.passwordErr && (
+              <p className="validation-message">{errorMessage.passwordErr}</p>
+            )}
           </Col>
         </Form.Group>
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
@@ -58,12 +64,15 @@ export function UserUpdate({
           </Form.Label>
           <Col>
             <Form.Control
-              name="user.E.Mail"
+              name="Email"
               type="email"
               placeholder={user.Email}
               value={formData.Email}
               onChange={onChangeHandleUpdate}
-            />
+            />{' '}
+            {errorMessage.emailErr && (
+              <p className="validation-message">{errorMessage.emailErr} </p>
+            )}
           </Col>
         </Form.Group>
         <Form.Group className="mt-3" as={Row} controlId="formUsername">
@@ -72,8 +81,8 @@ export function UserUpdate({
           </Form.Label>
           <Col>
             <Form.Control
+              name="Birthday"
               type="date"
-              name="user.Birthday"
               placeholder={birthday}
               value={formData.Birthday}
               onChange={onChangeHandleUpdate}
