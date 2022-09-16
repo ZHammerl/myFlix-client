@@ -105,7 +105,7 @@ class MainView extends React.Component {
       this.getfavoriteMovies;
     }
 
-    console.log(this.props);
+    console.log(this.props.user);
   }
   render() {
     let { movies, user, userData, favoriteMovies } = this.props;
