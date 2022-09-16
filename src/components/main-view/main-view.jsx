@@ -100,6 +100,8 @@ export class MainView extends React.Component {
   render() {
     const { movies, user, favoriteMovies } = this.state;
 
+    console.log(this.state);
+
     return (
       <Router>
         <NavBar user={user} />
