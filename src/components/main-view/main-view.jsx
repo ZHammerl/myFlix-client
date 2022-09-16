@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 
 // Redux Action
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser, setUserData, setFavoriteMovies   } from '../../actions/actions';
 
 
 
@@ -33,6 +33,7 @@ class MainView extends React.Component {
       favoriteMovies: [],
     };
   }
+  
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
