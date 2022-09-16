@@ -20,14 +20,14 @@ export function setFilter(value) {
 
 export function setUser(user) {
   return {
-    type: SET_FILTER,
+    type: SET_USER,
     user,
   };
 }
 
 export function setUserData(userData) {
   return {
-    type: SET_FILTER,
+    type: SET_USER_DATA,
     userData,
   };
 }

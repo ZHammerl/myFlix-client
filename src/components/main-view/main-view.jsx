@@ -35,6 +35,7 @@ class MainView extends React.Component {
       })
       .then((response) => {
         // Assign the result to the state
+        console.log(response.data);
         this.props.setMovies(response.data);
       })
       .catch(function (error) {
@@ -60,9 +61,10 @@ class MainView extends React.Component {
     this.props.setUser(authData.user.Username);
     this.props.setUserData(authData.user);
 
-    localStorage.setItem('token', authData.token),
-      localStorage.setItem('user', authData.user.Username),
-      this.getMovies(authData.token);
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+
+    this.getMovies(authData.token);
     this.getfavoriteMovies(authData.token);
   }
 
@@ -100,12 +102,12 @@ class MainView extends React.Component {
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
+    console.log(accessToken);
     if (accessToken !== null) {
       this.getMovies(accessToken);
-      this.getfavoriteMovies;
+      this.getfavoriteMovies(accessToken);
+      console.log(this.props);
     }
-
-    console.log(this.props.user);
   }
   render() {
     let { movies, user, userData, favoriteMovies } = this.props;
@@ -202,6 +204,7 @@ class MainView extends React.Component {
                   <ProfileView
                     movies={movies}
                     user={user}
+                    userData={userData}
                     onBackClick={() => history.goBack()}
                     handleFav={this.handleFav}
                     favoriteMovies={favoriteMovies || []}
@@ -229,9 +232,9 @@ export default connect(mapStateToProps, { setMovies, setUser, setUserData, setFa
   MainView
 );
 
-MainView.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string,
-    password: PropTypes.string,
-  }),
-};
+// MainView.propTypes = {
+//   user: PropTypes.shape({
+//     username: PropTypes.string,
+//     password: PropTypes.string,
+//   }),
+// };
