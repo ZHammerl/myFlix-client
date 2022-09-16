@@ -2,6 +2,7 @@
 
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
@@ -56,14 +57,13 @@ class MainView extends React.Component {
 
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
   onLoggedIn(authData) {
-    const { Username } = authData.user;
-
-    this.props.setUser(Username);
+    this.props.setUser(authData.user.Username);
     this.props.setUserData(authData.user);
 
     localStorage.setItem('token', authData.token),
-      localStorage.setItem('user', Username),
+      localStorage.setItem('user', authData.user.Username),
       this.getMovies(authData.token);
+    this.getfavoriteMovies(authData.token);
   }
 
   handleFav = (movieId, action) => {
@@ -109,7 +109,7 @@ class MainView extends React.Component {
   }
   render() {
     let { movies, user, userData, favoriteMovies } = this.props;
-
+    console.log(this.props);
     return (
       <Router>
         <NavBar user={user} />
@@ -229,10 +229,9 @@ export default connect(mapStateToProps, { setMovies, setUser, setUserData, setFa
   MainView
 );
 
-
 MainView.propTypes = {
   user: PropTypes.shape({
     username: PropTypes.string,
-    password: PropTypes.string
-  })
+    password: PropTypes.string,
+  }),
 };

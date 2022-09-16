@@ -4982,6 +4982,8 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reactRedux = require("react-redux");
 var _reactRouterDom = require("react-router-dom");
 // Redux Action
@@ -5025,10 +5027,10 @@ class MainView extends (0, _reactDefault.default).Component {
         }).catch((e)=>console.log(e));
     }
     /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/ onLoggedIn(authData) {
-        const { Username  } = authData.user;
-        this.props.setUser(Username);
+        this.props.setUser(authData.user.Username);
         this.props.setUserData(authData.user);
-        localStorage.setItem("token", authData.token), localStorage.setItem("user", Username), this.getMovies(authData.token);
+        localStorage.setItem("token", authData.token), localStorage.setItem("user", authData.user.Username), this.getMovies(authData.token);
+        this.getfavoriteMovies(authData.token);
     }
     handleFav = (movieId, action)=>{
         const { user , favoriteMovies  } = this.props;
@@ -5076,6 +5078,7 @@ class MainView extends (0, _reactDefault.default).Component {
     }
     render() {
         let { movies , user , userData , favoriteMovies  } = this.props;
+        console.log(this.props);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navbar.NavBar), {
@@ -5259,9 +5262,9 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, {
     setFavoriteMovies: (0, _actions.setFavoriteMovies)
 })(MainView);
 MainView.propTypes = {
-    user: PropTypes.shape({
-        username: PropTypes.string,
-        password: PropTypes.string
+    user: (0, _propTypesDefault.default).shape({
+        username: (0, _propTypesDefault.default).string,
+        password: (0, _propTypesDefault.default).string
     })
 };
 
@@ -5270,7 +5273,7 @@ MainView.propTypes = {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","../movie-view/movie-view":"ggaUx","axios":"jo6P5","../login-view/login-view":"9YtA0","../registration-view/registration-view":"3U8r7","react-router-dom":"cHIiW","../navbar/navbar":"bNPgg","../director-view/director-view":"9tpci","../genre-view/genre-view":"4tuA0","../profile-view/profile-view":"2vVqf","react-bootstrap":"3AD9A","react-redux":"bdVon","../../actions/actions":"biFwH","../movies-list/movies-list":"bPxKK"}],"iTorj":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","../movie-view/movie-view":"ggaUx","axios":"jo6P5","../login-view/login-view":"9YtA0","../registration-view/registration-view":"3U8r7","react-router-dom":"cHIiW","../navbar/navbar":"bNPgg","../director-view/director-view":"9tpci","../genre-view/genre-view":"4tuA0","../profile-view/profile-view":"2vVqf","react-bootstrap":"3AD9A","react-redux":"bdVon","../../actions/actions":"biFwH","../movies-list/movies-list":"bPxKK","prop-types":"7wKI2"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("./cjs/react-jsx-dev-runtime.development.js");
 
