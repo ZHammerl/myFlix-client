@@ -8,9 +8,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 
 // Redux Action
-import { setMovies, setUser, setUserData, setFavoriteMovies   } from '../../actions/actions';
-
-
+import { setMovies, setUser, setUserData, setFavoriteMovies } from '../../actions/actions';
 
 // Components imports
 import MoviesList from '../movies-list/movies-list';
@@ -27,21 +25,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 class MainView extends React.Component {
   constructor() {
     super();
-    // initial state is set to null
-    this.state = {
-      user: null,
-      favoriteMovies: [],
-    };
-  }
-  
-  componentDidMount() {
-    let accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user'),
-      });
-      this.getMovies(accessToken);
-    }
   }
 
   getMovies(token) {
@@ -57,13 +40,26 @@ class MainView extends React.Component {
         console.log(error);
       });
   }
+
+  getfavoriteMovies(token) {
+    //User from redux store
+    let user = this.props.user;
+    axios
+      .get(`https://my-movie-db22.herokuapp.com/users/${user}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        this.props.setFavoriteMovies(response.data.favoriteMovies);
+      })
+      .catch((e) => console.log(e));
+  }
+
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
   onLoggedIn(authData) {
-    const { Username, Password, Birthday } = authData.user;
+    const { Username } = authData.user;
 
-    this.setState({
-      user: Username,
-    });
+    this.props.setUser(Username);
+    this.props.setUserData(authData.user);
 
     localStorage.setItem('token', authData.token),
       localStorage.setItem('user', Username),
@@ -71,7 +67,7 @@ class MainView extends React.Component {
   }
 
   handleFav = (movieId, action) => {
-    const { user, favoriteMovies } = this.state;
+    const { user, favoriteMovies } = this.props;
     const token = localStorage.getItem('token');
     if (token !== null && user !== null) {
       let url = `https://my-movie-db22.herokuapp.com/users/${user}/${movieId}`;
@@ -88,9 +84,7 @@ class MainView extends React.Component {
           });
         // Remove MovieID from Favorites (local state & webserver)
       } else if (action === 'remove') {
-        this.setState({
-          favoriteMovies: favoriteMovies.filter((id) => id !== movieId),
-        });
+        this.props.setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
         axios
           .delete(`https://my-movie-db22.herokuapp.com/users/${user}/${movieId}`, {
             headers: { Authorization: `Bearer ${token}` },
@@ -104,9 +98,17 @@ class MainView extends React.Component {
     }
   };
 
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.getMovies(accessToken);
+      this.getfavoriteMovies;
+    }
+
+    console.log(this.props);
+  }
   render() {
-    let { movies } = this.props;
-    const { user, favoriteMovies } = this.state;
+    let { movies, user, userData, favoriteMovies } = this.props;
 
     return (
       <Router>
@@ -215,7 +217,22 @@ class MainView extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-  return { movies: state.movies };
+  return {
+    movies: state.movies,
+    user: state.user,
+    userData: state.userData,
+    favoriteMovies: state.favoriteMovies,
+  };
 };
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser, setUserData, setFavoriteMovies })(
+  MainView
+);
+
+
+MainView.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string,
+    password: PropTypes.string
+  })
+};
