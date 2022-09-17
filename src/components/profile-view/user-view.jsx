@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Form, Col, Card, Container, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 export function UserView({ user, birthday, toggleUpdateInfo, handleDelete }) {
   return (

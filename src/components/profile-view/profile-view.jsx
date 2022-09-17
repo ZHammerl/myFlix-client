@@ -32,73 +32,11 @@ export function ProfileView({ props }) {
     }
   };
 
-  const [formData, setFormData] = useState({
-    Username: '',
-    Password: '',
-    Birthday: '',
-    Email: '',
-  });
-
-  // hooks for user inputs
-  const [errorMessage, setErrorMessage] = useState({
-    usernameErr: '',
-    passwordErr: '',
-    birthdayErr: '',
-    emailErr: '',
-  });
-
-  // user validation
-  const validate = () => {
-    let isReq = true;
-    setErrorMessage((prevValue) => {
-      return {
-        usernameErr: '',
-        passwordErr: '',
-        emailErr: '',
-        birthdayErr: '',
-      };
-    });
-    if (!formData.Username) {
-      setErrorMessage((prevValue) => {
-        return { ...prevValue, usernameErr: 'Username is required' };
-      });
-      isReq = false;
-    } else if (formData.Username.length < 2) {
-      setErrorMessage((prevValue) => {
-        return { ...prevValue, usernameErr: 'Username must be at least 2 characters long' };
-      });
-      isReq = false;
-    }
-    if (!formData.Password) {
-      setErrorMessage((prevValue) => {
-        return { ...prevValue, passwordErr: 'Password is required.' };
-      });
-      isReq = false;
-    } else if (formData.Password < 6) {
-      setErrorMessage((prevValue) => {
-        return { ...prevValue, passwordErr: 'Password must be at least 6 characters long' };
-      });
-      isReq = false;
-    }
-    if (!formData.Email) {
-      setErrorMessage((prevValue) => {
-        return { ...prevValue, emailErr: 'Email is required.' };
-      });
-      isReq = false;
-    } else if (formData.Email.indexOf('@') < 1) {
-      setErrorMessage((prevValue) => {
-        return { ...prevValue, emailErr: 'Email is invalid' };
-      });
-      isReq = false;
-    }
-    return isReq;
-  };
-
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  // useEffect(() => {
+  //   getUserData();
+  // }, []);
 
   const formattedBday = new Date(Birthday);
   function padTo2Digits(num) {
@@ -124,34 +62,26 @@ export function ProfileView({ props }) {
   const birthdayFormatted = formatDate(formattedBday);
   const birthdayYYYYMMDD = formatDateYYYYMMDD(formattedBday);
 
-  const handleSubmitUpdate = (e) => {
-    e.preventDefault();
-    const isReq = validate();
-    if (isReq) {
+  const handleUpdateUser = (updatedUser, token) => {
+    const { Username } = updatedUser;
+    if (Username && updatedUser && token) {
       axios
         .put(
           `https://my-movie-db22.herokuapp.com/users/${Username}`,
-          {
-            Username: formData.Username,
-            Password: formData.Password,
-            Email: formData.Email,
-            Birthday: formData.Birthday,
-          },
+          { ...updatedUser },
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         )
         .then((response) => {
-          console.log(response.data);
-          setUsername(response.data);
-          localStorage.setItem('user', formData.Username);
           const data = response.data;
-          console.log(data);
+          // update store user
+          updateUser({ ...updatedUser, FavoriteMovies });
           alert('Profile is updated!');
-          window.open(`/users/${formData.Username}`, '_self');
+          window.open(`/users/${Username}`, '_self');
         })
-        .catch((response) => {
-          console.error(response);
+        .catch((err) => {
+          console.log('error updating user:', err);
         });
     }
   };
@@ -175,12 +105,9 @@ export function ProfileView({ props }) {
         />
       ) : (
         <UserUpdate
-          formData={formData}
-          setFormData={setFormData}
-          errorMessage={errorMessage}
-          setErrorMessage={setErrorMessage}
+          user={user}
+          handleUpdateUser={handleUpdateUser}
           birthday={birthdayYYYYMMDD}
-          handleSubmitUpdate={handleSubmitUpdate}
           toggleUpdateInfo={toggleUpdateInfo}></UserUpdate>
       )}
 
