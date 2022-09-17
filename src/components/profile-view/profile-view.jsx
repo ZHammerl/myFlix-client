@@ -5,14 +5,12 @@ import { FavoriteMovies } from './favorite-movies';
 import { UserView } from './user-view';
 import { UserUpdate } from './user-update';
 
-export function ProfileView({ movies, favoriteMovies, handleFav }) {
-  const [user, setUser] = useState({
-    Username: '',
-    Password: '',
-    FavoriteMovies: [],
-    Birthday: '',
-    Email: '',
-  });
+import { connect } from 'react-redux';
+
+import { setUser, setFavorites, setUserData } from '../../actions/actions';
+
+export function ProfileView({ props }) {
+  const { movies, favoriteMovies, handleFav, user, userData } = props;
 
   const [formData, setFormData] = useState({
     Username: '',
@@ -21,11 +19,9 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
     Email: '',
   });
 
-  const [updateInfo, setUpdateInfo] = useState(false);
+  
 
-  const toggleUpdateInfo = () => {
-    setUpdateInfo(!updateInfo);
-  };
+  
 
   // hooks for user inputs
   const [errorMessage, setErrorMessage] = useState({
@@ -73,7 +69,7 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
         return { ...prevValue, emailErr: 'Email is required.' };
       });
       isReq = false;
-    } else if (user.Email.indexOf('@') < 1) {
+    } else if (username.Email.indexOf('@') < 1) {
       setErrorMessage((prevValue) => {
         return { ...prevValue, emailErr: 'Email is invalid' };
       });
@@ -82,22 +78,22 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
     return isReq;
   };
 
-  const currentUser = localStorage.getItem('user');
   const token = localStorage.getItem('token');
 
-  const getUser = () => {
+  const getUserData = () => {
     axios
-      .get(`https://my-movie-db22.herokuapp.com/users/${currentUser}`, {
+      .get(`https://my-movie-db22.herokuapp.com/users/${user}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        setUser(response.data);
+        setUserData(response.data);
+        setFavorites(response.data.favoriteMovies);
       })
-      .catch((error) => console.error('getUser Error ' + error));
+      .catch((error) => console.error('getUserData Error ' + error));
   };
 
   useEffect(() => {
-    getUser();
+    getUserData();
   }, []);
 
   const formattedBday = new Date(user.Birthday);
@@ -124,13 +120,14 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
   const birthdayFormatted = formatDate(formattedBday);
   const birthdayYYYYMMDD = formatDateYYYYMMDD(formattedBday);
 
+
   const handleSubmitUpdate = (e) => {
     e.preventDefault();
     const isReq = validate();
     if (isReq) {
       axios
         .put(
-          `https://my-movie-db22.herokuapp.com/users/${user.Username}`,
+          `https://my-movie-db22.herokuapp.com/users/${user}`,
           {
             Username: formData.Username,
             Password: formData.Password,
@@ -143,7 +140,7 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
         )
         .then((response) => {
           console.log(response.data);
-          setUser(response.data);
+          setUsername(response.data);
           localStorage.setItem('user', formData.Username);
           const data = response.data;
           console.log(data);
@@ -175,20 +172,24 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
   };
 
   console.log(user);
+
+  // for Button to switch from UserView to UpdateView
+  const [updateInfo, setUpdateInfo] = useState(false);
+  const toggleUpdateInfo = () => {
+    setUpdateInfo(!updateInfo);
+  };
+  
   if (!user) return <div className="main-view">Loading...</div>;
   return (
     <Container className="profile-view">
       {!updateInfo ? (
         <UserView
-          user={user}
           birthday={birthdayFormatted}
           toggleUpdateInfo={toggleUpdateInfo}
           handleDelete={handleDelete}
         />
       ) : (
         <UserUpdate
-          user={user}
-          setUser={setUser}
           formData={formData}
           setFormData={setFormData}
           errorMessage={errorMessage}
@@ -199,9 +200,9 @@ export function ProfileView({ movies, favoriteMovies, handleFav }) {
       )}
 
       <h4>My favorite movies:</h4>
-      {user.FavoriteMovies.length !== 0 ? (
+      {favoriteMovies.length !== 0 ? (
         <Row className="justify-content mt-3">
-          {user.FavoriteMovies.map((movieId) => {
+          {favoriteMovies.map((movieId) => {
             let movie = movies.find((m) => m._id === movieId);
             return (
               <FavoriteMovies

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Button, Col, Row, Container } from 'react-bootstrap';
 
+import { setUser, setFavorites, setUserData } from '../../actions/actions';
+
 export function UserUpdate({
-  user,
+  
   setFormData,
   formData,
   handleSubmitUpdate,

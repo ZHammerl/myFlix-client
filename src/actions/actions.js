@@ -1,8 +1,6 @@
 export const SET_MOVIES = 'SET_MOVIES';
 export const SET_FILTER = 'SET_FILTER';
 export const SET_USER = 'SET_USER';
-export const SET_USER_DATA = 'SET_USER_DATA';
-export const SET_FAV_MOVIES = 'SET_FAV_MOVIES';
 
 export function setMovies(value) {
   return {
@@ -18,20 +16,9 @@ export function setFilter(value) {
   };
 }
 
-export function setUser(user) {
+export function setUser(value) {
   return {
     type: SET_USER,
-    user,
+    value,
   };
-}
-
-export function setUserData(userData) {
-  return {
-    type: SET_USER_DATA,
-    userData,
-  };
-}
-
-export function setFavoriteMovies(value) {
-  return { type: SET_FAV_MOVIES, value };
 }
