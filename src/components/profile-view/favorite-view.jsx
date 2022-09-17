@@ -4,7 +4,7 @@ import { Col, Container, Row, Card, Button } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
-export function FavoriteMovies({ movieData, handleFav }) {
+export function FavoriteView({ movieData, handleFav }) {
   return (
     <Col
       xs={12}

@@ -1,16 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Row, Container } from 'react-bootstrap';
-import { FavoriteMovies } from './favorite-movies';
+import { FavoriteView } from './favorite-view';
 import { UserView } from './user-view';
 import { UserUpdate } from './user-update';
 
 import { connect } from 'react-redux';
 
-import { setUser, setFavorites, setUserData } from '../../actions/actions';
+import { updateUser, deleteUser } from '../../actions/actions';
 
 export function ProfileView({ props }) {
-  const { movies, favoriteMovies, handleFav, user, userData } = props;
+  const { movies, handleFav, user, updateUser, deleteUser } = props;
+  const { Username, Email, Birthday, FavoriteMovies } = user;
+
+  const handleDelete = () => {
+    if (Username && token) {
+      let sure = confirm('Are you sure? This action is irreversible and will ERASE your account.');
+      if (!sure) return;
+      // request to Delete user from webserver
+      axios
+        .delete(`https://my-movie-db22.herokuapp.com/users/${user._id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(() => {
+          alert(`The account ${Username} was successfully deleted.`);
+          localStorage.clear();
+          deleteUser({});
+          window.open('/register', '_self');
+        })
+        .catch((error) => console.error('handleDelete Error ' + error));
+    }
+  };
 
   const [formData, setFormData] = useState({
     Username: '',
@@ -18,10 +38,6 @@ export function ProfileView({ props }) {
     Birthday: '',
     Email: '',
   });
-
-  
-
-  
 
   // hooks for user inputs
   const [errorMessage, setErrorMessage] = useState({
@@ -69,7 +85,7 @@ export function ProfileView({ props }) {
         return { ...prevValue, emailErr: 'Email is required.' };
       });
       isReq = false;
-    } else if (username.Email.indexOf('@') < 1) {
+    } else if (formData.Email.indexOf('@') < 1) {
       setErrorMessage((prevValue) => {
         return { ...prevValue, emailErr: 'Email is invalid' };
       });
@@ -80,23 +96,11 @@ export function ProfileView({ props }) {
 
   const token = localStorage.getItem('token');
 
-  const getUserData = () => {
-    axios
-      .get(`https://my-movie-db22.herokuapp.com/users/${user}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setUserData(response.data);
-        setFavorites(response.data.favoriteMovies);
-      })
-      .catch((error) => console.error('getUserData Error ' + error));
-  };
-
   useEffect(() => {
     getUserData();
   }, []);
 
-  const formattedBday = new Date(user.Birthday);
+  const formattedBday = new Date(Birthday);
   function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
@@ -120,14 +124,13 @@ export function ProfileView({ props }) {
   const birthdayFormatted = formatDate(formattedBday);
   const birthdayYYYYMMDD = formatDateYYYYMMDD(formattedBday);
 
-
   const handleSubmitUpdate = (e) => {
     e.preventDefault();
     const isReq = validate();
     if (isReq) {
       axios
         .put(
-          `https://my-movie-db22.herokuapp.com/users/${user}`,
+          `https://my-movie-db22.herokuapp.com/users/${Username}`,
           {
             Username: formData.Username,
             Password: formData.Password,
@@ -153,24 +156,6 @@ export function ProfileView({ props }) {
     }
   };
 
-  const handleDelete = () => {
-    if (user && token) {
-      let sure = confirm('Are you sure? This action is irreversible and will ERASE your account.');
-      if (!sure) return;
-      // request to Delete user from webserver
-      axios
-        .delete(`https://my-movie-db22.herokuapp.com/users/${user._id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then(() => {
-          alert(`The account ${user.Username} was successfully deleted.`);
-          localStorage.clear();
-          window.open('/register', '_self');
-        })
-        .catch((error) => console.error('handleDelete Error ' + error));
-    }
-  };
-
   console.log(user);
 
   // for Button to switch from UserView to UpdateView
@@ -178,7 +163,7 @@ export function ProfileView({ props }) {
   const toggleUpdateInfo = () => {
     setUpdateInfo(!updateInfo);
   };
-  
+
   if (!user) return <div className="main-view">Loading...</div>;
   return (
     <Container className="profile-view">
@@ -200,17 +185,15 @@ export function ProfileView({ props }) {
       )}
 
       <h4>My favorite movies:</h4>
-      {favoriteMovies.length !== 0 ? (
+      {FavoriteMovies.length !== 0 ? (
         <Row className="justify-content mt-3">
-          {favoriteMovies.map((movieId) => {
+          {FavoriteMovies.map((movieId) => {
             let movie = movies.find((m) => m._id === movieId);
             return (
-              <FavoriteMovies
-                handleFav={handleFav}
-                key={movieId}
-                movieData={movie}
-                user={user}
-                token={token}></FavoriteMovies>
+              <FavoriteView handleFav={handleFav} key={movieId} movieData={movie} token={token}>
+                {' '}
+                {movie.Title}
+              </FavoriteView>
             );
           })}
         </Row>
@@ -223,3 +206,11 @@ export function ProfileView({ props }) {
     </Container>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    movies: state.movies,
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps, { deleteUser, updateUser })(ProfileView);

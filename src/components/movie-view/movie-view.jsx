@@ -17,15 +17,11 @@ export function MovieView({ movieData, onBackClick, handleFav, isFavorite }) {
           {' '}
           {movieData.Title}{' '}
           {!isFavorite ? (
-            <Button
-              className="button-fav"
-              onClick={() => {
-                handleFav(movieData._id, 'add');
-              }}>
+            <Button className="button-fav" onClick={() => handleFav(movieData._id, 'add')}>
               🤍
             </Button>
           ) : (
-            <div />
+            <div>🤍</div>
           )}
         </Card.Title>
 
