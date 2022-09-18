@@ -1,7 +1,16 @@
+.validation-message {
+  color: red;
+  font-size: 12px;
+}
 
+.button-fav {
+  float: right !important;
+  background-color: #31081f !important;
+}
 
-.my-flix {
-  color: #31081f;
+body {
+  color: #fff !important;
+  background: #150004 !important;
 }
 
 .btn-primary {
@@ -20,6 +29,18 @@
 
 .bg-clr-header {
   background-color: #150004 !important;
+}
+
+.nav-bar {
+  color: #fff !important;
+}
+
+.cardText {
+  color: #31081f !important;
+}
+
+.button-fav {
+  background: #31081f !important;
 }
 
 /*# sourceMappingURL=index.3bb28fe2.css.map */

@@ -7,28 +7,48 @@ import { UserUpdate } from './user-update';
 
 import { connect } from 'react-redux';
 
-import { updateUser, deleteUser } from '../../actions/actions';
+import {
+  updateUser,
+  deleteUser,
+} from '../../actions/actions';
 
 export function ProfileView({ props }) {
-  const { movies, handleFav, user, updateUser, deleteUser } = props;
-  const { Username, Email, Birthday, FavoriteMovies } = user;
+  const {
+    movies,
+    handleFav,
+    user,
+    updateUser,
+    deleteUser,
+  } = props;
+  const { Username, Birthday, FavoriteMovies } = user;
+
+  console.log(user);
 
   const handleDelete = () => {
     if (Username && token) {
-      let sure = confirm('Are you sure? This action is irreversible and will ERASE your account.');
+      let sure = confirm(
+        'Are you sure? This action is irreversible and will ERASE your account.'
+      );
       if (!sure) return;
       // request to Delete user from webserver
       axios
-        .delete(`https://my-movie-db22.herokuapp.com/users/${user._id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .delete(
+          `https://my-movie-db22.herokuapp.com/users/${user._id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
         .then(() => {
-          alert(`The account ${Username} was successfully deleted.`);
+          alert(
+            `The account ${Username} was successfully deleted.`
+          );
           localStorage.clear();
           deleteUser({});
           window.open('/register', '_self');
         })
-        .catch((error) => console.error('handleDelete Error ' + error));
+        .catch((error) =>
+          console.error('handleDelete Error ' + error)
+        );
     }
   };
 
@@ -60,7 +80,8 @@ export function ProfileView({ props }) {
   }
 
   const birthdayFormatted = formatDate(formattedBday);
-  const birthdayYYYYMMDD = formatDateYYYYMMDD(formattedBday);
+  const birthdayYYYYMMDD =
+    formatDateYYYYMMDD(formattedBday);
 
   const handleUpdateUser = (updatedUser, token) => {
     const { Username } = updatedUser;
@@ -94,7 +115,8 @@ export function ProfileView({ props }) {
     setUpdateInfo(!updateInfo);
   };
 
-  if (!user) return <div className="main-view">Loading...</div>;
+  if (!user)
+    return <div className="main-view">Loading...</div>;
   return (
     <Container className="profile-view">
       {!updateInfo ? (
@@ -115,9 +137,15 @@ export function ProfileView({ props }) {
       {FavoriteMovies.length !== 0 ? (
         <Row className="justify-content mt-3">
           {FavoriteMovies.map((movieId) => {
-            let movie = movies.find((m) => m._id === movieId);
+            let movie = movies.find(
+              (m) => m._id === movieId
+            );
             return (
-              <FavoriteView handleFav={handleFav} key={movieId} movieData={movie} token={token}>
+              <FavoriteView
+                handleFav={handleFav}
+                key={movieId}
+                movieData={movie}
+                token={token}>
                 {' '}
                 {movie.Title}
               </FavoriteView>
@@ -126,8 +154,10 @@ export function ProfileView({ props }) {
         </Row>
       ) : (
         <h6 className="subtitle">
-          You don't have any movies in your favorite movies list yet. Got to{' '}
-          <Button href="/"> Movie List</Button> to add movies to your favorite list
+          You don't have any movies in your favorite movies
+          list yet. Got to{' '}
+          <Button href="/"> Movie List</Button> to add
+          movies to your favorite list
         </h6>
       )}
     </Container>
@@ -140,4 +170,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { deleteUser, updateUser })(ProfileView);
+export default connect(mapStateToProps, {
+  deleteUser,
+  updateUser,
+})(ProfileView);
