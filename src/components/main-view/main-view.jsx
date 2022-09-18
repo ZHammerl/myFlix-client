@@ -41,8 +41,11 @@ class MainView extends React.Component {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
       this.getMovies(accessToken);
+      this.getUser(accessToken);
+      console.log('componentDidMount');
     }
   }
+
   getMovies(token) {
     axios
       .get('https://my-movie-db22.herokuapp.com/movies', {
@@ -63,6 +66,21 @@ class MainView extends React.Component {
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Username);
     this.getMovies(authData.token);
+  }
+
+  getUser(token) {
+    const user = localStorage.getItem('user');
+    axios
+      .get(
+        `https://my-movie-db22.herokuapp.com/movies/${user}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((response) => {
+        this.props.setUser(response.data);
+      })
+      .catch((err) => {
+        console.log('getUser', err);
+      });
   }
 
   // adding or removing a favorite movie
