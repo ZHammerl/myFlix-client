@@ -22,8 +22,6 @@ export function ProfileView(props) {
   } = props;
   const { Username, Birthday, FavoriteMovies } = user;
 
-  console.log(user);
-
   const handleDelete = () => {
     if (Username && token) {
       let sure = confirm(
@@ -53,10 +51,6 @@ export function ProfileView(props) {
   };
 
   const token = localStorage.getItem('token');
-
-  // useEffect(() => {
-  //   getUserData();
-  // }, []);
 
   const formattedBday = new Date(Birthday);
   function padTo2Digits(num) {
@@ -97,9 +91,12 @@ export function ProfileView(props) {
         )
         .then((response) => {
           const data = response.data;
-          console.log(data);
           // update store user
-          // updateUser({ ...updatedUser });
+          updateUser({ ...updatedUser, FavoriteMovies });
+          localStorage.setItem(
+            'user',
+            updatedUser.Username
+          );
           alert('Profile is updated!');
           window.open(
             `/users/${updatedUser.Username}`,

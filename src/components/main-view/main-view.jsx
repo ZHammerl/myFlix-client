@@ -28,7 +28,7 @@ import { MovieView } from '../movie-view/movie-view';
 import { NavBar } from '../navbar/navbar';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-import { ProfileView } from '../profile-view/profile-view';
+import ProfileView from '../profile-view/profile-view';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
@@ -132,7 +132,7 @@ class MainView extends React.Component {
   render() {
     const { user, movies } = this.props;
     const { Username, FavoriteMovies } = user;
-    console.log(movies);
+    console.log(user);
     return (
       <Router>
         <NavBar user={Username} />
@@ -266,7 +266,6 @@ class MainView extends React.Component {
             <Route
               path={`/users/${Username}`}
               render={({ history }) => {
-                console.log(Username);
                 if (!Username) return <Redirect to="/" />;
                 if (movies.length === 0)
                   return (
