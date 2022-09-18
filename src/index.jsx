@@ -19,7 +19,7 @@ class MyFlixApplication extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Container>
+        <Container fluid>
           <MainView />
         </Container>
       </Provider>
@@ -28,7 +28,10 @@ class MyFlixApplication extends React.Component {
 }
 
 // Finds the root of your app
-const container = document.getElementsByClassName('app-container')[0];
+const container =
+  document.getElementsByClassName('app-container')[0];
 
 // Tells React to render your app in the root DOM element
-createRoot(container).render(React.createElement(MyFlixApplication));
+createRoot(container).render(
+  React.createElement(MyFlixApplication)
+);

@@ -138,7 +138,7 @@ export function ProfileView(props) {
 
       <h4>My favorite movies:</h4>
       {FavoriteMovies.length !== 0 ? (
-        <Row className="align-item-stretch mt-3">
+        <Row className="d-flex align-item-stretch mt-3">
           {FavoriteMovies.map((movieId) => {
             let movie = movies.find(
               (m) => m._id === movieId

@@ -8,6 +8,10 @@
   background-color: #31081f !important;
 }
 
+html {
+  font-size: 1.5rem;
+}
+
 body {
   color: #fff !important;
   background: #150004 !important;
@@ -41,6 +45,12 @@ body {
 
 .button-fav {
   background: #31081f !important;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: 2rem !important;
+  }
 }
 
 /*# sourceMappingURL=index.3bb28fe2.css.map */

@@ -21,14 +21,18 @@ export function LoginView(props) {
       setUsernameErr('Username is required');
       isReq = false;
     } else if (username.length < 2) {
-      setUsernameErr('Username must be at least 2 characters long');
+      setUsernameErr(
+        'Username must be at least 2 characters long'
+      );
       isReq = false;
     }
     if (!password) {
       setPasswordErr('Password is required');
       isReq = false;
     } else if (password.length < 6) {
-      setPasswordErr('Password must be at least 6 characters long');
+      setPasswordErr(
+        'Password must be at least 6 characters long'
+      );
       isReq = false;
     }
     return isReq;
@@ -46,7 +50,8 @@ export function LoginView(props) {
           Username: username,
           Password: password,
         })
-        .then((response) => {       // response from the server incl. token
+        .then((response) => {
+          // response from the server incl. token
           const data = response.data;
           console.log(data);
           props.onLoggedIn(data);
@@ -64,7 +69,7 @@ export function LoginView(props) {
         <Form.Label column sm="12">
           Username:
         </Form.Label>
-        <Col sm="6">
+        <Col sm="10">
           <Form.Control
             type="text"
             placeholder="Enter username"
@@ -74,11 +79,14 @@ export function LoginView(props) {
           {usernameErr && <p>{usernameErr}</p>}
         </Col>
       </Form.Group>
-      <Form.Group as={Row} className="mb-3" controlId="formPassword">
+      <Form.Group
+        as={Row}
+        className="mb-3"
+        controlId="formPassword">
         <Form.Label column sm="12">
           Password:
         </Form.Label>{' '}
-        <Col sm="6">
+        <Col sm="10">
           <Form.Control
             type="password"
             placeholder="Password"
@@ -88,7 +96,10 @@ export function LoginView(props) {
           {passwordErr && <p>{passwordErr}</p>}
         </Col>
       </Form.Group>
-      <Button className="mr-3" type="submit" onClick={handleSubmit}>
+      <Button
+        className="mr-3"
+        type="submit"
+        onClick={handleSubmit}>
         Submit
       </Button>
     </Form>

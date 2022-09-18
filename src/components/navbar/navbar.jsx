@@ -12,7 +12,7 @@ export function NavBar({ user }) {
     return userToken ? userToken : false;
   };
   return (
-    <Navbar variant="dark" className="mb-3">
+    <Navbar variant="dark">
       <Container>
         <Navbar.Brand className="navbar-logo" href="/">
           my Flix App
@@ -21,11 +21,11 @@ export function NavBar({ user }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="nav-bar">
             {getToken() && (
-              <Nav.Link href="/">All movies</Nav.Link>
+              <Nav.Link href="/">Movies</Nav.Link>
             )}
             {getToken() && (
               <Nav.Link href={`/users/${user}`}>
-                My Profile
+                {user}
               </Nav.Link>
             )}
             {!getToken() && (

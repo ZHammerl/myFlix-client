@@ -31,14 +31,18 @@ export function RegistrationView(props) {
     });
     if (!username) {
       setValues((prevValue) => {
-        return { ...prevValue, usernameErr: 'Username is required' };
+        return {
+          ...prevValue,
+          usernameErr: 'Username is required',
+        };
       });
       isReq = false;
     } else if (username.length < 2) {
       setValues((prevValue) => {
         return {
           ...prevValue,
-          usernameErr: 'Username must be at least 2 characters long',
+          usernameErr:
+            'Username must be at least 2 characters long',
         };
       });
       isReq = false;
@@ -55,7 +59,8 @@ export function RegistrationView(props) {
       setValues((prevValue) => {
         return {
           ...prevValue,
-          passwordErr: 'Password must be at least 6 characters long',
+          passwordErr:
+            'Password must be at least 6 characters long',
         };
       });
       isReq = false;
@@ -105,55 +110,77 @@ export function RegistrationView(props) {
 
   return (
     <Form className="justify-content-sm-center">
-      <Form.Group as={Row} controlId="formUsername" className="reg-form-inputs">
+      <Form.Group
+        as={Row}
+        controlId="formUsername"
+        className="reg-form-inputs">
         <Form.Label column="true" sm="12">
           Username:
         </Form.Label>
-        <Col sm="6">
+        <Col sm="10">
           <Form.Control
             type="text"
             placeholder="Enter username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          {values.usernameErr && <p className="validation-message">{values.usernameErr}</p>}
+          {values.usernameErr && (
+            <p className="validation-message">
+              {values.usernameErr}
+            </p>
+          )}
         </Col>
       </Form.Group>
-      <Form.Group as={Row} controlId="formPassword" className="reg-form-inputs">
+      <Form.Group
+        as={Row}
+        controlId="formPassword"
+        className="reg-form-inputs">
         <Form.Label column="true" sm="12">
           Password:
         </Form.Label>
-        <Col sm="6">
+        <Col sm="10">
           <Form.Control
             type="password"
             value={password}
             placeholder="Enter password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          {values.passwordErr && <p className="validation-message">{values.passwordErr}</p>}
+          {values.passwordErr && (
+            <p className="validation-message">
+              {values.passwordErr}
+            </p>
+          )}
         </Col>
       </Form.Group>
-      <Form.Group as={Row} controlId="formEmail" className="reg-form-inputs">
+      <Form.Group
+        as={Row}
+        controlId="formEmail"
+        className="reg-form-inputs">
         <Form.Label column="true" sm="12">
           E-Mail:
         </Form.Label>
-        <Col sm="6">
+        <Col sm="10">
           <Form.Control
-            column="true"
-            sm="6"
             type="email"
             value={email}
             placeholder="Enter Email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          {values.emailErr && <p className="validation-message">{values.emailErr} </p>}
+          {values.emailErr && (
+            <p className="validation-message">
+              {values.emailErr}{' '}
+            </p>
+          )}
         </Col>
       </Form.Group>
-      <Form.Group className="mb-3 reg-form-inputs" as={Row} controlId="formBirthday">
+      <Form.Group
+        className="mb-3 reg-form-inputs"
+        as={Row}
+        controlId="formBirthday">
         <Form.Label column="true" sm="12">
           Birth date:
         </Form.Label>
-        <Col sm="6">
+        <Col sm="10">
           <Form.Control
             type="date"
             value={birthday}
@@ -161,7 +188,10 @@ export function RegistrationView(props) {
           />
         </Col>
       </Form.Group>
-      <Button type="button" className="mr-3" onClick={handleSubmit}>
+      <Button
+        type="button"
+        className="mr-3"
+        onClick={handleSubmit}>
         Sign up
       </Button>
       <Button type="button" href="/">

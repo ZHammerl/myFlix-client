@@ -136,8 +136,8 @@ class MainView extends React.Component {
     return (
       <Router>
         <NavBar user={Username} />
-        <Container>
-          <Row className="main-view justify-content-md-center mx-auto ">
+        <Container fluid>
+          <Row className="main-view-width justify-content-md-center mx-auto">
             <Route
               exact
               path="/"

@@ -2,6 +2,10 @@ $color1: #150004;
 $color2: #31081f;
 $color3: #6b0f1a;
 
+html {
+  font-size: 1.5rem;
+}
+
 body {
   background: $color1 !important;
   color: white !important;
@@ -34,4 +38,10 @@ body {
 
 .button-fav {
   background: $color2 !important;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: 2rem !important;
+  }
 }
