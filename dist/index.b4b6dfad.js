@@ -40288,7 +40288,6 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
-var _reactRouterDom = require("react-router-dom");
 function NavBar({ user  }) {
     const onLoggedOut = ()=>{
         localStorage.clear();
@@ -40310,14 +40309,14 @@ function NavBar({ user  }) {
                     children: "my Flix App"
                 }, void 0, false, {
                     fileName: "src/components/navbar/navbar.jsx",
-                    lineNumber: 19,
+                    lineNumber: 17,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "basic-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/navbar/navbar.jsx",
-                    lineNumber: 22,
+                    lineNumber: 20,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -40330,32 +40329,32 @@ function NavBar({ user  }) {
                                 children: "All movies"
                             }, void 0, false, {
                                 fileName: "src/components/navbar/navbar.jsx",
-                                lineNumber: 25,
-                                columnNumber: 28
+                                lineNumber: 24,
+                                columnNumber: 15
                             }, this),
                             getToken() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                 href: `/users/${user}`,
                                 children: "My Profile"
                             }, void 0, false, {
                                 fileName: "src/components/navbar/navbar.jsx",
-                                lineNumber: 26,
-                                columnNumber: 28
+                                lineNumber: 27,
+                                columnNumber: 15
                             }, this),
                             !getToken() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                 href: "/register",
                                 children: "Sign up"
                             }, void 0, false, {
                                 fileName: "src/components/navbar/navbar.jsx",
-                                lineNumber: 27,
-                                columnNumber: 29
+                                lineNumber: 32,
+                                columnNumber: 15
                             }, this),
                             !getToken() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                 href: "/",
                                 children: "Login"
                             }, void 0, false, {
                                 fileName: "src/components/navbar/navbar.jsx",
-                                lineNumber: 28,
-                                columnNumber: 29
+                                lineNumber: 35,
+                                columnNumber: 15
                             }, this),
                             getToken() && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                 onClick: ()=>{
@@ -40364,29 +40363,29 @@ function NavBar({ user  }) {
                                 children: "Logout"
                             }, void 0, false, {
                                 fileName: "src/components/navbar/navbar.jsx",
-                                lineNumber: 30,
+                                lineNumber: 38,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/navbar/navbar.jsx",
-                        lineNumber: 24,
+                        lineNumber: 22,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/navbar/navbar.jsx",
-                    lineNumber: 23,
+                    lineNumber: 21,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/navbar/navbar.jsx",
-            lineNumber: 18,
+            lineNumber: 16,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "src/components/navbar/navbar.jsx",
-        lineNumber: 17,
+        lineNumber: 15,
         columnNumber: 5
     }, this);
 }
@@ -40399,7 +40398,7 @@ $RefreshReg$(_c, "NavBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"cHIiW","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9tpci":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9tpci":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$ad4a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -43188,44 +43187,48 @@ function MoviesList(props) {
         className: "main-view"
     }, void 0, false, {
         fileName: "src/components/movies-list/movies-list.jsx",
-        lineNumber: 24,
+        lineNumber: 26,
         columnNumber: 23
     }, this);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                md: 12,
-                style: {
-                    margin: "2em"
-                },
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _visibilityFilterInputDefault.default), {
-                    visibilityFilter: visibilityFilter
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                    md: 12,
+                    style: {
+                        margin: "2em"
+                    },
+                    className: "align-left",
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _visibilityFilterInputDefault.default), {
+                        visibilityFilter: visibilityFilter
+                    }, void 0, false, {
+                        fileName: "src/components/movies-list/movies-list.jsx",
+                        lineNumber: 35,
+                        columnNumber: 11
+                    }, this)
                 }, void 0, false, {
                     fileName: "src/components/movies-list/movies-list.jsx",
-                    lineNumber: 29,
+                    lineNumber: 31,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/movies-list/movies-list.jsx",
-                lineNumber: 28,
+                lineNumber: 30,
                 columnNumber: 7
             }, this),
-            filteredMovies.map((m)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                    xs: 12,
-                    sm: 6,
-                    md: 3,
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                children: filteredMovies.map((m)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                         movieData: m
                     }, void 0, false, {
                         fileName: "src/components/movies-list/movies-list.jsx",
-                        lineNumber: 34,
+                        lineNumber: 42,
                         columnNumber: 11
-                    }, this)
-                }, movies._id, false, {
-                    fileName: "src/components/movies-list/movies-list.jsx",
-                    lineNumber: 33,
-                    columnNumber: 9
-                }, this))
+                    }, this))
+            }, void 0, false, {
+                fileName: "src/components/movies-list/movies-list.jsx",
+                lineNumber: 40,
+                columnNumber: 7
+            }, this)
         ]
     }, void 0, true);
 }
@@ -43255,11 +43258,10 @@ var _reactRedux = require("react-redux");
 var _reactBootstrap = require("react-bootstrap");
 var _actions = require("../../actions/actions");
 function VisibilityFilterInput(props) {
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "mb-3",
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                children: "Search Titles:"
+                children: "Search:"
             }, void 0, false, {
                 fileName: "src/components/visibility-filter-input/visibility-filter-input.jsx",
                 lineNumber: 10,
@@ -43271,7 +43273,7 @@ function VisibilityFilterInput(props) {
                 placeholder: "filter"
             }, void 0, false, {
                 fileName: "src/components/visibility-filter-input/visibility-filter-input.jsx",
-                lineNumber: 12,
+                lineNumber: 11,
                 columnNumber: 7
             }, this)
         ]

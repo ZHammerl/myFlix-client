@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import { MovieCard } from '../movie-card/movie-card';
@@ -17,7 +17,9 @@ function MoviesList(props) {
 
   if (visibilityFilter !== '') {
     filteredMovies = movies.filter((m) =>
-      m.Title.toLowerCase().includes(visibilityFilter.toLowerCase())
+      m.Title.toLowerCase().includes(
+        visibilityFilter.toLowerCase()
+      )
     );
   }
 
@@ -25,15 +27,21 @@ function MoviesList(props) {
 
   return (
     <>
-      <Col md={12} style={{ margin: '2em' }}>
-        <VisibilityFilterInput visibilityFilter={visibilityFilter} />
-      </Col>
-
-      {filteredMovies.map((m) => (
-        <Col xs={12} sm={6} md={3} key={movies._id}>
-          <MovieCard movieData={m} />
+      <Row>
+        <Col
+          md={12}
+          style={{ margin: '2em' }}
+          className="align-left">
+          <VisibilityFilterInput
+            visibilityFilter={visibilityFilter}
+          />
         </Col>
-      ))}
+      </Row>
+      <Row>
+        {filteredMovies.map((m) => (
+          <MovieCard movieData={m} />
+        ))}
+      </Row>
     </>
   );
 }
