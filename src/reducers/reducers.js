@@ -35,17 +35,27 @@ function user(state = {}, action) {
     case UPDATE_USER:
       return action.value;
     case DELETE_USER:
-      console.log('reducers.js user payload: ', action.value);
+      console.log(
+        'reducers.js user payload: ',
+        action.value
+      );
       return action.value;
     case ADD_FAVORITE:
       return {
         ...state,
-        favoriteMovies: [...state?.favoriteMovies, action.value],
+        FavoriteMovies: [
+          ...state?.FavoriteMovies,
+          action.value,
+        ],
       };
     case DELETE_FAVORITE:
       return {
         ...state,
-        favoriteMovies: [...state?.favoriteMovies.filter((movieId) => movieId !== action.value)],
+        FavoriteMovies: [
+          ...state?.FavoriteMovies.filter(
+            (movieId) => movieId !== action.value
+          ),
+        ],
       };
     default:
       return state;

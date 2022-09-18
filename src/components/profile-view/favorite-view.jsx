@@ -1,6 +1,12 @@
 import axios from 'axios';
 import React from 'react';
-import { Col, Container, Row, Card, Button } from 'react-bootstrap';
+import {
+  Col,
+  Container,
+  Row,
+  Card,
+  Button,
+} from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
@@ -12,13 +18,20 @@ export function FavoriteView({ movieData, handleFav }) {
       md={{ span: 5, offset: 0 }}
       lg={4}
       xl={3}
-      className="mb-3">
+      className="mb-3 align-items-stretch">
       {' '}
       <Card>
         <Link to={`/movies/${movieData._id}`}>
-          <Card.Img className="poster position-relative" variant="top" src={movieData.Imageurl} />
+          <Card.Img
+            className="poster position-relative"
+            variant="top"
+            src={movieData.Imageurl}
+          />
           <Card.Body>
-            <Card.Title className="cardText"> {movieData.Title}</Card.Title>
+            <Card.Title className="cardText">
+              {' '}
+              {movieData.Title}
+            </Card.Title>
           </Card.Body>
         </Link>
         <Button

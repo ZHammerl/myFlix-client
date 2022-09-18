@@ -277,7 +277,7 @@ class MainView extends React.Component {
                 return (
                   <ProfileView
                     user={user}
-                    // movies={movies}
+                    movies={movies}
                     onBackClick={() => history.goBack()}
                     handleFav={this.handleFav}
                   />

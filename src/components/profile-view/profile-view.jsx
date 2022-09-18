@@ -12,7 +12,7 @@ import {
   deleteUser,
 } from '../../actions/actions';
 
-export function ProfileView({ props }) {
+export function ProfileView(props) {
   const {
     movies,
     handleFav,
@@ -84,7 +84,8 @@ export function ProfileView({ props }) {
     formatDateYYYYMMDD(formattedBday);
 
   const handleUpdateUser = (updatedUser, token) => {
-    const { Username } = updatedUser;
+    console.log(updatedUser);
+    console.log(Username);
     if (Username && updatedUser && token) {
       axios
         .put(
@@ -96,10 +97,14 @@ export function ProfileView({ props }) {
         )
         .then((response) => {
           const data = response.data;
+          console.log(data);
           // update store user
-          updateUser({ ...updatedUser, FavoriteMovies });
+          // updateUser({ ...updatedUser });
           alert('Profile is updated!');
-          window.open(`/users/${Username}`, '_self');
+          window.open(
+            `/users/${updatedUser.Username}`,
+            '_self'
+          );
         })
         .catch((err) => {
           console.log('error updating user:', err);
@@ -121,6 +126,7 @@ export function ProfileView({ props }) {
     <Container className="profile-view">
       {!updateInfo ? (
         <UserView
+          user={user}
           birthday={birthdayFormatted}
           toggleUpdateInfo={toggleUpdateInfo}
           handleDelete={handleDelete}
@@ -135,7 +141,7 @@ export function ProfileView({ props }) {
 
       <h4>My favorite movies:</h4>
       {FavoriteMovies.length !== 0 ? (
-        <Row className="justify-content mt-3">
+        <Row className="align-item-stretch mt-3">
           {FavoriteMovies.map((movieId) => {
             let movie = movies.find(
               (m) => m._id === movieId

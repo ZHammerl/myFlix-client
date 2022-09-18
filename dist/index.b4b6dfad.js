@@ -28368,7 +28368,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                     }, void 0, false, void 0, void 0);
                                     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
                                         user: user,
-                                        // movies={movies}
+                                        movies: movies,
                                         onBackClick: ()=>history.goBack(),
                                         handleFav: this.handleFav
                                     }, void 0, false, void 0, void 0);
@@ -40767,7 +40767,7 @@ var _userUpdate = require("./user-update");
 var _reactRedux = require("react-redux");
 var _actions = require("../../actions/actions");
 var _s = $RefreshSig$();
-function ProfileView({ props  }) {
+function ProfileView(props) {
     _s();
     const { movies , handleFav , user , updateUser , deleteUser ,  } = props;
     const { Username , Birthday , FavoriteMovies  } = user;
@@ -40814,7 +40814,8 @@ function ProfileView({ props  }) {
     const birthdayFormatted = formatDate(formattedBday);
     const birthdayYYYYMMDD = formatDateYYYYMMDD(formattedBday);
     const handleUpdateUser = (updatedUser, token)=>{
-        const { Username  } = updatedUser;
+        console.log(updatedUser);
+        console.log(Username);
         if (Username && updatedUser && token) (0, _axiosDefault.default).put(`https://my-movie-db22.herokuapp.com/users/${Username}`, {
             ...updatedUser
         }, {
@@ -40823,13 +40824,11 @@ function ProfileView({ props  }) {
             }
         }).then((response)=>{
             const data = response.data;
+            console.log(data);
             // update store user
-            updateUser({
-                ...updatedUser,
-                FavoriteMovies
-            });
+            // updateUser({ ...updatedUser });
             alert("Profile is updated!");
-            window.open(`/users/${Username}`, "_self");
+            window.open(`/users/${updatedUser.Username}`, "_self");
         }).catch((err)=>{
             console.log("error updating user:", err);
         });
@@ -40845,19 +40844,20 @@ function ProfileView({ props  }) {
         children: "Loading..."
     }, void 0, false, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 119,
+        lineNumber: 124,
         columnNumber: 12
     }, this);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
         className: "profile-view",
         children: [
             !updateInfo ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userView.UserView), {
+                user: user,
                 birthday: birthdayFormatted,
                 toggleUpdateInfo: toggleUpdateInfo,
                 handleDelete: handleDelete
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 123,
+                lineNumber: 128,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userUpdate.UserUpdate), {
                 user: user,
@@ -40866,18 +40866,18 @@ function ProfileView({ props  }) {
                 toggleUpdateInfo: toggleUpdateInfo
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 129,
+                lineNumber: 135,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
                 children: "My favorite movies:"
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 136,
+                lineNumber: 142,
                 columnNumber: 7
             }, this),
             FavoriteMovies.length !== 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                className: "justify-content mt-3",
+                className: "align-item-stretch mt-3",
                 children: FavoriteMovies.map((movieId)=>{
                     let movie = movies.find((m)=>m._id === movieId);
                     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _favoriteView.FavoriteView), {
@@ -40890,13 +40890,13 @@ function ProfileView({ props  }) {
                         ]
                     }, movieId, true, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 144,
+                        lineNumber: 150,
                         columnNumber: 15
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 138,
+                lineNumber: 144,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h6", {
                 className: "subtitle",
@@ -40908,20 +40908,20 @@ function ProfileView({ props  }) {
                         children: " Movie List"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 159,
+                        lineNumber: 165,
                         columnNumber: 11
                     }, this),
                     " to add movies to your favorite list"
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 156,
+                lineNumber: 162,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/profile-view.jsx",
-        lineNumber: 121,
+        lineNumber: 126,
         columnNumber: 5
     }, this);
 }
@@ -42647,14 +42647,14 @@ var _reactBootstrap = require("react-bootstrap");
 var _reactRedux = require("react-redux");
 var _actions = require("../../actions/actions");
 var _s = $RefreshSig$();
-function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) {
+function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }) {
     _s();
     // hooks for user inputs
-    const [newUsername, setNewUsername] = useState("");
-    const [newEmail, setNewEmail] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [newBirthday, setNewBirthday] = useState("");
-    const [errorMessage, setErrorMessage] = useState({
+    const [newUsername, setNewUsername] = (0, _react.useState)("");
+    const [newEmail, setNewEmail] = (0, _react.useState)("");
+    const [newPassword, setNewPassword] = (0, _react.useState)("");
+    const [newBirthday, setNewBirthday] = (0, _react.useState)("");
+    const [errorMessage, setErrorMessage] = (0, _react.useState)({
         usernameErr: "",
         passwordErr: "",
         emailErr: ""
@@ -42704,7 +42704,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
             });
             isReq = false;
         }
-        if (newEmail) {
+        if (!newEmail) {
             setErrorMessage((prevValue)=>{
                 return {
                     ...prevValue,
@@ -42744,7 +42744,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                 children: "Update your profile"
             }, void 0, false, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 84,
+                lineNumber: 119,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -42762,7 +42762,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                 children: "Username:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 87,
+                                lineNumber: 125,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42774,7 +42774,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                         onChange: (event)=>setNewUsername(event.target.value)
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 91,
+                                        lineNumber: 129,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -42783,19 +42783,19 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                         children: errorMessage.usernameErr
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 98,
+                                        lineNumber: 138,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 90,
+                                lineNumber: 128,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 86,
+                        lineNumber: 121,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42809,7 +42809,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 103,
+                                lineNumber: 148,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42821,7 +42821,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                         onChange: (event)=>setNewPassword(event.target.value)
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 107,
+                                        lineNumber: 152,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -42830,19 +42830,19 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                         children: errorMessage.passwordErr
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 114,
+                                        lineNumber: 161,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 106,
+                                lineNumber: 151,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 102,
+                        lineNumber: 144,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42856,7 +42856,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                 children: "E-Mail:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 119,
+                                lineNumber: 171,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42868,7 +42868,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                         onChange: (event)=>setNewEmail(event.target.value)
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 123,
+                                        lineNumber: 175,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -42880,19 +42880,19 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 130,
+                                        lineNumber: 184,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 122,
+                                lineNumber: 174,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 118,
+                        lineNumber: 167,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42906,35 +42906,35 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                                 children: "Birthday:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 135,
+                                lineNumber: 194,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                                     name: "Birthday",
                                     type: "date",
-                                    defaultValue: user.Birthday,
+                                    defaultValue: birthday,
                                     onChange: (event)=>setNewBirthday(event.target.value)
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/user-update.jsx",
-                                    lineNumber: 139,
+                                    lineNumber: 198,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 138,
+                                lineNumber: 197,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 134,
+                        lineNumber: 190,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 85,
+                lineNumber: 120,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -42946,14 +42946,14 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                         children: "Update "
                     }, void 0, false, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 149,
+                        lineNumber: 213,
                         columnNumber: 9
                     }, this),
                     " my profile"
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 148,
+                lineNumber: 209,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -42966,13 +42966,13 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo  }) 
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 151,
+                lineNumber: 215,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/user-update.jsx",
-        lineNumber: 83,
+        lineNumber: 118,
         columnNumber: 5
     }, this);
 }
@@ -43083,7 +43083,7 @@ function FavoriteView({ movieData , handleFav  }) {
         },
         lg: 4,
         xl: 3,
-        className: "mb-3",
+        className: "mb-3 align-items-stretch",
         children: [
             " ",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
@@ -43097,7 +43097,7 @@ function FavoriteView({ movieData , handleFav  }) {
                                 src: movieData.Imageurl
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/favorite-view.jsx",
-                                lineNumber: 19,
+                                lineNumber: 25,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
@@ -43109,18 +43109,18 @@ function FavoriteView({ movieData , handleFav  }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/profile-view/favorite-view.jsx",
-                                    lineNumber: 21,
+                                    lineNumber: 31,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/favorite-view.jsx",
-                                lineNumber: 20,
+                                lineNumber: 30,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/favorite-view.jsx",
-                        lineNumber: 18,
+                        lineNumber: 24,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -43130,19 +43130,19 @@ function FavoriteView({ movieData , handleFav  }) {
                         children: "Remove from list"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/favorite-view.jsx",
-                        lineNumber: 24,
+                        lineNumber: 37,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/favorite-view.jsx",
-                lineNumber: 17,
+                lineNumber: 23,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/favorite-view.jsx",
-        lineNumber: 9,
+        lineNumber: 15,
         columnNumber: 5
     }, this);
 }
@@ -43889,16 +43889,16 @@ function user(state = {}, action) {
         case 0, _actions.ADD_FAVORITE:
             return {
                 ...state,
-                favoriteMovies: [
-                    ...state?.favoriteMovies,
-                    action.value
+                FavoriteMovies: [
+                    ...state?.FavoriteMovies,
+                    action.value, 
                 ]
             };
         case 0, _actions.DELETE_FAVORITE:
             return {
                 ...state,
-                favoriteMovies: [
-                    ...state?.favoriteMovies.filter((movieId)=>movieId !== action.value)
+                FavoriteMovies: [
+                    ...state?.FavoriteMovies.filter((movieId)=>movieId !== action.value), 
                 ]
             };
         default:
