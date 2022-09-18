@@ -28186,14 +28186,14 @@ class MainView extends (0, _reactDefault.default).Component {
     }
     getUser(token) {
         const user = localStorage.getItem("user");
-        (0, _axiosDefault.default).get(`https://my-movie-db22.herokuapp.com/movies/${user}`, {
+        (0, _axiosDefault.default).get(`https://my-movie-db22.herokuapp.com/users/${user}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then((response)=>{
             this.props.setUser(response.data);
         }).catch((err)=>{
-            console.log("getUser", err);
+            console.log("getUser Err", err);
         });
     }
     // adding or removing a favorite movie
@@ -28232,7 +28232,7 @@ class MainView extends (0, _reactDefault.default).Component {
     render() {
         const { user , movies  } = this.props;
         const { Username , FavoriteMovies  } = user;
-        console.log(this.props);
+        console.log(movies);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _navbar.NavBar), {
@@ -28362,9 +28362,15 @@ class MainView extends (0, _reactDefault.default).Component {
                                     if (!Username) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Redirect), {
                                         to: "/"
                                     }, void 0, false, void 0, void 0);
-                                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                         className: "main-view",
                                         children: "Loading..."
+                                    }, void 0, false, void 0, void 0);
+                                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _profileView.ProfileView), {
+                                        user: user,
+                                        // movies={movies}
+                                        onBackClick: ()=>history.goBack(),
+                                        handleFav: this.handleFav
                                     }, void 0, false, void 0, void 0);
                                 }
                             }, void 0, false, {

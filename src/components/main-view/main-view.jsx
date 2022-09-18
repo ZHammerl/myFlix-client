@@ -72,14 +72,14 @@ class MainView extends React.Component {
     const user = localStorage.getItem('user');
     axios
       .get(
-        `https://my-movie-db22.herokuapp.com/movies/${user}`,
+        `https://my-movie-db22.herokuapp.com/users/${user}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((response) => {
         this.props.setUser(response.data);
       })
       .catch((err) => {
-        console.log('getUser', err);
+        console.log('getUser Err', err);
       });
   }
 
@@ -132,7 +132,7 @@ class MainView extends React.Component {
   render() {
     const { user, movies } = this.props;
     const { Username, FavoriteMovies } = user;
-    console.log(this.props);
+    console.log(movies);
     return (
       <Router>
         <NavBar user={Username} />
@@ -268,13 +268,16 @@ class MainView extends React.Component {
               render={({ history }) => {
                 console.log(Username);
                 if (!Username) return <Redirect to="/" />;
-                return (
-                  <div className="main-view">
-                    Loading...
-                  </div>
-                );
+                if (movies.length === 0)
+                  return (
+                    <div className="main-view">
+                      Loading...
+                    </div>
+                  );
                 return (
                   <ProfileView
+                    user={user}
+                    // movies={movies}
                     onBackClick={() => history.goBack()}
                     handleFav={this.handleFav}
                   />
