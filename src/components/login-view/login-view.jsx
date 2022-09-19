@@ -66,11 +66,12 @@ export function LoginView(props) {
   return (
     <Form>
       <Form.Group as={Row} controlId="formUsername">
-        <Form.Label column sm="12">
+        <Form.Label column sm="12" for="username">
           Username:
         </Form.Label>
-        <Col sm="10">
+        <Col sm="10" md={6}>
           <Form.Control
+            id="username"
             type="text"
             placeholder="Enter username"
             value={username}
@@ -83,11 +84,12 @@ export function LoginView(props) {
         as={Row}
         className="mb-3"
         controlId="formPassword">
-        <Form.Label column sm="12">
+        <Form.Label column sm="12" for="password">
           Password:
         </Form.Label>{' '}
-        <Col sm="10">
+        <Col sm="10" md={6}>
           <Form.Control
+            id="password"
             type="password"
             placeholder="Password"
             value={password}

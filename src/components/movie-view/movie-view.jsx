@@ -1,49 +1,85 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Button, Row } from 'react-bootstrap';
+import {
+  Card,
+  Button,
+  Row,
+  CardGroup,
+} from 'react-bootstrap';
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 import './movie-view.scss';
 
-export function MovieView({ movieData, onBackClick, handleFav, isFavorite }) {
+export function MovieView({
+  movieData,
+  onBackClick,
+  handleFav,
+  isFavorite,
+}) {
   return (
-    <Card className="movie-view mb-3">
-      <Card.Header>
-        <Card.Img variant="top" src={movieData.Imageurl} />
-      </Card.Header>
-      <Card.Body>
-        <Card.Title className="cardText">
-          {' '}
-          {movieData.Title}{' '}
-          {!isFavorite ? (
-            <Button className="button-fav" onClick={() => handleFav(movieData._id, 'add')}>
-              🤍
-            </Button>
-          ) : (
-            <div>🤍</div>
-          )}
-        </Card.Title>
+    <CardGroup fluid className="mb-3">
+      {' '}
+      <Card className="movie-poster">
+        <Card.Body>
+          <Card.Img
+            variant="top"
+            src={movieData.Imageurl}
+            alt="Poster from the movie"
+          />
+        </Card.Body>
+      </Card>
+      <Card className="movie-info">
+        <Card.Body>
+          <Card.Title className="cardText mb-4">
+            {' '}
+            {movieData.Title}{' '}
+            {!isFavorite ? (
+              <Button
+                className="button-fav"
+                onClick={() =>
+                  handleFav(movieData._id, 'add')
+                }>
+                🤍
+              </Button>
+            ) : (
+              <div className="fav">🤍</div>
+            )}
+          </Card.Title>
 
-        <Card.Text className="cardText"> {movieData.Description}</Card.Text>
-        <Card.Text className="cardText"> Actors: {movieData.Actors.join(', ')}</Card.Text>
-        <Card.Text className="cardText">
-          {' '}
-          Director:{' '}
-          <Link to={`/directors/${movieData.Director.Name}`}>{movieData.Director?.Name}</Link>
-        </Card.Text>
-        <Card.Text className="cardText">
-          {' '}
-          Genre: <Link to={`/genres/${movieData.Genre.Name}`}>{movieData.Genre?.Name}</Link>
-        </Card.Text>
-      </Card.Body>
-      <Button
-        onClick={() => {
-          onBackClick();
-        }}>
-        Back
-      </Button>
-    </Card>
+          <Card.Text className="cardText">
+            {' '}
+            {movieData.Description}
+          </Card.Text>
+          <Card.Text className="cardText">
+            {' '}
+            Actors: {movieData.Actors.join(', ')}
+          </Card.Text>
+          <Card.Text className="cardText">
+            {' '}
+            Director:{' '}
+            <Link
+              to={`/directors/${movieData.Director.Name}`}>
+              {movieData.Director?.Name}
+            </Link>
+          </Card.Text>
+          <Card.Text className="cardText">
+            {' '}
+            Genre:{' '}
+            <Link to={`/genres/${movieData.Genre.Name}`}>
+              {movieData.Genre?.Name}
+            </Link>
+          </Card.Text>
+          <Button
+            className="fav"
+            onClick={() => {
+              onBackClick();
+            }}>
+            Back
+          </Button>
+        </Card.Body>
+      </Card>
+    </CardGroup>
   );
 }
 MovieView.propTypes = {

@@ -3,7 +3,7 @@ $color2: #31081f;
 $color3: #6b0f1a;
 
 html {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 body {
@@ -34,10 +34,6 @@ body {
 }
 .cardText {
   color: $color2 !important;
-}
-
-.button-fav {
-  background: $color2 !important;
 }
 
 @media only screen and (max-width: 768px) {

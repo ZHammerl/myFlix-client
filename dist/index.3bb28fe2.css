@@ -8,8 +8,12 @@
   background-color: #31081f !important;
 }
 
+.fav {
+  float: right !important;
+}
+
 html {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 body {
@@ -41,10 +45,6 @@ body {
 
 .cardText {
   color: #31081f !important;
-}
-
-.button-fav {
-  background: #31081f !important;
 }
 
 @media only screen and (max-width: 768px) {

@@ -20,7 +20,7 @@ export class MovieCard extends React.Component {
         md={6}
         lg={4}
         xl={3}
-        className="mb-3 d-flex align-items-stretch">
+        className="mb-3 d-flex">
         <CardGroup>
           <Card border="light" className="mb-3">
             <Link to={`/movies/${movieData._id}`}>
@@ -28,6 +28,7 @@ export class MovieCard extends React.Component {
                 className="poster"
                 variant="top"
                 src={movieData.Imageurl}
+                alt="Poster from the movie"
               />
             </Link>
             <Card.Body>

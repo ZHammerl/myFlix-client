@@ -12,39 +12,38 @@ export function NavBar({ user }) {
     return userToken ? userToken : false;
   };
   return (
-    <Navbar variant="dark">
-      <Container>
-        <Navbar.Brand className="navbar-logo" href="/">
-          my Flix App
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="nav-bar">
-            {getToken() && (
-              <Nav.Link href="/">Movies</Nav.Link>
-            )}
-            {getToken() && (
-              <Nav.Link href={`/users/${user}`}>
-                {user}
-              </Nav.Link>
-            )}
-            {!getToken() && (
-              <Nav.Link href="/register">Sign up</Nav.Link>
-            )}
-            {!getToken() && (
-              <Nav.Link href="/">Login</Nav.Link>
-            )}
-            {getToken() && (
-              <Nav.Link
-                onClick={() => {
-                  onLoggedOut();
-                }}>
-                Logout
-              </Nav.Link>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
+    <Navbar fluid variant="dark">
+      <Navbar.Brand className="navbar-logo" href="/">
+        my Flix App
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="nav-bar">
+          {getToken() && (
+            <Nav.Link href="/">Movies</Nav.Link>
+          )}
+          {getToken() && (
+            <Nav.Link href={`/users/${user}`}>
+              {user}
+            </Nav.Link>
+          )}
+          {!getToken() && (
+            <Nav.Link href="/register">Sign up</Nav.Link>
+          )}
+          {!getToken() && (
+            <Nav.Link href="/">Login</Nav.Link>
+          )}
+          {getToken() && (
+            <Nav.Link
+              className="logout"
+              onClick={() => {
+                onLoggedOut();
+              }}>
+              Logout
+            </Nav.Link>
+          )}
+        </Nav>
+      </Navbar.Collapse>
     </Navbar>
   );
 }

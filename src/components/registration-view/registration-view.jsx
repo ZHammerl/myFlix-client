@@ -114,11 +114,12 @@ export function RegistrationView(props) {
         as={Row}
         controlId="formUsername"
         className="reg-form-inputs">
-        <Form.Label column="true" sm="12">
+        <Form.Label column="true" sm="12" for="username">
           Username:
         </Form.Label>
         <Col sm="10">
           <Form.Control
+            id="username"
             type="text"
             placeholder="Enter username"
             value={username}
@@ -135,11 +136,12 @@ export function RegistrationView(props) {
         as={Row}
         controlId="formPassword"
         className="reg-form-inputs">
-        <Form.Label column="true" sm="12">
+        <Form.Label column="true" sm="12" for="password">
           Password:
         </Form.Label>
         <Col sm="10">
           <Form.Control
+            id="password"
             type="password"
             value={password}
             placeholder="Enter password"
@@ -156,11 +158,12 @@ export function RegistrationView(props) {
         as={Row}
         controlId="formEmail"
         className="reg-form-inputs">
-        <Form.Label column="true" sm="12">
+        <Form.Label column="true" sm="12" for="e-mail">
           E-Mail:
         </Form.Label>
         <Col sm="10">
           <Form.Control
+            id="e-mail"
             type="email"
             value={email}
             placeholder="Enter Email"
@@ -177,11 +180,12 @@ export function RegistrationView(props) {
         className="mb-3 reg-form-inputs"
         as={Row}
         controlId="formBirthday">
-        <Form.Label column="true" sm="12">
-          Birth date:
+        <Form.Label column="true" sm="12" for="birthday">
+          Birthday:
         </Form.Label>
         <Col sm="10">
           <Form.Control
+            id="birthday"
             type="date"
             value={birthday}
             onChange={(e) => setBirthdate(e.target.value)}

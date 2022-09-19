@@ -8,10 +8,13 @@ function VisibilityFilterInput(props) {
   return (
     <Row>
       <Col sm={2}>
-        <Form.Label className="mt-1">SEARCH:</Form.Label>
+        <Form.Label className="mt-1" for="search-bar">
+          SEARCH:
+        </Form.Label>
       </Col>
       <Col>
         <Form.Control
+          id="search-bar"
           onChange={(e) => props.setFilter(e.target.value)}
           value={props.visibilityFilter}
           placeholder="Type to filter the database"

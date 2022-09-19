@@ -135,7 +135,7 @@ class MainView extends React.Component {
     console.log(user);
     return (
       <Router>
-        <NavBar user={Username} />
+        <NavBar fluid user={Username} />
         <Container fluid>
           <Row className="main-view-width justify-content-md-center mx-auto">
             <Route
@@ -186,19 +186,16 @@ class MainView extends React.Component {
                     </div>
                   );
                 return (
-                  <Col md={8}>
-                    <MovieView
-                      handleFav={this.handleFav}
-                      isFavorite={FavoriteMovies.includes(
-                        match.params.movieId
-                      )}
-                      movieData={movies.find(
-                        (m) =>
-                          m._id === match.params.movieId
-                      )}
-                      onBackClick={() => history.goBack()}
-                    />
-                  </Col>
+                  <MovieView
+                    handleFav={this.handleFav}
+                    isFavorite={FavoriteMovies.includes(
+                      match.params.movieId
+                    )}
+                    movieData={movies.find(
+                      (m) => m._id === match.params.movieId
+                    )}
+                    onBackClick={() => history.goBack()}
+                  />
                 );
               }}
             />
