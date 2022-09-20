@@ -15,8 +15,7 @@ import {
 // Redux Action
 import {
   setMovies,
-  setUserData,
-  setUsers,
+  setUser,
   addFavorite,
   deleteFavorite,
 } from '../../actions/actions';
@@ -292,14 +291,12 @@ let mapStateToProps = (state) => {
   return {
     movies: state.movies,
     user: state.user,
-    users: state.users,
   };
 };
 
 export default connect(mapStateToProps, {
   setMovies,
-  setUserData,
-  setUsers,
+  setUser,
   addFavorite,
   deleteFavorite,
 })(MainView);

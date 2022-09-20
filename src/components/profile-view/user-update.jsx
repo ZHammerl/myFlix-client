@@ -21,6 +21,12 @@ export function UserUpdate({
   birthday,
   toggleUpdateInfo,
 }) {
+  // hooks for user inputs
+  const [newUsername, setNewUsername] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [newBirthday, setNewBirthday] = useState('');
+
   const [errorMessage, setErrorMessage] = useState({
     usernameErr: '',
     passwordErr: '',
@@ -38,7 +44,7 @@ export function UserUpdate({
         birthdayErr: '',
       };
     });
-    if (!formData.Username) {
+    if (!newUsername) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -46,7 +52,7 @@ export function UserUpdate({
         };
       });
       isReq = false;
-    } else if (formData.Username.length < 2) {
+    } else if (newUsername.length < 2 || defaultValue) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -56,7 +62,7 @@ export function UserUpdate({
       });
       isReq = false;
     }
-    if (!formData.Password) {
+    if (!newPassword) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -64,7 +70,7 @@ export function UserUpdate({
         };
       });
       isReq = false;
-    } else if (formData.Password < 6) {
+    } else if (newPassword < 6) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -74,7 +80,7 @@ export function UserUpdate({
       });
       isReq = false;
     }
-    if (!formData.Email) {
+    if (!newEmail) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -82,7 +88,7 @@ export function UserUpdate({
         };
       });
       isReq = false;
-    } else if (formData.Email.indexOf('@') < 1) {
+    } else if (newEmail.indexOf('@') < 1) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -95,10 +101,10 @@ export function UserUpdate({
   };
 
   const [formData, setFormData] = useState({
-    Username: user.Username,
+    Username: '',
     Password: '',
-    Birthday: birthday,
-    Email: user.Email,
+    Birthday: '',
+    Email: '',
   });
 
   const handleSubmitUpdate = (e) => {
@@ -107,10 +113,10 @@ export function UserUpdate({
     const isReq = validate();
     if (isReq) {
       let updatedUser = {
-        Username: formData.Username,
-        Password: formData.Password,
-        Email: formData.Email,
-        Birthday: formData.Birthday,
+        Username: newUsername,
+        Password: newPassword,
+        Email: newEmail,
+        Birthday: newBirthday,
       };
       handleUpdateUser(updatedUser, token);
     }
@@ -142,8 +148,10 @@ export function UserUpdate({
             <Form.Control
               name="Username"
               type="text"
-              value={formData.Username}
-              onChange={onChangeHandleUpdate}
+              defaultValue={user.Username}
+              onChange={(event) =>
+                setNewUsername(event.target.value)
+              }
             />{' '}
             {errorMessage.usernameErr && (
               <p className="validation-message">
@@ -163,9 +171,10 @@ export function UserUpdate({
             <Form.Control
               name="Password"
               type="text"
-              placeholder="New password is required"
-              value={formData.Password}
-              onChange={onChangeHandleUpdate}
+              placeholder="New password is required when editing your profile"
+              onChange={(event) =>
+                setNewPassword(event.target.value)
+              }
             />{' '}
             {errorMessage.passwordErr && (
               <p className="validation-message">
@@ -185,8 +194,10 @@ export function UserUpdate({
             <Form.Control
               name="Email"
               type="email"
-              value={formData.Email}
-              onChange={onChangeHandleUpdate}
+              defaultValue={user.Email}
+              onChange={(event) =>
+                setNewEmail(event.target.value)
+              }
             />{' '}
             {errorMessage.emailErr && (
               <p className="validation-message">
@@ -206,9 +217,10 @@ export function UserUpdate({
             <Form.Control
               name="Birthday"
               type="date"
-              placeholder={birthday}
-              value={formData.Birthday}
-              onChange={onChangeHandleUpdate}
+              defaultValue={birthday}
+              onChange={(event) =>
+                setNewBirthday(event.target.value)
+              }
             />
           </Col>
         </Form.Group>
