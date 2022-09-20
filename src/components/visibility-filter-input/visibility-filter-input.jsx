@@ -7,7 +7,7 @@ import { setFilter } from '../../actions/actions';
 function VisibilityFilterInput(props) {
   return (
     <Row>
-      <Col sm={2}>
+      <Col xs={2}>
         <Form.Label className="mt-1" for="search-bar">
           SEARCH:
         </Form.Label>

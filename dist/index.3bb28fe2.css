@@ -47,10 +47,4 @@ body {
   color: #31081f !important;
 }
 
-@media only screen and (max-width: 768px) {
-  body {
-    font-size: 2rem !important;
-  }
-}
-
 /*# sourceMappingURL=index.3bb28fe2.css.map */

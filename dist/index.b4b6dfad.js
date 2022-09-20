@@ -35837,7 +35837,7 @@ function RegistrationView(props) {
             window.open("/", "_self"); //'_self' is necessary so that the page opens in the current tab
         }).catch((response)=>{
             console.error(response);
-            alert("unable to register");
+            alert("User already exists - please login");
         });
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -40930,7 +40930,7 @@ function ProfileView(props) {
             }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h6", {
                 className: "subtitle",
                 children: [
-                    "You don't have any movies in your favorite movies list yet. Got to",
+                    "You don't have any movies in your favorite movies list yet. Go to",
                     " ",
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                         href: "/",
@@ -43233,15 +43233,12 @@ function MoviesList(props) {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                 md: 12,
-                style: {
-                    margin: "2em"
-                },
-                className: "align-left",
+                className: "align-left mb-3",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _visibilityFilterInputDefault.default), {
                     visibilityFilter: visibilityFilter
                 }, void 0, false, {
                     fileName: "src/components/movies-list/movies-list.jsx",
-                    lineNumber: 34,
+                    lineNumber: 31,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
@@ -43254,12 +43251,12 @@ function MoviesList(props) {
                         movieData: m
                     }, void 0, false, {
                         fileName: "src/components/movies-list/movies-list.jsx",
-                        lineNumber: 41,
+                        lineNumber: 38,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "src/components/movies-list/movies-list.jsx",
-                lineNumber: 39,
+                lineNumber: 36,
                 columnNumber: 7
             }, this)
         ]
@@ -43294,7 +43291,7 @@ function VisibilityFilterInput(props) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                sm: 2,
+                xs: 2,
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                     className: "mt-1",
                     for: "search-bar",

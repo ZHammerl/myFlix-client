@@ -158,7 +158,7 @@ export function ProfileView(props) {
       ) : (
         <h6 className="subtitle">
           You don't have any movies in your favorite movies
-          list yet. Got to{' '}
+          list yet. Go to{' '}
           <Button href="/"> Movie List</Button> to add
           movies to your favorite list
         </h6>
