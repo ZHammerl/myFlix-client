@@ -73,17 +73,19 @@ class MainView extends React.Component {
 
   getUser(token) {
     const user = localStorage.getItem('user');
-    axios
-      .get(
-        `https://my-movie-db22.herokuapp.com/users/${user}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((response) => {
-        this.props.setUser(response.data);
-      })
-      .catch((err) => {
-        console.log('getUser Err', err);
-      });
+    const userService = new UserService(token);
+    if (token !== null && user !== null) {
+      userService.getOneUser(
+        { user },
+        (response) => {
+          this.props.setUser(response.data);
+          console.log('getUser successfull');
+        },
+        (error) => {
+          console.error('getUser Err UserService ' + error);
+        }
+      );
+    }
   }
 
   // adding or removing a favorite movie

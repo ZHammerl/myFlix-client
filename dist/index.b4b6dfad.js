@@ -28189,14 +28189,14 @@ class MainView extends (0, _reactDefault.default).Component {
     }
     getUser(token) {
         const user = localStorage.getItem("user");
-        (0, _axiosDefault.default).get(`https://my-movie-db22.herokuapp.com/users/${user}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>{
+        const userService = new (0, _userServices.UserService)(token);
+        if (token !== null && user !== null) userService.getOneUser({
+            user
+        }, (response)=>{
             this.props.setUser(response.data);
-        }).catch((err)=>{
-            console.log("getUser Err", err);
+            console.log("getUser successfull");
+        }, (error)=>{
+            console.error("getUser Err UserService " + error);
         });
     }
     // adding or removing a favorite movie
@@ -28239,7 +28239,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     user: Username
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 136,
+                    lineNumber: 138,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
@@ -28267,7 +28267,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 139,
+                                lineNumber: 141,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28282,7 +28282,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 165,
+                                lineNumber: 167,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28304,7 +28304,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 176,
+                                lineNumber: 178,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28327,7 +28327,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 200,
+                                lineNumber: 202,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28350,7 +28350,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 231,
+                                lineNumber: 233,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28372,24 +28372,24 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 261,
+                                lineNumber: 263,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 138,
+                        lineNumber: 140,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 137,
+                    lineNumber: 139,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 135,
+            lineNumber: 137,
             columnNumber: 7
         }, this);
     }
@@ -43131,15 +43131,21 @@ class UserService {
     }
     addFavoriteMovie(payload, successCallback, errorCallback) {
         const { Username , movieId  } = payload;
-        const url1 = `${this.baseUrl}/${Username}/${movieId}`;
-        (0, _axiosDefault.default).post(url1, {}, this.header).then(successCallback).catch(errorCallback);
+        const url = `${this.baseUrl}/${Username}/${movieId}`;
+        (0, _axiosDefault.default).post(url, {}, this.header).then(successCallback).catch(errorCallback);
     }
     removeFavoriteMovie(payload, successCallback, errorCallback) {
         const { Username , movieId  } = payload;
-        const url1 = `${this.baseUrl}/${Username}/${movieId}`;
-        (0, _axiosDefault.default).delete(url1, this.header).then(successCallback).catch(errorCallback);
+        const url = `${this.baseUrl}/${Username}/${movieId}`;
+        (0, _axiosDefault.default).delete(url, this.header).then(successCallback).catch(errorCallback);
     }
     getAllUsers(payload, successCallback, errorCallback) {
+        const url = `${this.baseUrl}`;
+        (0, _axiosDefault.default).get(url, this.header).then(successCallback).catch(errorCallback);
+    }
+    getOneUser(payload, successCallback, errorCallback) {
+        const { user  } = payload;
+        const url = `${this.baseUrl}/${user}`;
         (0, _axiosDefault.default).get(url, this.header).then(successCallback).catch(errorCallback);
     }
 }

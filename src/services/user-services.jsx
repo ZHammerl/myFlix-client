@@ -39,6 +39,17 @@ export class UserService {
   }
 
   getAllUsers(payload, successCallback, errorCallback) {
+    const url = `${this.baseUrl}`;
+    axios
+      .get(url, this.header)
+      .then(successCallback)
+      .catch(errorCallback);
+  }
+
+  getOneUser(payload, successCallback, errorCallback) {
+    const { user } = payload;
+    const url = `${this.baseUrl}/${user}`;
+
     axios
       .get(url, this.header)
       .then(successCallback)
