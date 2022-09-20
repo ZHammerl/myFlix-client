@@ -40124,7 +40124,6 @@ var _reactRouterDom = require("react-router-dom");
 var _movieViewScss = require("./movie-view.scss");
 function MovieView({ movieData , onBackClick , handleFav , isFavorite ,  }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.CardGroup), {
-        fluid: true,
         className: "mb-3",
         children: [
             " ",
@@ -43035,6 +43034,7 @@ parcelHelpers.export(exports, "UPDATE_USER", ()=>UPDATE_USER);
 parcelHelpers.export(exports, "DELETE_USER", ()=>DELETE_USER);
 parcelHelpers.export(exports, "ADD_FAVORITE", ()=>ADD_FAVORITE);
 parcelHelpers.export(exports, "DELETE_FAVORITE", ()=>DELETE_FAVORITE);
+parcelHelpers.export(exports, "SET_ALL_USERS", ()=>SET_ALL_USERS);
 parcelHelpers.export(exports, "setMovies", ()=>setMovies);
 parcelHelpers.export(exports, "setFilter", ()=>setFilter);
 parcelHelpers.export(exports, "setUser", ()=>setUser);
@@ -43042,6 +43042,7 @@ parcelHelpers.export(exports, "updateUser", ()=>updateUser);
 parcelHelpers.export(exports, "deleteUser", ()=>deleteUser);
 parcelHelpers.export(exports, "addFavorite", ()=>addFavorite);
 parcelHelpers.export(exports, "deleteFavorite", ()=>deleteFavorite);
+parcelHelpers.export(exports, "setAllUsers", ()=>setAllUsers);
 const SET_MOVIES = "SET_MOVIES";
 const SET_FILTER = "SET_FILTER";
 const SET_USER = "SET_USER";
@@ -43049,6 +43050,7 @@ const UPDATE_USER = "UPDATE_USER";
 const DELETE_USER = "DELETE_USER";
 const ADD_FAVORITE = "ADD_FAVORITE";
 const DELETE_FAVORITE = "DELETE_FAVORITE";
+const SET_ALL_USERS = "SET_ALL_USERS";
 function setMovies(value) {
     return {
         type: SET_MOVIES,
@@ -43088,6 +43090,12 @@ function addFavorite(value) {
 function deleteFavorite(value) {
     return {
         type: DELETE_FAVORITE,
+        value
+    };
+}
+function setAllUsers(value) {
+    return {
+        type: SET_ALL_USERS,
         value
     };
 }
@@ -43933,6 +43941,14 @@ function movies(state = [], action) {
             return state;
     }
 }
+function allUsers(state = [], action) {
+    switch(action.type){
+        case 0, _actions.SET_ALL_USERS:
+            return action.value;
+        default:
+            return state;
+    }
+}
 function user(state = {}, action) {
     switch(action.type){
         case 0, _actions.SET_USER:
@@ -43971,7 +43987,8 @@ function user(state = {}, action) {
 const moviesApp = (0, _redux.combineReducers)({
     visibilityFilter,
     movies,
-    user
+    user,
+    allUsers
 });
 exports.default = moviesApp;
 

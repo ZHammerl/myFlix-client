@@ -4,6 +4,7 @@ import {
   SET_FILTER,
   SET_MOVIES,
   SET_USER,
+  SET_ALL_USERS,
   UPDATE_USER,
   DELETE_USER,
   ADD_FAVORITE,
@@ -22,6 +23,15 @@ function visibilityFilter(state = '', action) {
 function movies(state = [], action) {
   switch (action.type) {
     case SET_MOVIES:
+      return action.value;
+    default:
+      return state;
+  }
+}
+
+function allUsers(state = [], action) {
+  switch (action.type) {
+    case SET_ALL_USERS:
       return action.value;
     default:
       return state;
@@ -74,6 +84,7 @@ const moviesApp = combineReducers({
   visibilityFilter,
   movies,
   user,
+  allUsers,
 });
 
 export default moviesApp;

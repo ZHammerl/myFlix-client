@@ -18,7 +18,7 @@ export function MovieView({
   isFavorite,
 }) {
   return (
-    <CardGroup fluid className="mb-3">
+    <CardGroup className="mb-3">
       {' '}
       <Card className="movie-poster">
         <Card.Body>
