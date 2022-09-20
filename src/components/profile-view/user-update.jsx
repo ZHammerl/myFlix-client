@@ -100,6 +100,13 @@ export function UserUpdate({
     return isReq;
   };
 
+  const [formData, setFormData] = useState({
+    Username: '',
+    Password: '',
+    Birthday: '',
+    Email: '',
+  });
+
   const handleSubmitUpdate = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -114,6 +121,18 @@ export function UserUpdate({
       handleUpdateUser(updatedUser, token);
     }
   };
+
+  function onChangeHandleUpdate(e) {
+    const { value, name } = e.target;
+    console.log(value);
+    setFormData((preFormData) => {
+      return {
+        ...preFormData,
+        [name]: value,
+      };
+    });
+  }
+
   return (
     <Container className="profile-view mb-4">
       <h4>Update your profile</h4>
