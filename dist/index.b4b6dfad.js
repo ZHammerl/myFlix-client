@@ -34711,12 +34711,11 @@ function LoginView(props) {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
                 as: (0, _rowDefault.default),
-                controlId: "formUsername",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
                         column: true,
                         sm: "12",
-                        for: "username",
+                        htmlFor: "username",
                         children: "Username:"
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
@@ -34760,16 +34759,15 @@ function LoginView(props) {
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
                 as: (0, _rowDefault.default),
                 className: "mb-3",
-                controlId: "formPassword",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Label, {
                         column: true,
                         sm: "12",
-                        for: "password",
+                        htmlFor: "password",
                         children: "Password:"
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 90,
+                        lineNumber: 87,
                         columnNumber: 9
                     }, this),
                     " ",
@@ -34785,20 +34783,20 @@ function LoginView(props) {
                                 onChange: (e)=>setPassword(e.target.value)
                             }, void 0, false, {
                                 fileName: "src/components/login-view/login-view.jsx",
-                                lineNumber: 94,
+                                lineNumber: 91,
                                 columnNumber: 11
                             }, this),
                             passwordErr && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                 children: passwordErr
                             }, void 0, false, {
                                 fileName: "src/components/login-view/login-view.jsx",
-                                lineNumber: 101,
+                                lineNumber: 98,
                                 columnNumber: 27
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 93,
+                        lineNumber: 90,
                         columnNumber: 9
                     }, this)
                 ]
@@ -34814,7 +34812,7 @@ function LoginView(props) {
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 104,
+                lineNumber: 101,
                 columnNumber: 7
             }, this)
         ]
@@ -42703,7 +42701,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                 };
             });
             isReq = false;
-        } else if (newUsername.length < 2) {
+        } else if (newUsername.length < 2 || defaultValue) {
             setErrorMessage((prevValue)=>{
                 return {
                     ...prevValue,
@@ -42842,7 +42840,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                                         name: "Password",
                                         type: "text",
-                                        placeholder: "Set new password",
+                                        placeholder: "New password is required when editing your profile",
                                         onChange: (event)=>setNewPassword(event.target.value)
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
@@ -43290,7 +43288,7 @@ function VisibilityFilterInput(props) {
                 xs: 2,
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
                     className: "mt-1",
-                    for: "search-bar",
+                    htmlFor: "search-bar",
                     children: "SEARCH:"
                 }, void 0, false, {
                     fileName: "src/components/visibility-filter-input/visibility-filter-input.jsx",

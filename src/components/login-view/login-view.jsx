@@ -68,8 +68,8 @@ export function LoginView(props) {
 
   return (
     <Form>
-      <Form.Group as={Row} controlId="formUsername">
-        <Form.Label column sm="12" for="username">
+      <Form.Group as={Row}>
+        <Form.Label column sm="12" htmlFor="username">
           Username:
         </Form.Label>
         <Col sm="10" md={6}>
@@ -83,11 +83,8 @@ export function LoginView(props) {
           {usernameErr && <p>{usernameErr}</p>}
         </Col>
       </Form.Group>
-      <Form.Group
-        as={Row}
-        className="mb-3"
-        controlId="formPassword">
-        <Form.Label column sm="12" for="password">
+      <Form.Group as={Row} className="mb-3">
+        <Form.Label column sm="12" htmlFor="password">
           Password:
         </Form.Label>{' '}
         <Col sm="10" md={6}>

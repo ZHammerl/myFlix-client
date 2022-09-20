@@ -8,7 +8,7 @@ function VisibilityFilterInput(props) {
   return (
     <Row>
       <Col xs={2}>
-        <Form.Label className="mt-1" for="search-bar">
+        <Form.Label className="mt-1" htmlFor="search-bar">
           SEARCH:
         </Form.Label>
       </Col>

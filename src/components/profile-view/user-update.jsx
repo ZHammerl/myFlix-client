@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Form,
   Button,
@@ -52,7 +52,7 @@ export function UserUpdate({
         };
       });
       isReq = false;
-    } else if (newUsername.length < 2) {
+    } else if (newUsername.length < 2 || defaultValue) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -152,7 +152,7 @@ export function UserUpdate({
             <Form.Control
               name="Password"
               type="text"
-              placeholder="Set new password"
+              placeholder="New password is required when editing your profile"
               onChange={(event) =>
                 setNewPassword(event.target.value)
               }
