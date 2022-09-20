@@ -110,11 +110,11 @@ export function RegistrationView(props) {
 
   return (
     <Form className="justify-content-sm-center">
-      <Form.Group
-        as={Row}
-        controlId="formUsername"
-        className="reg-form-inputs">
-        <Form.Label column="true" sm="12" for="username">
+      <Form.Group as={Row} className="reg-form-inputs">
+        <Form.Label
+          column="true"
+          sm="12"
+          htmlFor="username">
           Username:
         </Form.Label>
         <Col sm="10">
@@ -132,11 +132,11 @@ export function RegistrationView(props) {
           )}
         </Col>
       </Form.Group>
-      <Form.Group
-        as={Row}
-        controlId="formPassword"
-        className="reg-form-inputs">
-        <Form.Label column="true" sm="12" for="password">
+      <Form.Group as={Row} className="reg-form-inputs">
+        <Form.Label
+          column="true"
+          sm="12"
+          htmlFor="password">
           Password:
         </Form.Label>
         <Col sm="10">
@@ -154,11 +154,8 @@ export function RegistrationView(props) {
           )}
         </Col>
       </Form.Group>
-      <Form.Group
-        as={Row}
-        controlId="formEmail"
-        className="reg-form-inputs">
-        <Form.Label column="true" sm="12" for="e-mail">
+      <Form.Group as={Row} className="reg-form-inputs">
+        <Form.Label column="true" sm="12" htmlFor="e-mail">
           E-Mail:
         </Form.Label>
         <Col sm="10">
@@ -176,11 +173,11 @@ export function RegistrationView(props) {
           )}
         </Col>
       </Form.Group>
-      <Form.Group
-        className="mb-3 reg-form-inputs"
-        as={Row}
-        controlId="formBirthday">
-        <Form.Label column="true" sm="12" for="birthday">
+      <Form.Group className="mb-3 reg-form-inputs" as={Row}>
+        <Form.Label
+          column="true"
+          sm="12"
+          htmlFor="birthday">
           Birthday:
         </Form.Label>
         <Col sm="10">
