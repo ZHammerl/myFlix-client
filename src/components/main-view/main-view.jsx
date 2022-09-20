@@ -16,6 +16,7 @@ import {
 import {
   setMovies,
   setUser,
+  setAllUsers,
   addFavorite,
   deleteFavorite,
 } from '../../actions/actions';
@@ -291,12 +292,14 @@ let mapStateToProps = (state) => {
   return {
     movies: state.movies,
     user: state.user,
+    allUsers: state.allUsers,
   };
 };
 
 export default connect(mapStateToProps, {
   setMovies,
   setUser,
+  setAllUsers,
   addFavorite,
   deleteFavorite,
 })(MainView);

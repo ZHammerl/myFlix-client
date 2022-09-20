@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 
 class UserService {
@@ -34,6 +35,10 @@ class UserService {
       .delete(url, this.header)
       .then(successCallback)
       .catch(errorCallback);
+  }
+
+  getAllUsers(payload, successCallback, errorCallback) {
+    axios.get(url);
   }
 }
 
