@@ -43250,7 +43250,7 @@ function MoviesList(props) {
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                 children: filteredMovies.map((m)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                         movieData: m
-                    }, void 0, false, {
+                    }, m._id, false, {
                         fileName: "src/components/movies-list/movies-list.jsx",
                         lineNumber: 38,
                         columnNumber: 11
