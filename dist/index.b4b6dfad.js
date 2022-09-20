@@ -28166,8 +28166,21 @@ class MainView extends (0, _reactDefault.default).Component {
         if (accessToken !== null) {
             this.getMovies(accessToken);
             this.getUser(accessToken);
+            this.getAllUsers(accessToken);
             console.log("componentDidMount");
         }
+    }
+    getAllUsers(token) {
+        if (token !== null) (0, _axiosDefault.default).get("https://my-movie-db22.herokuapp.com/users", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            this.props.setAllUsers(response.data);
+            console.log("getAllUsers successfull");
+        }).catch((error)=>{
+            console.error("getAllUsers Err UserService " + error);
+        });
     }
     getMovies(token) {
         (0, _axiosDefault.default).get("https://my-movie-db22.herokuapp.com/movies", {
@@ -28239,7 +28252,7 @@ class MainView extends (0, _reactDefault.default).Component {
                     user: Username
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 138,
+                    lineNumber: 157,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
@@ -28267,7 +28280,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 141,
+                                lineNumber: 160,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28282,7 +28295,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 167,
+                                lineNumber: 186,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28304,7 +28317,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 178,
+                                lineNumber: 197,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28327,7 +28340,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 202,
+                                lineNumber: 221,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28350,7 +28363,7 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 233,
+                                lineNumber: 252,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -28372,24 +28385,24 @@ class MainView extends (0, _reactDefault.default).Component {
                                 }
                             }, void 0, false, {
                                 fileName: "src/components/main-view/main-view.jsx",
-                                lineNumber: 263,
+                                lineNumber: 282,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 140,
+                        lineNumber: 159,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 139,
+                    lineNumber: 158,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 137,
+            lineNumber: 156,
             columnNumber: 7
         }, this);
     }
@@ -40786,6 +40799,7 @@ var _reactBootstrap = require("react-bootstrap");
 var _favoriteView = require("./favorite-view");
 var _userView = require("./user-view");
 var _userUpdate = require("./user-update");
+var _userUpdateDefault = parcelHelpers.interopDefault(_userUpdate);
 var _reactRedux = require("react-redux");
 var _actions = require("../../actions/actions");
 var _s = $RefreshSig$();
@@ -40880,7 +40894,7 @@ function ProfileView(props) {
                 fileName: "src/components/profile-view/profile-view.jsx",
                 lineNumber: 125,
                 columnNumber: 9
-            }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userUpdate.UserUpdate), {
+            }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userUpdateDefault.default), {
                 user: user,
                 handleUpdateUser: handleUpdateUser,
                 birthday: birthdayYYYYMMDD,
@@ -42661,6 +42675,8 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
@@ -42671,6 +42687,7 @@ var _s = $RefreshSig$();
 function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }) {
     _s();
     // hooks for user inputs
+    const token = localStorage.getItem("token");
     const [formData, setFormData] = (0, _react.useState)({
         Username: user.Username,
         Password: "",
@@ -42748,7 +42765,6 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
     };
     const handleSubmitUpdate = (e)=>{
         e.preventDefault();
-        const token = localStorage.getItem("token");
         const isReq = validate();
         if (isReq) {
             let updatedUser = {
@@ -42770,6 +42786,18 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
             };
         });
     };
+    const getAllUsers = (token)=>{
+        const userService = new (0, _userServices.UserService)(token);
+        if (token !== null) userService.getAllUsers({}, (response)=>{
+            (0, _actions.setAllUsers)(response.data);
+            console.log("getAllUsers successfull");
+        }, (error)=>{
+            console.error("getAllUsers Err UserService " + error);
+        });
+    };
+    (0, _react.useEffect)(()=>{
+        getAllUsers(token);
+    }, []);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
         className: "profile-view mb-4",
         children: [
@@ -42777,7 +42805,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                 children: "Update your profile"
             }, void 0, false, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 131,
+                lineNumber: 157,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -42795,7 +42823,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                 children: "Username:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 137,
+                                lineNumber: 163,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42807,7 +42835,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                         onChange: onChangeHandleUpdate
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 141,
+                                        lineNumber: 167,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -42816,19 +42844,19 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                         children: errorMessage.usernameErr
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 148,
+                                        lineNumber: 174,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 140,
+                                lineNumber: 166,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 133,
+                        lineNumber: 159,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42842,7 +42870,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 158,
+                                lineNumber: 184,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42855,7 +42883,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                         onChange: onChangeHandleUpdate
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 162,
+                                        lineNumber: 188,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -42864,19 +42892,19 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                         children: errorMessage.passwordErr
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 170,
+                                        lineNumber: 196,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 161,
+                                lineNumber: 187,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 154,
+                        lineNumber: 180,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42890,7 +42918,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                 children: "E-Mail:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 180,
+                                lineNumber: 206,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42902,7 +42930,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                         onChange: onChangeHandleUpdate
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 184,
+                                        lineNumber: 210,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -42914,19 +42942,19 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 191,
+                                        lineNumber: 217,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 183,
+                                lineNumber: 209,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 176,
+                        lineNumber: 202,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42940,7 +42968,7 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                 children: "Birthday:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 201,
+                                lineNumber: 227,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42952,24 +42980,24 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                                     onChange: onChangeHandleUpdate
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/user-update.jsx",
-                                    lineNumber: 205,
+                                    lineNumber: 231,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 204,
+                                lineNumber: 230,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 197,
+                        lineNumber: 223,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 132,
+                lineNumber: 158,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -42981,14 +43009,14 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                         children: "Update "
                     }, void 0, false, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 219,
+                        lineNumber: 245,
                         columnNumber: 9
                     }, this),
                     " my profile"
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 215,
+                lineNumber: 241,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -43001,20 +43029,22 @@ function UserUpdate({ user , handleUpdateUser , birthday , toggleUpdateInfo ,  }
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 221,
+                lineNumber: 247,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/user-update.jsx",
-        lineNumber: 130,
+        lineNumber: 156,
         columnNumber: 5
     }, this);
 }
-_s(UserUpdate, "uT7tiTYhHor6V/H8KdH3xrLFGZs=");
+_s(UserUpdate, "PfdJA4WoYzRm757EoleKrGuzwDM=");
 _c = UserUpdate;
 let mapStateToProps = (state)=>{
     return {
+        movies: state.movies,
+        user: state.user,
         allUsers: state.allUsers
     };
 };
@@ -43029,7 +43059,7 @@ $RefreshReg$(_c, "UserUpdate");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-redux":"bdVon","../../actions/actions":"biFwH","../../services/user-services":"juW2p"}],"biFwH":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-redux":"bdVon","../../actions/actions":"biFwH","../../services/user-services":"juW2p","axios":"jo6P5"}],"biFwH":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SET_MOVIES", ()=>SET_MOVIES);

@@ -45,7 +45,26 @@ class MainView extends React.Component {
     if (accessToken !== null) {
       this.getMovies(accessToken);
       this.getUser(accessToken);
+      this.getAllUsers(accessToken);
       console.log('componentDidMount');
+    }
+  }
+
+  getAllUsers(token) {
+    if (token !== null) {
+      axios
+        .get('https://my-movie-db22.herokuapp.com/users', {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          this.props.setAllUsers(response.data);
+          console.log('getAllUsers successfull');
+        })
+        .catch((error) => {
+          console.error(
+            'getAllUsers Err UserService ' + error
+          );
+        });
     }
   }
 

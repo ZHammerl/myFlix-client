@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import {
   Form,
@@ -20,6 +21,9 @@ function UserUpdate({
   toggleUpdateInfo,
 }) {
   // hooks for user inputs
+
+  const token = localStorage.getItem('token');
+
   const [formData, setFormData] = useState({
     Username: user.Username,
     Password: '',
@@ -102,7 +106,7 @@ function UserUpdate({
 
   const handleSubmitUpdate = (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
+
     const isReq = validate();
     if (isReq) {
       let updatedUser = {
@@ -125,6 +129,28 @@ function UserUpdate({
       };
     });
   };
+
+  const getAllUsers = (token) => {
+    const userService = new UserService(token);
+    if (token !== null) {
+      userService.getAllUsers(
+        {},
+        (response) => {
+          setAllUsers(response.data);
+          console.log('getAllUsers successfull');
+        },
+        (error) => {
+          console.error(
+            'getAllUsers Err UserService ' + error
+          );
+        }
+      );
+    }
+  };
+
+  useEffect(() => {
+    getAllUsers(token);
+  }, []);
 
   return (
     <Container className="profile-view mb-4">
@@ -231,6 +257,8 @@ function UserUpdate({
 
 let mapStateToProps = (state) => {
   return {
+    movies: state.movies,
+    user: state.user,
     allUsers: state.allUsers,
   };
 };

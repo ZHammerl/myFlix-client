@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Button, Row, Container } from 'react-bootstrap';
 import { FavoriteView } from './favorite-view';
 import { UserView } from './user-view';
-import { UserUpdate } from './user-update';
+import UserUpdate from './user-update';
 
 import { connect } from 'react-redux';
 
