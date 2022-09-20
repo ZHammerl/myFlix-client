@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 
-class UserService {
+export class UserService {
   constructor(token) {
     this.token = token;
     this.baseUrl =
@@ -30,6 +30,7 @@ class UserService {
     successCallback,
     errorCallback
   ) {
+    const { Username, movieId } = payload;
     const url = `${this.baseUrl}/${Username}/${movieId}`;
     axios
       .delete(url, this.header)
@@ -38,8 +39,9 @@ class UserService {
   }
 
   getAllUsers(payload, successCallback, errorCallback) {
-    axios.get(url);
+    axios
+      .get(url, this.header)
+      .then(successCallback)
+      .catch(errorCallback);
   }
 }
-
-export default UserService;

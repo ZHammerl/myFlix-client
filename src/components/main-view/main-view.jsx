@@ -31,6 +31,8 @@ import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import ProfileView from '../profile-view/profile-view';
 
+import { UserService } from '../../services/user-services';
+
 import { Container, Row, Col } from 'react-bootstrap';
 
 class MainView extends React.Component {
@@ -89,43 +91,38 @@ class MainView extends React.Component {
     const { user } = this.props;
     const { Username } = user;
     const token = localStorage.getItem('token');
-    let url = `https://my-movie-db22.herokuapp.com/users/${Username}/${movieId}`;
+    const userService = new UserService(token);
     if (token !== null && Username !== null) {
       // Add MovieID to Favorites (local state & webserver)
       if (action === 'add') {
         this.props.addFavorite(movieId);
-        axios
-          .post(
-            url,
-            {},
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          )
-          .then((res) => {
+        userService.addFavoriteMovie(
+          { Username, movieId },
+          () =>
             alert(
               `Movie added to ${Username} Favorite movies`
-            );
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+            ),
+          (error) =>
+            this.errorCallback(
+              error,
+              'addFav Error UserService '
+            )
+        );
         // Remove MovieID from Favorites (local state & webserver)
       } else if (action === 'remove') {
         this.props.deleteFavorite(movieId);
-        axios
-          .delete(url, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-          .then((res) => {
-            alert(
-              `Movie removed from ${Username} Favorite movies`
-            );
+        userService.removeFavoriteMovie(
+          { Username, movieId },
+          (res) => {
+            alert(`Movie removed from your favorites list`);
             window.open(`/users/${Username}`, '_self');
-          })
-          .catch((error) =>
-            console.error('removeFav Error ' + error)
-          );
+          },
+          (error) => {
+            console.error(
+              'removeFav Error UserService' + error
+            );
+          }
+        );
       }
     }
   };

@@ -9,23 +9,23 @@ import {
 
 import { connect } from 'react-redux';
 
-import {
-  setUser,
-  setFavorites,
-  setUserData,
-} from '../../actions/actions';
+import { setAllUsers } from '../../actions/actions';
 
-export function UserUpdate({
+import { UserService } from '../../services/user-services';
+
+function UserUpdate({
   user,
   handleUpdateUser,
   birthday,
   toggleUpdateInfo,
 }) {
   // hooks for user inputs
-  const [newUsername, setNewUsername] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [newBirthday, setNewBirthday] = useState('');
+  const [formData, setFormData] = useState({
+    Username: user.Username,
+    Password: '',
+    Birthday: birthday,
+    Email: user.Email,
+  });
 
   const [errorMessage, setErrorMessage] = useState({
     usernameErr: '',
@@ -44,7 +44,7 @@ export function UserUpdate({
         birthdayErr: '',
       };
     });
-    if (!newUsername) {
+    if (!formData.Username) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -52,7 +52,7 @@ export function UserUpdate({
         };
       });
       isReq = false;
-    } else if (newUsername.length < 2 || defaultValue) {
+    } else if (formData.Username.length < 2) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -62,7 +62,7 @@ export function UserUpdate({
       });
       isReq = false;
     }
-    if (!newPassword) {
+    if (!formData.Password) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -70,7 +70,7 @@ export function UserUpdate({
         };
       });
       isReq = false;
-    } else if (newPassword < 6) {
+    } else if (formData.Password < 6) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -80,7 +80,7 @@ export function UserUpdate({
       });
       isReq = false;
     }
-    if (!newEmail) {
+    if (!formData.Email) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -88,7 +88,7 @@ export function UserUpdate({
         };
       });
       isReq = false;
-    } else if (newEmail.indexOf('@') < 1) {
+    } else if (formData.Email.indexOf('@') < 1) {
       setErrorMessage((prevValue) => {
         return {
           ...prevValue,
@@ -100,29 +100,22 @@ export function UserUpdate({
     return isReq;
   };
 
-  const [formData, setFormData] = useState({
-    Username: '',
-    Password: '',
-    Birthday: '',
-    Email: '',
-  });
-
   const handleSubmitUpdate = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     const isReq = validate();
     if (isReq) {
       let updatedUser = {
-        Username: newUsername,
-        Password: newPassword,
-        Email: newEmail,
-        Birthday: newBirthday,
+        Username: formData.Username,
+        Password: formData.Password,
+        Email: formData.Email,
+        Birthday: formData.Birthday,
       };
       handleUpdateUser(updatedUser, token);
     }
   };
 
-  function onChangeHandleUpdate(e) {
+  const onChangeHandleUpdate = (e) => {
     const { value, name } = e.target;
     console.log(value);
     setFormData((preFormData) => {
@@ -131,7 +124,7 @@ export function UserUpdate({
         [name]: value,
       };
     });
-  }
+  };
 
   return (
     <Container className="profile-view mb-4">
@@ -148,10 +141,8 @@ export function UserUpdate({
             <Form.Control
               name="Username"
               type="text"
-              defaultValue={user.Username}
-              onChange={(event) =>
-                setNewUsername(event.target.value)
-              }
+              value={formData.Username}
+              onChange={onChangeHandleUpdate}
             />{' '}
             {errorMessage.usernameErr && (
               <p className="validation-message">
@@ -172,9 +163,8 @@ export function UserUpdate({
               name="Password"
               type="text"
               placeholder="New password is required when editing your profile"
-              onChange={(event) =>
-                setNewPassword(event.target.value)
-              }
+              value={formData.Password}
+              onChange={onChangeHandleUpdate}
             />{' '}
             {errorMessage.passwordErr && (
               <p className="validation-message">
@@ -194,10 +184,8 @@ export function UserUpdate({
             <Form.Control
               name="Email"
               type="email"
-              defaultValue={user.Email}
-              onChange={(event) =>
-                setNewEmail(event.target.value)
-              }
+              value={formData.Email}
+              onChange={onChangeHandleUpdate}
             />{' '}
             {errorMessage.emailErr && (
               <p className="validation-message">
@@ -217,10 +205,9 @@ export function UserUpdate({
             <Form.Control
               name="Birthday"
               type="date"
-              defaultValue={birthday}
-              onChange={(event) =>
-                setNewBirthday(event.target.value)
-              }
+              placeholder={birthday}
+              value={formData.Birthday}
+              onChange={onChangeHandleUpdate}
             />
           </Col>
         </Form.Group>
@@ -241,3 +228,13 @@ export function UserUpdate({
     </Container>
   );
 }
+
+let mapStateToProps = (state) => {
+  return {
+    allUsers: state.allUsers,
+  };
+};
+
+export default connect(mapStateToProps, {
+  setAllUsers,
+})(UserUpdate);
