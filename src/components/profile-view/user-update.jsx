@@ -38,15 +38,19 @@ function UserUpdate({
     emailErr: '',
   });
 
+  const name = formData.Username;
+  const userOne = allUsers.filter(
+    (u) => u.Username === name
+  );
+  const userId = userOne.map((x) => x._id);
+  console.log(userOne, userId, name, user.Username);
+  console.log(allUsers.filter((u) => u.Username === name));
+  console.log(userId);
+  console.log(user._id);
+
   // user validation
   const validate = () => {
     let isReq = true;
-    const name = formData.Username;
-    const userOne = allUsers.filter(
-      (u) => u.Username === name
-    );
-    const userId = userOne.map((x) => x._id);
-
     setErrorMessage((prevValue) => {
       return {
         usernameErr: '',
@@ -55,15 +59,17 @@ function UserUpdate({
         birthdayErr: '',
       };
     });
-    if (userId.toString() !== user._id) {
-      setErrorMessage((prevValue) => {
-        return {
-          ...prevValue,
-          usernameErr:
-            'Username already exists, please choose another one.',
-        };
-      });
-      isReq = false;
+    if (userId.toString()) {
+      if (userId.toString() !== user._id) {
+        setErrorMessage((prevValue) => {
+          return {
+            ...prevValue,
+            usernameErr:
+              'Username already exists, please choose another one.',
+          };
+        });
+        isReq = false;
+      }
     }
     if (!formData.Username) {
       setErrorMessage((prevValue) => {
@@ -138,7 +144,6 @@ function UserUpdate({
 
   const onChangeHandleUpdate = (e) => {
     const { value, name } = e.target;
-    console.log(value);
     setFormData((preFormData) => {
       return {
         ...preFormData,
@@ -168,16 +173,6 @@ function UserUpdate({
   useEffect(() => {
     getAllUsers(token);
   }, []);
-
-  const findUser = (U) => {
-    if (getAllUsers) {
-      console.log(allUsers);
-      if (allUsers.some((user) => user.Username === U)) {
-        console.log('user already exists');
-      }
-    }
-    console.log('good to go');
-  };
 
   return (
     <Container className="profile-view mb-4">

@@ -42706,12 +42706,16 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
         passwordErr: "",
         emailErr: ""
     });
+    const name = formData.Username;
+    const userOne = allUsers.filter((u)=>u.Username === name);
+    const userId = userOne.map((x)=>x._id);
+    console.log(userOne, userId, name, user.Username);
+    console.log(allUsers.filter((u)=>u.Username === name));
+    console.log(userId);
+    console.log(user._id);
     // user validation
     const validate = ()=>{
         let isReq = true;
-        const name = formData.Username;
-        const userOne = allUsers.filter((u)=>u.Username === name);
-        const userId = userOne.map((x)=>x._id);
         setErrorMessage((prevValue)=>{
             return {
                 usernameErr: "",
@@ -42720,14 +42724,16 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                 birthdayErr: ""
             };
         });
-        if (userId.toString() !== user._id) {
-            setErrorMessage((prevValue)=>{
-                return {
-                    ...prevValue,
-                    usernameErr: "Username already exists, please choose another one."
-                };
-            });
-            isReq = false;
+        if (userId.toString()) {
+            if (userId.toString() !== user._id) {
+                setErrorMessage((prevValue)=>{
+                    return {
+                        ...prevValue,
+                        usernameErr: "Username already exists, please choose another one."
+                    };
+                });
+                isReq = false;
+            }
         }
         if (!formData.Username) {
             setErrorMessage((prevValue)=>{
@@ -42797,7 +42803,6 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
     };
     const onChangeHandleUpdate = (e)=>{
         const { value , name  } = e.target;
-        console.log(value);
         setFormData((preFormData)=>{
             return {
                 ...preFormData,
@@ -42817,13 +42822,6 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
     (0, _react.useEffect)(()=>{
         getAllUsers(token);
     }, []);
-    const findUser = (U)=>{
-        if (getAllUsers) {
-            console.log(allUsers);
-            if (allUsers.some((user)=>user.Username === U)) console.log("user already exists");
-        }
-        console.log("good to go");
-    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
         className: "profile-view mb-4",
         children: [
@@ -42831,7 +42829,7 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                 children: "Update your profile"
             }, void 0, false, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 184,
+                lineNumber: 179,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -42849,7 +42847,7 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                 children: "Username:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 190,
+                                lineNumber: 185,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42861,7 +42859,7 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                         onChange: onChangeHandleUpdate
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 194,
+                                        lineNumber: 189,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -42870,19 +42868,19 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                         children: errorMessage.usernameErr
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 201,
+                                        lineNumber: 196,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 193,
+                                lineNumber: 188,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 186,
+                        lineNumber: 181,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42896,7 +42894,7 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                 children: "Password:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 211,
+                                lineNumber: 206,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42909,7 +42907,7 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                         onChange: onChangeHandleUpdate
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 215,
+                                        lineNumber: 210,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -42918,19 +42916,19 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                         children: errorMessage.passwordErr
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 223,
+                                        lineNumber: 218,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 214,
+                                lineNumber: 209,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 207,
+                        lineNumber: 202,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42944,7 +42942,7 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                 children: "E-Mail:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 233,
+                                lineNumber: 228,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -42956,7 +42954,7 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                         onChange: onChangeHandleUpdate
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 237,
+                                        lineNumber: 232,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -42968,19 +42966,19 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/profile-view/user-update.jsx",
-                                        lineNumber: 244,
+                                        lineNumber: 239,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 236,
+                                lineNumber: 231,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 229,
+                        lineNumber: 224,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -42994,7 +42992,7 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                 children: "Birthday:"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 254,
+                                lineNumber: 249,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -43006,24 +43004,24 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                                     onChange: onChangeHandleUpdate
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/user-update.jsx",
-                                    lineNumber: 258,
+                                    lineNumber: 253,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/user-update.jsx",
-                                lineNumber: 257,
+                                lineNumber: 252,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 250,
+                        lineNumber: 245,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 185,
+                lineNumber: 180,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -43035,14 +43033,14 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                         children: "Update "
                     }, void 0, false, {
                         fileName: "src/components/profile-view/user-update.jsx",
-                        lineNumber: 272,
+                        lineNumber: 267,
                         columnNumber: 9
                     }, this),
                     " my profile"
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 268,
+                lineNumber: 263,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -43055,13 +43053,13 @@ function UserUpdate({ allUsers , user , handleUpdateUser , birthday , toggleUpda
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/user-update.jsx",
-                lineNumber: 274,
+                lineNumber: 269,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/profile-view/user-update.jsx",
-        lineNumber: 183,
+        lineNumber: 178,
         columnNumber: 5
     }, this);
 }
