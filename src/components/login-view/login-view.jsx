@@ -58,9 +58,7 @@ export function LoginView(props) {
         })
         .catch((e) => {
           console.log('no such user');
-          alert(
-            'username and/or password are wrong or the user does not exist yet'
-          );
+          alert('username and/or password are wrong');
         });
     }
     console.log(username, password);

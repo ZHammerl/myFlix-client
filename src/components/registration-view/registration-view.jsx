@@ -109,7 +109,7 @@ export function RegistrationView(props) {
   };
 
   return (
-    <Form className="justify-content-sm-center">
+    <Form className="justify-content-center">
       <Form.Group as={Row} className="reg-form-inputs">
         <Form.Label
           column="true"
@@ -117,7 +117,7 @@ export function RegistrationView(props) {
           htmlFor="username">
           Username:
         </Form.Label>
-        <Col sm="10">
+        <Col sm="10" md="5">
           <Form.Control
             id="username"
             type="text"
@@ -139,7 +139,7 @@ export function RegistrationView(props) {
           htmlFor="password">
           Password:
         </Form.Label>
-        <Col sm="10">
+        <Col sm="10" md="5">
           <Form.Control
             id="password"
             type="password"
@@ -158,7 +158,7 @@ export function RegistrationView(props) {
         <Form.Label column="true" sm="12" htmlFor="e-mail">
           E-Mail:
         </Form.Label>
-        <Col sm="10">
+        <Col sm="10" md="5">
           <Form.Control
             id="e-mail"
             type="email"
@@ -180,7 +180,7 @@ export function RegistrationView(props) {
           htmlFor="birthday">
           Birthday:
         </Form.Label>
-        <Col sm="10">
+        <Col sm="10" md="5">
           <Form.Control
             id="birthday"
             type="date"
