@@ -115,7 +115,7 @@ export function RegistrationView(props) {
           column="true"
           sm="12"
           htmlFor="username">
-          Username:
+          Username*:
         </Form.Label>
         <Col sm="10" md="5">
           <Form.Control
@@ -123,6 +123,7 @@ export function RegistrationView(props) {
             type="text"
             placeholder="Enter username"
             value={username}
+            required
             onChange={(e) => setUsername(e.target.value)}
           />
           {values.usernameErr && (
@@ -137,13 +138,14 @@ export function RegistrationView(props) {
           column="true"
           sm="12"
           htmlFor="password">
-          Password:
+          Password*:
         </Form.Label>
         <Col sm="10" md="5">
           <Form.Control
             id="password"
             type="password"
             value={password}
+            required
             placeholder="Enter password"
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -156,7 +158,7 @@ export function RegistrationView(props) {
       </Form.Group>
       <Form.Group as={Row} className="reg-form-inputs">
         <Form.Label column="true" sm="12" htmlFor="e-mail">
-          E-Mail:
+          E-Mail*:
         </Form.Label>
         <Col sm="10" md="5">
           <Form.Control
@@ -164,6 +166,7 @@ export function RegistrationView(props) {
             type="email"
             value={email}
             placeholder="Enter Email"
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           {values.emailErr && (
