@@ -15,6 +15,7 @@ import { setAllUsers } from '../../actions/actions';
 import { UserService } from '../../services/user-services';
 
 function UserUpdate({
+  allUsers,
   user,
   handleUpdateUser,
   birthday,
@@ -40,7 +41,13 @@ function UserUpdate({
   // user validation
   const validate = () => {
     let isReq = true;
-    setErrorMessage((prev) => {
+    const name = formData.Username;
+    const userOne = allUsers.filter(
+      (u) => u.Username === name
+    );
+    const userId = userOne.map((x) => x._id);
+
+    setErrorMessage((prevValue) => {
       return {
         usernameErr: '',
         passwordErr: '',
@@ -48,6 +55,16 @@ function UserUpdate({
         birthdayErr: '',
       };
     });
+    if (userId.toString() !== user._id) {
+      setErrorMessage((prevValue) => {
+        return {
+          ...prevValue,
+          usernameErr:
+            'Username already exists, please choose another one.',
+        };
+      });
+      isReq = false;
+    }
     if (!formData.Username) {
       setErrorMessage((prevValue) => {
         return {
@@ -152,6 +169,16 @@ function UserUpdate({
     getAllUsers(token);
   }, []);
 
+  const findUser = (U) => {
+    if (getAllUsers) {
+      console.log(allUsers);
+      if (allUsers.some((user) => user.Username === U)) {
+        console.log('user already exists');
+      }
+    }
+    console.log('good to go');
+  };
+
   return (
     <Container className="profile-view mb-4">
       <h4>Update your profile</h4>
@@ -188,7 +215,7 @@ function UserUpdate({
             <Form.Control
               name="Password"
               type="text"
-              placeholder="New password is required when editing your profile"
+              placeholder="Please enter new password"
               value={formData.Password}
               onChange={onChangeHandleUpdate}
             />{' '}
