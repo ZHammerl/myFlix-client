@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import {
   Card,
   Button,
-  Row,
   CardGroup,
 } from 'react-bootstrap';
-import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 import './movie-view.scss';

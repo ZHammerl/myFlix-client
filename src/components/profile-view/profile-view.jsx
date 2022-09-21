@@ -78,8 +78,6 @@ export function ProfileView(props) {
     formatDateYYYYMMDD(formattedBday);
 
   const handleUpdateUser = (updatedUser, token) => {
-    console.log(updatedUser);
-    console.log(Username);
     if (Username && updatedUser && token) {
       axios
         .put(
@@ -104,12 +102,10 @@ export function ProfileView(props) {
           );
         })
         .catch((err) => {
-          console.log('error updating user:', err);
+          console.error('error updating user:', err);
         });
     }
   };
-
-  console.log(user);
 
   // for Button to switch from UserView to UpdateView
   const [updateInfo, setUpdateInfo] = useState(false);

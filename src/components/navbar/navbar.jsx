@@ -6,7 +6,6 @@ export function NavBar({ user }) {
     localStorage.clear();
     window.open('/', '_self');
   };
-  console.log(user);
   const getToken = () => {
     let userToken = localStorage.getItem('token');
     return userToken ? userToken : false;

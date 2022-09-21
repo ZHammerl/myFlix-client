@@ -1,7 +1,6 @@
 // Utilities import
 
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -32,6 +31,7 @@ import { GenreView } from '../genre-view/genre-view';
 import ProfileView from '../profile-view/profile-view';
 
 import { UserService } from '../../services/user-services';
+import { MovieService } from '../../services/movie-services';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
@@ -45,41 +45,24 @@ class MainView extends React.Component {
     if (accessToken !== null) {
       this.getMovies(accessToken);
       this.getUser(accessToken);
-      this.getAllUsers(accessToken);
-      console.log('componentDidMount');
-    }
-  }
-
-  getAllUsers(token) {
-    if (token !== null) {
-      axios
-        .get('https://my-movie-db22.herokuapp.com/users', {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((response) => {
-          this.props.setAllUsers(response.data);
-          console.log('getAllUsers successfull');
-        })
-        .catch((error) => {
-          console.error(
-            'getAllUsers Err UserService ' + error
-          );
-        });
     }
   }
 
   getMovies(token) {
-    axios
-      .get('https://my-movie-db22.herokuapp.com/movies', {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        // Assign the result to the state
-        this.props.setMovies(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const movieService = new MovieService(token);
+    if (token !== null) {
+      movieService.getAllMovies(
+        {},
+        (response) => {
+          this.props.setMovies(response.data);
+        },
+        (error) => {
+          console.error(
+            'getAllMovies Err MovieService ' + error
+          );
+        }
+      );
+    }
   }
 
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
@@ -98,7 +81,6 @@ class MainView extends React.Component {
         { user },
         (response) => {
           this.props.setUser(response.data);
-          console.log('getUser successfull');
         },
         (error) => {
           console.error('getUser Err UserService ' + error);
@@ -151,7 +133,6 @@ class MainView extends React.Component {
   render() {
     const { user, movies } = this.props;
     const { Username, FavoriteMovies } = user;
-    console.log(user);
     return (
       <Router>
         <NavBar fluid user={Username} />

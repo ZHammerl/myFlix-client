@@ -43,10 +43,6 @@ function UserUpdate({
     (u) => u.Username === name
   );
   const userId = userOne.map((x) => x._id);
-  console.log(userOne, userId, name, user.Username);
-  console.log(allUsers.filter((u) => u.Username === name));
-  console.log(userId);
-  console.log(user._id);
 
   // user validation
   const validate = () => {
@@ -159,7 +155,6 @@ function UserUpdate({
         {},
         (response) => {
           setAllUsers(response.data);
-          console.log('getAllUsers successfull');
         },
         (error) => {
           console.error(

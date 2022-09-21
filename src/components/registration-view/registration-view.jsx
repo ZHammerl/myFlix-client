@@ -66,7 +66,6 @@ export function RegistrationView(props) {
       isReq = false;
     }
     if (!email) {
-      console.log(values.emailErr);
       setValues((prevValue) => {
         return {
           ...prevValue,
@@ -98,7 +97,6 @@ export function RegistrationView(props) {
         })
         .then((response) => {
           const data = response.data;
-          console.log(data);
           window.open('/', '_self'); //'_self' is necessary so that the page opens in the current tab
         })
         .catch((response) => {

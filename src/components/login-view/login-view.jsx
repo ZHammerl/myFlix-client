@@ -53,15 +53,13 @@ export function LoginView(props) {
         .then((response) => {
           // response from the server incl. token
           const data = response.data;
-          console.log(data);
           props.onLoggedIn(data);
         })
         .catch((e) => {
-          console.log('no such user');
+          console.error('no such user');
           alert('username and/or password are wrong');
         });
     }
-    console.log(username, password);
   };
 
   return (
